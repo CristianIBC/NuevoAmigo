@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NuevoAmigo</string>
+    <string name="txtLogin">Iniciar sesión</string>
+
 </resources>
