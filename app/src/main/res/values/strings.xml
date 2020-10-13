@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">NuevoAmigo</string>
     <string name="txtLogin">Iniciar sesión</string>
-
+    <string name="txtDireccion">Dirección</string>
+    <string name="txtCelular">Celular</string>
+    <string name="txtHorarioAtencion">Horario de atención</string>
+    <string name="txtGuardar">Guardar</string>
 </resources>
