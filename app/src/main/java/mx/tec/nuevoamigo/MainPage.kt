@@ -1,11 +1,13 @@
 package mx.tec.nuevoamigo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import kotlinx.android.synthetic.main.activity_main_page.*
 
 class MainPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +39,10 @@ class MainPage : AppCompatActivity() {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerOpciones2.adapter = adapter
         }
-
+        btnTusPerros.setOnClickListener {
+            var i = Intent(this@MainPage, Catalogo::class.java)
+            startActivity(i)
+        }
         spinnerOpciones2.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
