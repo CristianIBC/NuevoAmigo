@@ -17,17 +17,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Catalogo"
-            android:label="Catálogo de perros"></activity>
+            android:label="Catálogo de perros"
+            android:screenOrientation="portrait" ></activity>
         <activity android:name=".edit_perfil"
-            android:label="Termina tu perfil"></activity>
+            android:label="Termina tu perfil"
+            android:screenOrientation="portrait" ></activity>
         <activity android:name=".MainPage"
             android:label="Busca a tu nuevo amigo"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".view_perro"></activity>
-        <activity android:name=".Catalogo" />
-        <activity
-            android:name=".MainPage"
-            android:screenOrientation="portrait" />
+        <activity android:name=".view_perro"
+            android:screenOrientation="portrait" ></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
