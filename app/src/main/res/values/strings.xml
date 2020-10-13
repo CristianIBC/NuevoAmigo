@@ -5,4 +5,22 @@
     <string name="txtCelular">Celular</string>
     <string name="txtHorarioAtencion">Horario de atención</string>
     <string name="txtGuardar">Guardar</string>
+    <string name="title_activity_maps">Map</string>
+    <string-array name="opcionesTamaño">
+        <item>Opciones...</item>
+        <item>Pequeño</item>
+        <item>Mediano</item>
+        <item>Grande</item>
+        <item>Gigante</item>
+    </string-array>
+
+    <string-array name="opcionesSexo">
+        <item>Opciones...</item>
+        <item>Macho</item>
+        <item>Hembra</item>
+    </string-array>
+
+    <string name="txtTamano">Tamaño</string>
+    <string name="txtSex">Sexo</string>
+
 </resources>

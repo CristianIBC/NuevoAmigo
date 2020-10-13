@@ -2,12 +2,16 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+        <item name="actionBarStyle">@style/ActionBarStyle</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@drawable/gradient</item>
+       <!-- <item name="android:windowBackground">@drawable/gradient</item> -->
+        <item name="font">@font/blue_eyes</item>
     </style>
 
-
+    <style name="ActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="background">@drawable/gradient_action_bar</item>
+    </style>
 
 </resources>
