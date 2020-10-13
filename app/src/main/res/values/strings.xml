@@ -19,4 +19,18 @@
     <string name="txtTamano">Tamaño</string>
     <string name="txtSex">Sexo</string>
 
+
+    <string name="labelRaza">Raza: </string>
+    <string name="labelNombre">Nombre: </string>
+    <string name="labelSexo">Sexo: </string>
+    <string name="labelEdad">Edad: </string>
+    <string name="labelTamaño">Tamaño: </string>
+    <string name="labelEstado">Estado: </string>
+
+    <string-array name="opcionesEstado">
+        <item>Opciones...</item>
+        <item>Disponible</item>
+        <item>Proceso de adopción</item>
+    </string-array>
+
 </resources>
