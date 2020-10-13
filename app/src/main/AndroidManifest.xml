@@ -16,6 +16,7 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Catalogo"></activity>
         <activity android:name=".MainPage"
             android:screenOrientation="portrait"></activity>
         <!--
