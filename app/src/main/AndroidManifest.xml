@@ -18,7 +18,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Catalogo"
             android:label="Catálogo de perros"></activity>
-        <activity android:name=".edit_perfil"></activity>
+        <activity android:name=".edit_perfil"
+            android:label="Termina tu perfil"></activity>
         <activity android:name=".MainPage"
             android:label="Busca a tu nuevo amigo"
             android:screenOrientation="portrait"></activity>
