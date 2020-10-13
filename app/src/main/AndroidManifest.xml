@@ -16,8 +16,12 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Catalogo"></activity>
+        <activity android:name=".Catalogo"
+            android:label="Catálogo de perros"></activity>
+        <activity android:name=".edit_perfil"
+            android:label="Termina tu perfil"></activity>
         <activity android:name=".MainPage"
+            android:label="Busca a tu nuevo amigo"
             android:screenOrientation="portrait"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -37,13 +41,15 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:label="Iniciar sesión">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
