@@ -4,6 +4,8 @@
     <string name="txtDireccion">Dirección</string>
     <string name="txtCelular">Celular</string>
     <string name="txtHorarioAtencion">Horario de atención</string>
+    <string name="txtHorarioInicio">De:</string>
+    <string name="txtHorarioFin">A:</string>
     <string name="txtGuardar">Guardar</string>
     <string name="title_activity_maps">Map</string>
     <string-array name="opcionesTamaño">
