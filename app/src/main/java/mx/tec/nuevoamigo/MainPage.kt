@@ -52,6 +52,10 @@ class MainPage : AppCompatActivity() {
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
+        imgPersonaMain.setOnClickListener {
+            var i = Intent(this@MainPage, edit_perfil::class.java)
+            startActivity(i)
+        }
 
     }
 
