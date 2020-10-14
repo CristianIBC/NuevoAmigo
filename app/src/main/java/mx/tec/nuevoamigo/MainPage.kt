@@ -56,6 +56,10 @@ class MainPage : AppCompatActivity() {
             var i = Intent(this@MainPage, edit_perfil::class.java)
             startActivity(i)
         }
+        map.setOnClickListener{
+            var i = Intent(this@MainPage, Catalogo::class.java)
+            startActivity(i)
+        }
 
     }
 

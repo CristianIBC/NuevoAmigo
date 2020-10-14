@@ -1,6 +1,7 @@
 package mx.tec.nuevoamigo
 
 import android.app.TimePickerDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TimePicker
@@ -24,6 +25,11 @@ class edit_perfil : AppCompatActivity() {
            TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute -> }, hour, minute, true).show()
         }
 
+        btnCerrarSesion.setOnClickListener {
+            val i= Intent(this, MainActivity::class.java)
+            i.flags= Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(i)
+        }
     }
 
     private fun getTime(){
