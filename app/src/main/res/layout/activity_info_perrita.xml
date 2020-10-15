@@ -88,7 +88,7 @@
         android:layout_marginEnd="68dp"
         android:layout_marginRight="68dp"
         android:layout_marginBottom="6dp"
-        android:text="Perra caraisoña, amorosa, se pasa de webona <3"
+        android:text="Perrita amorosa"
         android:textColor="#3A3838"
         app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"

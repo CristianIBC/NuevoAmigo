@@ -20,7 +20,7 @@ class CatalogoPropio : AppCompatActivity() {
         val elementoAdapter = PerroAdapter(this@CatalogoPropio, R.layout.layout_elemento_perro, datos)
         listaPerro.adapter= elementoAdapter
 
-        listaPerro.setOnClickListener {
+        listaPerro.setOnItemClickListener { parent, view, position, id ->
             var i = Intent(this, InfoPerrita::class.java)
             startActivity(i)
         }

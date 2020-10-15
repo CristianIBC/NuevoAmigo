@@ -24,12 +24,11 @@ class edit_perfil : AppCompatActivity() {
         btnHorarioFin.setOnClickListener {
            TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute -> }, hour, minute, true).show()
         }
-
-        btnCerrarSesion.setOnClickListener {
-            val i= Intent(this, MainActivity::class.java)
-            i.flags= Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        btnGuardarPerfil.setOnClickListener {
+            var i = Intent(this@edit_perfil, MainPage::class.java)
             startActivity(i)
         }
+
     }
 
     private fun getTime(){

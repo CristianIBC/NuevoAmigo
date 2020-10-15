@@ -16,12 +16,20 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegistrarPerrita"></activity>
-        <activity android:name=".InfoPerritoOtro" />
-        <activity android:name=".InfoPerrita" />
+        <activity android:name=".PerfilUsuario"
+            android:label="Tu perfil"></activity>
+        <activity
+            android:name=".RegistrarPerrita"
+            android:label="Registra a tu perro" />
+        <activity
+            android:name=".InfoPerritoOtro"
+            android:label="Información" />
+        <activity
+            android:name=".InfoPerrita"
+            android:label="Información" />
         <activity
             android:name=".CatalogoPropio"
-            android:label="Tu catalogo de perros" />
+            android:label="Tu catálogo de perros" />
         <activity
             android:name=".Catalogo"
             android:label="Catálogo de perros de Jose" />
@@ -54,7 +62,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
-            android:label="Iniciar sesión"
+            android:label="Nuevo amigo"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
