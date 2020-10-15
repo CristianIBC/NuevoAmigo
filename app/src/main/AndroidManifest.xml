@@ -16,13 +16,34 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Catalogo"
-            android:label="Catálogo de perros"></activity>
-        <activity android:name=".edit_perfil"
-            android:label="Termina tu perfil"></activity>
-        <activity android:name=".MainPage"
+        <activity android:name=".PerfilUsuario"
+            android:label="Tu perfil"></activity>
+        <activity
+            android:name=".RegistrarPerrita"
+            android:label="Registra a tu perro" />
+        <activity
+            android:name=".InfoPerritoOtro"
+            android:label="Información" />
+        <activity
+            android:name=".InfoPerrita"
+            android:label="Información" />
+        <activity
+            android:name=".CatalogoPropio"
+            android:label="Tu catálogo de perros" />
+        <activity
+            android:name=".Catalogo"
+            android:label="Catálogo de perros de Jose" />
+        <activity
+            android:name=".edit_perfil"
+            android:label="Termina tu perfil" />
+        <activity
+            android:name=".MainPage"
             android:label="Busca a tu nuevo amigo"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -38,18 +59,18 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
+            android:label="Nuevo amigo"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:label="Iniciar sesión">
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

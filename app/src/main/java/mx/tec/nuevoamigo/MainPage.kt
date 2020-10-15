@@ -40,7 +40,7 @@ class MainPage : AppCompatActivity() {
             spinnerOpciones2.adapter = adapter
         }
         btnTusPerros.setOnClickListener {
-            var i = Intent(this@MainPage, Catalogo::class.java)
+            var i = Intent(this@MainPage, CatalogoPropio::class.java)
             startActivity(i)
         }
         spinnerOpciones2.onItemSelectedListener = object :
@@ -51,6 +51,14 @@ class MainPage : AppCompatActivity() {
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
+        }
+        imgPersonaMain.setOnClickListener {
+            var i = Intent(this@MainPage, PerfilUsuario::class.java)
+            startActivity(i)
+        }
+        map.setOnClickListener{
+            var i = Intent(this@MainPage, Catalogo::class.java)
+            startActivity(i)
         }
 
     }
