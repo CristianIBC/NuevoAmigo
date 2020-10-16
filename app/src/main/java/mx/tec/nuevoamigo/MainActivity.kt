@@ -13,14 +13,8 @@ class MainActivity : AppCompatActivity() {
         //LINEA DE PRUEBA
 
         imgLogo.setOnClickListener {
-            var i = Intent(this@MainActivity, MainPage::class.java)
-            startActivity(i)
-        }
-
-        btnGoogle.setOnClickListener {
             var i = Intent(this@MainActivity, edit_perfil::class.java)
             startActivity(i)
         }
-
     }
 }
