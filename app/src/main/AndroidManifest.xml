@@ -17,25 +17,32 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".PerfilUsuario"
-            android:label="Tu perfil"></activity>
+            android:label="Tu perfil"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".RegistrarPerrita"
-            android:label="Registra a tu perro" />
+            android:label="Registra a tu perro"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".InfoPerritoOtro"
-            android:label="Información" />
+            android:label="Información"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".InfoPerrita"
-            android:label="Información" />
+            android:label="Información"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".CatalogoPropio"
-            android:label="Tu catálogo de perros" />
+            android:label="Tu catálogo de perros"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Catalogo"
-            android:label="Catálogo de perros de Jose" />
+            android:label="Catálogo de perros de Jose"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".edit_perfil"
-            android:label="Termina tu perfil" />
+            android:label="Termina tu perfil"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainPage"
             android:label="Busca a tu nuevo amigo"
