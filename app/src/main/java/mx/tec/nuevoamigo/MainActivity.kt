@@ -11,7 +11,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //LINEA DE PRUEBA
-
         imgLogo.setOnClickListener {
             var i = Intent(this@MainActivity, edit_perfil::class.java)
             startActivity(i)
