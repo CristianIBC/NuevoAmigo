@@ -76,14 +76,6 @@ class MainPage : AppCompatActivity() {
 
         rvLista.adapter= elementoAdapter
 
-        rvLista
-
-
-
-
-
-
-
 
         /*
         map.setOnClickListener{

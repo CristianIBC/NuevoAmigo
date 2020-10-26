@@ -29,6 +29,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        btnGoogle.setOnClickListener {
+            var i = Intent(this@MainActivity, edit_perfil::class.java)
+            startActivity(i)
+        }
+
         //LINEA DE PRUEBA
         val db = FirebaseFirestore.getInstance()
         imgLogo.setOnClickListener {
