@@ -37,4 +37,8 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_catalogo_propio">CatalogoPropio</string>
 
+    <string name="facebook_app_id">1055065078284793</string>
+    <string name="fb_login_protocol_scheme">fb1055065078284793</string>
+
+
 </resources>
