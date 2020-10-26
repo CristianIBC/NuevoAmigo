@@ -16,6 +16,9 @@ class edit_perfil : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_perfil)
 
+        var name= intent.getStringExtra("name")
+        txtEmail.text =name
+
         btnHorarioInicio.setOnClickListener{
 
          TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->  },hour,minute,true).show()
