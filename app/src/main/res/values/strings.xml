@@ -51,4 +51,7 @@
         <item>Proceso de adopción</item>
     </string-array>
 
+    <string name="btnVerPerrito">Ver</string>
+
+
 </resources>
