@@ -11,6 +11,11 @@ import android.location.Location
 import android.location.LocationManager
 import android.location.LocationProvider
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import android.os.Looper
 import android.util.Log
 import android.view.textclassifier.ConversationActions
@@ -23,11 +28,10 @@ import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_edit_perfil.*
 import java.util.*
 import java.util.jar.Manifest
+import kotlin.time.hours
+
 
 class edit_perfil : AppCompatActivity() {
-
-    var hour=0
-    var minute=0
 
     //------------------------variables gps
     val PERMISSION_ID = 1010
@@ -35,7 +39,25 @@ class edit_perfil : AppCompatActivity() {
     lateinit var locationRequest: LocationRequest
 
 
+    var dt = Date()
+    val c= Calendar.getInstance().time
+    var hour= c.hours
+    var minute= c.minutes
+    var emailUser: String = ""
+    var uid: String = ""
+    var estadoUser: String = "Guerrero"
+    var ciudadUser: String = "Acapulco"
+    var nameUser: String =""
+    val db = FirebaseFirestore.getInstance()
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
+        var user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            emailUser = user.email!!
+            nameUser = user.displayName!!
+            uid = user.uid!!
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_perfil)
 
@@ -53,13 +75,49 @@ class edit_perfil : AppCompatActivity() {
 
         btnHorarioInicio.setOnClickListener{
 
-         TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->  },hour,minute,true).show()
+         TimePickerDialog(
+             this,
+             TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                 txtHoraInicio.text = "$hourOfDay:$minute"
+             },
+             hour,
+             minute,
+             true
+         ).show()
         }
 
         btnHorarioFin.setOnClickListener {
-           TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute -> }, hour, minute, true).show()
+           TimePickerDialog(
+               this,
+               TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                   txtHoraFin.text = "$hourOfDay:$minute"
+               },
+               hour,
+               minute,
+               true
+           ).show()
         }
         btnGuardarPerfil.setOnClickListener {
+            val user: MutableMap<String, Any> = HashMap()
+            user["Nombre"] = nameUser
+            user["Estado"] = estadoUser
+            user["Ciudad"] = ciudadUser
+            user["Email"] = emailUser
+            user["Telefono"] = txtCelular.text.toString()
+            user["HorarioAtencion"] = txtHoraInicio.text.toString() +"-"+ txtHoraFin.text.toString()
+            db.collection("Persona").document(uid)
+                .set(user)
+                .addOnSuccessListener { Log.d(
+                    "Persona registrada",
+                    "DocumentSnapshot successfully written!"
+                ) }
+                .addOnFailureListener(OnFailureListener { e ->
+                    Log.w(
+                        "Error al guardar",
+                        "Error adding document",
+                        e
+                    )
+                })
             var i = Intent(this@edit_perfil, MainPage::class.java)
             startActivity(i)
         }

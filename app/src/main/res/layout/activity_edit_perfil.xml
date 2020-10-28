@@ -22,7 +22,7 @@
         android:id="@+id/txtDireccion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/txtDireccion"
         android:inputType="textPersonName"
@@ -35,7 +35,7 @@
         android:id="@+id/txtCelular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/txtCelular"
         android:inputType="phone"
@@ -49,31 +49,33 @@
         style="@style/MiBoton"
         android:layout_width="135dp"
         android:layout_height="44dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="116dp"
         android:text="@string/txtGuardar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.008" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="20dp"
         android:text="@string/txtHorarioAtencion"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCelular" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/txtHoraFin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="21:00"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.427"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/txtHoraInicio"
         app:layout_constraintTop_toBottomOf="@+id/btnHorarioFin" />
 
     <Button
@@ -99,7 +101,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txtHoraInicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="128dp"
@@ -113,10 +115,9 @@
         android:id="@+id/txtEmail"
         android:layout_width="223dp"
         android:layout_height="38dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="4dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgPerfil" />
 

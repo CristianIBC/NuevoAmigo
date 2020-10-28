@@ -11,11 +11,11 @@
     <string name="txtGuardar">Guardar</string>
     <string name="title_activity_maps">Map</string>
     <string-array name="opcionesTamaño">
-        <item>Opciones...</item>
-        <item>Pequeño</item>
-        <item>Mediano</item>
-        <item>Grande</item>
-        <item>Gigante</item>
+        <item>Academico</item>
+        <item>Diversion</item>
+        <item>Cultural</item>
+        <item>Beneficiencia</item>
+        <item>De trabajo</item>
     </string-array>
 
     <string-array name="opcionesSexo">
@@ -39,6 +39,7 @@
 
     <string name="facebook_app_id">1055065078284793</string>
     <string name="fb_login_protocol_scheme">fb1055065078284793</string>
+    <string name="telefono">telefono</string>
 
 
     <string name="labelSexo">Sexo:</string>
