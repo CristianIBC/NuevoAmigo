@@ -3,20 +3,13 @@ package mx.tec.nuevoamigo
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
 import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
-import com.google.firebase.auth.FacebookAuthProvider
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_main.*
-import mx.tec.nuevoamigo.perro.model.Perro
-import mx.tec.nuevoamigo.perro.model.PerroP
 
 
 enum class ProviderType{
@@ -34,8 +27,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //LINEA DE PRUEBA
         val db = FirebaseFirestore.getInstance()
-        var i = Intent(this@MainActivity, InfoPerrita::class.java)
-        i.putExtra("idPerro","gFyDsoAOtcC8R2hD1PD8")
+        var i = Intent(this@MainActivity, RegistrarPerrita::class.java)
+        i.putExtra("idPerro", "gFyDsoAOtcC8R2hD1PD8")
         startActivity(i)
         /* imgLogo.setOnClickListener {
             LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
@@ -85,11 +78,11 @@ class MainActivity : AppCompatActivity() {
 
                 }
             }*/
-
     }
 
     /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         callbackManager.onActivityResult(requestCode,resultCode,data)
         super.onActivityResult(requestCode, resultCode, data)
     }*/
+
 }
