@@ -64,6 +64,7 @@ class RegistrarPerrita : AppCompatActivity() {
                 val db = FirebaseFirestore.getInstance()
                 db.collection("Perrito").add(perrito.convTomap()).addOnSuccessListener {
                     Log.d("testU","perrito Ingresado")
+                    TODO("mandar al activity necesario")
                 }
             }else{
                 Toast.makeText(this,
