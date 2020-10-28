@@ -16,19 +16,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.922" />
+        app:layout_constraintTop_toBottomOf="@+id/txtHorario"
+        app:layout_constraintVertical_bias="0.355" />
 
     <ImageView
-        android:id="@+id/imgPerfil3"
+        android:id="@+id/imgPerfilU"
         android:layout_width="170dp"
         android:layout_height="176dp"
-        android:layout_marginTop="48dp"
         android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.052"
         app:srcCompat="@drawable/logo" />
 
     <TextView
@@ -69,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:fontFamily="@font/blue_eyes"
-        android:text="@string/txtCelular"
+        android:text="@string/telefono"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -91,11 +92,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgPerfil3"
+        app:layout_constraintTop_toBottomOf="@+id/imgPerfilU"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/txtNombreU"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
@@ -109,7 +110,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/txtDireccionU"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
@@ -121,7 +122,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <TextView
-        android:id="@+id/textView23"
+        android:id="@+id/txtTelefono"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
@@ -133,7 +134,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <TextView
-        android:id="@+id/textView24"
+        android:id="@+id/txtHorario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:shadowColor="@color/common_google_signin_btn_text_dark_focused"

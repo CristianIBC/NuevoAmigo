@@ -43,9 +43,21 @@ class MainActivity : AppCompatActivity() {
                         val credential = FacebookAuthProvider.getCredential(token.token)
                         FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener{
                             if(it.isSuccessful){
-                                var i = Intent(this@MainActivity, edit_perfil::class.java)
-                                i.putExtra("name",it.result?.user?.displayName ?: "")
-                                startActivity(i)
+                                db.collection("Persona").document(it.result!!.user!!.uid)
+                                    .get()
+                                    .addOnSuccessListener { document ->
+                                        if (document.data == null) {
+                                            Log.d("Persona NO registrada", "DocumentSnapshot data: ${document!!.data}")
+                                            var i = Intent(this@MainActivity, edit_perfil::class.java)
+                                            i.putExtra("name",it.result?.user?.displayName ?: "")
+                                            startActivity(i)
+                                        } else {
+                                            Log.d("Persona ya registrada", "DocumentSnapshot data: ${document!!.data}")
+                                            var i = Intent(this@MainActivity, MainPage::class.java)
+                                            startActivity(i)
+                                        }
+                                }
+
                             }
                         }
                     }
@@ -60,10 +72,6 @@ class MainActivity : AppCompatActivity() {
                 }
 
             })
-
-
-            //var i = Intent(this@MainActivity, edit_perfil::class.java)
-            //startActivity(i)
         }
         db.collection("Persona")
             .get()
