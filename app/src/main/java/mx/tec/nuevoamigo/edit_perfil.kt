@@ -17,11 +17,7 @@ import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import android.os.Looper
-import android.util.Log
-import android.view.textclassifier.ConversationActions
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.facebook.places.internal.LocationPackageRequestParams
 import com.google.android.gms.location.*
@@ -37,9 +33,6 @@ class edit_perfil : AppCompatActivity() {
     val PERMISSION_ID = 1010
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var locationRequest: LocationRequest
-
-
-    var dt = Date()
     val c= Calendar.getInstance().time
     var hour= c.hours
     var minute= c.minutes
@@ -51,6 +44,14 @@ class edit_perfil : AppCompatActivity() {
     val db = FirebaseFirestore.getInstance()
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
+        //-------------------------GPS MIS PANAS
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
+
+
+        //----------------------------
+        RequestPermission()
+        getLastLocation()
         var user = FirebaseAuth.getInstance().currentUser
         if (user != null) {
             // Name, email address, and profile photo Url
@@ -60,15 +61,6 @@ class edit_perfil : AppCompatActivity() {
         }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_perfil)
-
-        //-------------------------GPS MIS PANAS
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-
-
-
-        //----------------------------
-        RequestPermission()
-        getLastLocation()
 
         var name= intent.getStringExtra("name")
         txtEmail.text =name
