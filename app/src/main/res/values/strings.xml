@@ -11,11 +11,9 @@
     <string name="txtGuardar">Guardar</string>
     <string name="title_activity_maps">Map</string>
     <string-array name="opcionesTamaño">
-        <item>Academico</item>
-        <item>Diversion</item>
-        <item>Cultural</item>
-        <item>Beneficiencia</item>
-        <item>De trabajo</item>
+        <item>Grande</item>
+        <item>Mediano</item>
+        <item>Chico</item>
     </string-array>
 
     <string-array name="opcionesSexo">
