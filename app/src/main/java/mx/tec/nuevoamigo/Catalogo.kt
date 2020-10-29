@@ -17,8 +17,9 @@ class Catalogo : AppCompatActivity() {
 
         var user = FirebaseAuth.getInstance().currentUser
         val db = FirebaseFirestore.getInstance()
+
         var datos=  mutableListOf<Perro>()
-        val idPerrito =  "0aCtnPoMx2ToF5zWPx0EwIyqWa12"//intent.getStringExtra("idPerrito",
+        val idPerrito =  intent.getStringExtra("idPerrito")
         db.collection("Perrito").document(idPerrito!!).get()
             .addOnSuccessListener {document ->
                 if (document.data == null) {
@@ -28,7 +29,11 @@ class Catalogo : AppCompatActivity() {
                 } else {
                     Log.d("Perro ya registrada",
                         "DocumentSnapshot data: ${document!!.data}")
-                    db.collection("Perrito").whereEqualTo("idPersona", user?.uid).get()
+                    db.collection("Persona").document(document.data!!["idPersona"].toString()).get()
+                        .addOnSuccessListener {
+                            supportActionBar!!.title = "Catálogo de perros de "+ it.data!!["Nombre"].toString()
+                        }
+                    db.collection("Perrito").whereEqualTo("idPersona", document.data!!["idPersona"].toString()).get()
                         .addOnSuccessListener { documents ->
                             for (document in documents) {
                                 Log.d("TAG", "${document.id} => ${document.data}")
@@ -47,6 +52,7 @@ class Catalogo : AppCompatActivity() {
 
         listaPerro.setOnItemClickListener { parent, view, position, id ->
             var i = Intent(this, InfoPerritoOtro::class.java)
+            i.putExtra("idPerrito", datos[position].id)
             startActivity(i)
         }
     }

@@ -105,5 +105,7 @@ class InfoPerrita : AppCompatActivity() {
             db.collection("Perrito").document(id)
                 .set(perrito.convTomap())
         }
+
+
     }
 }
