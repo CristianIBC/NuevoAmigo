@@ -1,6 +1,7 @@
 package mx.tec.nuevoamigo
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
@@ -91,7 +92,8 @@ class InfoPerrita : AppCompatActivity() {
                 .delete()
                 .addOnSuccessListener {
                     Log.d("testU","eliminado")
-                    TODO("mandar al activity necesario")
+                    var i = Intent(this, CatalogoPropio::class.java)
+                    startActivity(i)
                 }
                 .addOnFailureListener{
                     Toast.makeText(this,"Hubo un error",Toast.LENGTH_LONG).show()
