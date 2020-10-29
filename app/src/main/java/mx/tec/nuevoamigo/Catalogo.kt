@@ -18,8 +18,8 @@ class Catalogo : AppCompatActivity() {
         var user = FirebaseAuth.getInstance().currentUser
         val db = FirebaseFirestore.getInstance()
         var datos=  mutableListOf<Perro>()
-        val idPerrito =  "0aCtnPoMx2ToF5zWPx0EwIyqWa12"//intent.getStringExtra("idPerrito",
-        db.collection("Perrito").document(idPerrito!!).get()
+        val idPerrito =  "GT3nGiIbZEaG0ooDFgjB"//intent.getStringExtra("idPerrito",
+        db.collection("Perrito").document(idPerrito).get()
             .addOnSuccessListener {document ->
                 if (document.data == null) {
                     Log.d("Perro NO encontrado",
@@ -28,7 +28,7 @@ class Catalogo : AppCompatActivity() {
                 } else {
                     Log.d("Perro ya registrada",
                         "DocumentSnapshot data: ${document!!.data}")
-                    db.collection("Perrito").whereEqualTo("idPersona", user?.uid).get()
+                    db.collection("Perrito").whereEqualTo("idPersona", document.data!!["idPersona"].toString()).get()
                         .addOnSuccessListener { documents ->
                             for (document in documents) {
                                 Log.d("TAG", "${document.id} => ${document.data}")

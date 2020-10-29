@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btnGoogle.setOnClickListener {
-            var i = Intent(this@MainActivity, edit_perfil::class.java)
+            var i = Intent(this@MainActivity, Catalogo::class.java)
             i.putExtra("Ubicacion",
                 ubicacionUser)
             startActivity(i)
