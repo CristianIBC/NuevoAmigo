@@ -8,28 +8,30 @@
 
     <Button
         android:id="@+id/btnCerrarSesion"
-        style="@style/MiBoton"
+        style="@style/MiBoton.CerrarSesion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:drawableLeft="@android:drawable/ic_menu_close_clear_cancel"
         android:text="@string/txtCerrarSesion"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.838"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.922" />
+        app:layout_constraintTop_toBottomOf="@+id/txtHorario"
+        app:layout_constraintVertical_bias="0.195" />
 
     <ImageView
-        android:id="@+id/imgPerfil3"
+        android:id="@+id/imgPerfilU"
         android:layout_width="170dp"
         android:layout_height="176dp"
-        android:layout_marginTop="48dp"
         android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:layout_constraintVertical_bias="0.052"
+        app:srcCompat="@drawable/fercho" />
 
     <TextView
         android:id="@+id/textView18"
@@ -53,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:fontFamily="@font/blue_eyes"
-        android:text="@string/txtDireccion"
+        android:text="@string/txtciudadu"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -69,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:fontFamily="@font/blue_eyes"
-        android:text="@string/txtCelular"
+        android:text="@string/telefono"
         android:textColor="@color/colorPrimary"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -91,11 +93,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgPerfil3"
+        app:layout_constraintTop_toBottomOf="@+id/imgPerfilU"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/txtNombreU"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
@@ -109,7 +111,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/txtDireccionU"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
@@ -121,7 +123,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <TextView
-        android:id="@+id/textView23"
+        android:id="@+id/txtTelefono"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
@@ -133,7 +135,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <TextView
-        android:id="@+id/textView24"
+        android:id="@+id/txtHorario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:shadowColor="@color/common_google_signin_btn_text_dark_focused"
@@ -143,5 +145,21 @@
         app:layout_constraintEnd_toEndOf="@+id/textView18"
         app:layout_constraintStart_toStartOf="@+id/textView18"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <Button
+        android:id="@+id/btnEditarU"
+        style="@style/MiBoton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:drawableLeft="@android:drawable/ic_menu_edit"
+        android:text="Editar "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnCerrarSesion"
+        app:layout_constraintHorizontal_bias="0.814"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtHorario"
+        app:layout_constraintVertical_bias="0.201" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

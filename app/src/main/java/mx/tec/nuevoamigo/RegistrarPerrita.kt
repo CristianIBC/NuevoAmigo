@@ -7,7 +7,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
@@ -39,17 +42,36 @@ class RegistrarPerrita : AppCompatActivity() {
         storageRef = storage.reference
 
         //para el id de la persona
-        val id = intent.getStringExtra("idPerro")
+        val idPersona = intent.getStringExtra("idPersona")
 
         //spiner
-        val datosSpinner = arrayListOf("Pequeño", "Mediano", "Grande", "Gigante")
-        val adaptadorSpinner = ArrayAdapter(this, android.R.layout.simple_list_item_1, datosSpinner)
-        spnrTamaño.adapter = adaptadorSpinner
+        var spinnerItemSelected = 0
+        val spnrTamaño = findViewById<Spinner>(R.id.spnrTamaño)
 
-        //esto se debe ir
-        val idPersona = "5uy5A3MBF7Rc8RoDYW4h"
-        //--------------
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.opcionesTamaño,
 
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+            spnrTamaño.adapter = adapter
+
+        }
+/*
+        spnrTamaño.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                spinnerItemSelected = p2
+
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+        }
+*/
         val recurso = "gs://nuevo-amigo.appspot.com/imagenesPerro/"
 
         btnRegistrar.setOnClickListener {
@@ -58,16 +80,18 @@ class RegistrarPerrita : AppCompatActivity() {
                 R.id.rGMachoR -> "Macho"
                 else -> ""
             }
-            if(edtNombreR.text.toString()!="" && edtRazaR.text.toString()!="" && edtDescripcionR.text.toString()!="" && edtEdadR.text.toString()!="" && sexo!="" && bitmapP!=null && bitmap!=null){
+            if(edtNombreR.text.toString()!="" && spnrTamaño.selectedItemId != 0.toLong() && edtRazaR.text.toString()!="" && edtDescripcionR.text.toString()!="" && edtEdadR.text.toString()!="" && sexo!="" && bitmapP!=null && bitmap!=null){
                 Log.d("test", "tamaño: " + spnrTamaño.selectedItem.toString())
                 uploadImage()
                 var perrito = PerroP(edtNombreR.text.toString(), edtDescripcionR.text.toString(),
-                    "Disponible", idPersona, recurso + edtNombreR.text.toString() + "F.jpeg",
+                    "Disponible", idPersona!!, recurso + edtNombreR.text.toString() + "F.jpeg",
                     recurso + edtNombreR.text.toString() + "P.jpeg", edtRazaR.text.toString(),
                     sexo, spnrTamaño.selectedItem.toString(), edtEdadR.text.toString().toLong())
                 val db = FirebaseFirestore.getInstance()
                 db.collection("Perrito").add(perrito.convTomap()).addOnSuccessListener {
                     Log.d("testU","perrito Ingresado")
+                    var i = Intent(this, CatalogoPropio::class.java)
+                    startActivity(i)
                 }
             }else{
                 Toast.makeText(this,
@@ -128,7 +152,7 @@ class RegistrarPerrita : AppCompatActivity() {
                     Log.d("test", bitmapP.toString())
                     imgPR.setImageBitmap(bitmapP)
                     filePathP=filePath
-                    Log.d("test", "filepath: ${filePathP}")
+                    Log.d("test", "filepath: $filePathP")
                     //uploadImage.setImageBitmap(bitmap)
                 } catch (e: IOException) {
                     e.printStackTrace()

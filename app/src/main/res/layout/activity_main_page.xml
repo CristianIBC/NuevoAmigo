@@ -10,19 +10,19 @@
         android:id="@+id/imgPersonaMain"
         android:layout_width="108dp"
         android:layout_height="112dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="24dp"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/fercho" />
 
     <ImageButton
         android:id="@+id/btnTusPerros"
         android:layout_width="85dp"
         android:layout_height="80dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="96dp"
         android:layout_marginRight="96dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,8 +43,12 @@
         android:id="@+id/spinnerSex"
         android:layout_width="155dp"
         android:layout_height="30dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
         android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="@+id/txtSex"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/spinnerHeight"
         app:layout_constraintTop_toBottomOf="@+id/txtSex" />
 
     <TextView
@@ -53,8 +57,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginLeft="36dp"
-        android:layout_marginTop="172dp"
+        android:layout_marginTop="152dp"
         android:hint="@string/txtTamano"
+        app:layout_constraintEnd_toStartOf="@+id/txtSex"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -62,13 +68,27 @@
         android:id="@+id/txtSex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="172dp"
+        android:layout_marginTop="152dp"
         android:layout_marginEnd="148dp"
         android:layout_marginRight="148dp"
         android:hint="@string/txtSex"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="493dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvLista"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <!--
     <ImageView
         android:id="@+id/map"
         android:layout_width="wrap_content"
@@ -77,5 +97,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerSex"
         app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/mapa" />
+        -->
 </androidx.constraintlayout.widget.ConstraintLayout>

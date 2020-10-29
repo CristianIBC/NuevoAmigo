@@ -12,10 +12,9 @@
     <string name="title_activity_maps">Map</string>
     <string-array name="opcionesTamaño">
         <item>Opciones...</item>
-        <item>Pequeño</item>
-        <item>Mediano</item>
         <item>Grande</item>
-        <item>Gigante</item>
+        <item>Mediano</item>
+        <item>Chico</item>
     </string-array>
 
     <string-array name="opcionesSexo">
@@ -39,6 +38,25 @@
 
     <string name="facebook_app_id">1055065078284793</string>
     <string name="fb_login_protocol_scheme">fb1055065078284793</string>
+    <string name="telefono">telefono</string>
+
+
+    <string name="labelSexo">Sexo:</string>
+    <string name="labelNombre">Nombre:</string>
+    <string name="labelRaza">Raza:</string>
+    <string name="labelEdad">Edad:</string>
+    <string name="labelTamaño">Tamaño:</string>
+    <string name="labelEstado">Estado:</string>
+    <string name="soy_un_albergue">Soy un albergue</string>
+    <string name="txtciudadu">Ciudad</string>
+    <string name="terminar">Terminar</string>
+
+    <string-array name="opcionesEstado">
+        <item>Opciones...</item>
+        <item>Disponible</item>
+        <item>Proceso de adopción</item>
+        <item>Adoptado</item>
+    </string-array>
     <string name="nombre">Nombre:</string>
     <string name="raza">Raza:</string>
     <string name="descripci_n">Descripción</string>
