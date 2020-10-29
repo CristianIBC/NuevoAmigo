@@ -7,7 +7,7 @@
     tools:context=".InfoPerritoOtro">
 
         <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imgPerfilPerroV"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginStart="16dp"
@@ -15,27 +15,25 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/yuriloka" />
+        app:srcCompat="@drawable/logo" />
 
         <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginBottom="13dp"
-        android:text="Yuri Loka"
-        android:textColor="#000000"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
-        app:layout_constraintEnd_toStartOf="@+id/button"
-        app:layout_constraintHorizontal_bias="0.031"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/nombrePerroV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="13dp"
+            android:text="Yuri Loka"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/razaPerroV"
+            app:layout_constraintStart_toEndOf="@+id/imgPerfilPerroV"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/razaPerroV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
@@ -45,29 +43,13 @@
         android:layout_marginRight="206dp"
         android:layout_marginBottom="50dp"
         android:text="Raza: Criolla"
-        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintBottom_toTopOf="@+id/imgPerroV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-        <Button
-        android:id="@+id/button"
-        android:layout_width="59dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="79dp"
-        android:layout_marginLeft="79dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="78dp"
-        android:layout_marginRight="78dp"
-        android:layout_marginBottom="62dp"
-        android:text="-"
-        app:layout_constraintBottom_toTopOf="@+id/imageView4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/imgPerfilPerroV"
+        app:layout_constraintTop_toBottomOf="@+id/nombrePerroV" />
 
         <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imgPerroV"
         android:layout_width="411dp"
         android:layout_height="254dp"
         android:layout_marginTop="37dp"
@@ -75,11 +57,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
-        app:srcCompat="@drawable/yuriloka" />
+        app:layout_constraintTop_toBottomOf="@+id/imgPerfilPerroV"
+        app:srcCompat="@drawable/logo" />
 
         <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/descripcionPerroV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
@@ -90,15 +72,15 @@
         android:layout_marginBottom="6dp"
         android:text="Perra caraisoña"
         android:textColor="#3A3838"
-        app:layout_constraintBottom_toTopOf="@+id/textView7"
+        app:layout_constraintBottom_toTopOf="@+id/sexoPerroV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/imgPerroV"
         app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/sexoPerroV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
@@ -113,7 +95,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/edadPerroV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
@@ -124,10 +106,10 @@
         android:text="Edad: 6 añitos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/sexoPerroV" />
 
         <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/tamañoPerroV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
@@ -140,7 +122,7 @@
         app:layout_constraintBottom_toTopOf="@+id/textView10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/edadPerroV" />
 
         <TextView
         android:id="@+id/textView10"
@@ -155,10 +137,10 @@
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/tamañoPerroV" />
 
         <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/estadoPerroV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="43dp"
@@ -185,5 +167,5 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+            app:layout_constraintTop_toBottomOf="@+id/estadoPerroV" />
 </androidx.constraintlayout.widget.ConstraintLayout>

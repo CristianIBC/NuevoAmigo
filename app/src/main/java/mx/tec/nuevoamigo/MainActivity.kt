@@ -14,6 +14,9 @@ import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -73,44 +76,50 @@ class MainActivity : AppCompatActivity() {
         imgLogo.setOnClickListener {
             LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
             LoginManager.getInstance().registerCallback(callbackManager,
-            object: FacebookCallback<LoginResult>{
+                object : FacebookCallback<LoginResult> {
 
 
-                override fun onSuccess(result: LoginResult?) {
-                    result?.let{
-                        val token = it.accessToken
-                        val credential = FacebookAuthProvider.getCredential(token.token)
-                        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener{
-                            if(it.isSuccessful){
-                                db.collection("Persona").document(it.result!!.user!!.uid)
-                                    .get()
-                                    .addOnSuccessListener { document ->
-                                        if (document.data == null) {
-                                            Log.d("Persona NO registrada", "DocumentSnapshot data: ${document!!.data}")
-                                            var i = Intent(this@MainActivity, edit_perfil::class.java)
-                                            i.putExtra("name",it.result?.user?.displayName ?: "")
-                                            startActivity(i)
-                                        } else {
-                                            Log.d("Persona ya registrada", "DocumentSnapshot data: ${document!!.data}")
-                                            var i = Intent(this@MainActivity, MainPage::class.java)
-                                            startActivity(i)
-                                        }
+                    override fun onSuccess(result: LoginResult?) {
+                        result?.let {
+                            val token = it.accessToken
+                            val credential = FacebookAuthProvider.getCredential(token.token)
+                            FirebaseAuth.getInstance().signInWithCredential(credential)
+                                .addOnCompleteListener {
+                                    if (it.isSuccessful) {
+                                        db.collection("Persona").document(it.result!!.user!!.uid)
+                                            .get()
+                                            .addOnSuccessListener { document ->
+                                                if (document.data == null) {
+                                                    Log.d("Persona NO registrada",
+                                                        "DocumentSnapshot data: ${document!!.data}")
+                                                    var i = Intent(this@MainActivity,
+                                                        edit_perfil::class.java)
+                                                    i.putExtra("name",
+                                                        it.result?.user?.displayName ?: "")
+                                                    startActivity(i)
+                                                } else {
+                                                    Log.d("Persona ya registrada",
+                                                        "DocumentSnapshot data: ${document!!.data}")
+                                                    var i = Intent(this@MainActivity,
+                                                        MainPage::class.java)
+                                                    startActivity(i)
+                                                }
+                                            }
+
+                                    }
                                 }
-
-                            }
                         }
                     }
-                }
 
-                override fun onCancel() {
+                    override fun onCancel() {
 
-                }
+                    }
 
-                override fun onError(error: FacebookException?) {
+                    override fun onError(error: FacebookException?) {
 
-                }
+                    }
 
-            })
+                })
         }
         db.collection("Persona")
             .get()
@@ -130,7 +139,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        callbackManager.onActivityResult(requestCode,resultCode,data)
+        callbackManager.onActivityResult(requestCode, resultCode, data)
         super.onActivityResult(requestCode, resultCode, data)
     }
 
@@ -181,3 +190,4 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
+
