@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "39731582857",
+    "firebase_url": "https://nuevo-amigo.firebaseio.com",
+    "project_id": "nuevo-amigo",
+    "storage_bucket": "nuevo-amigo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:39731582857:android:38f0f6cb9b03f111857358",
+        "android_client_info": {
+          "package_name": "mx.tec.nuevoamigo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "39731582857-jmcdgaoc24bvh4g25ksc6nr3kvfs06cf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mx.tec.nuevoamigo",
+            "certificate_hash": "d8952f7a32a619d8adbca7d3e490043a0a4ce8ae"
+          }
+        },
+        {
+          "client_id": "39731582857-kupgj847b5i5kftrasvhm0gp3l9tnmha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDY_PhDlJxLA6SZYAmfKgb_STSV4uqOWg0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "39731582857-kupgj847b5i5kftrasvhm0gp3l9tnmha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

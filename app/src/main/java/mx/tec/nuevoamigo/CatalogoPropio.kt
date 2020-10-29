@@ -14,8 +14,8 @@ class CatalogoPropio : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalogo_propio)
         val datos = arrayListOf(
-            Perro("YuriLoka", "Disponible", R.drawable.logo),
-            Perro("Pug feo", "Adoptado", R.drawable.logo)
+            Perro("YuriLoka", "Disponible", R.drawable.yuriloka),
+            Perro("Puki", "Adoptado", R.drawable.puki)
         )
         val elementoAdapter = PerroAdapter(this@CatalogoPropio, R.layout.layout_elemento_perro, datos)
         listaPerro.adapter= elementoAdapter
