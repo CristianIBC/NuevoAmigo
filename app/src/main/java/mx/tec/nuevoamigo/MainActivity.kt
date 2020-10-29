@@ -167,19 +167,15 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
 
-
-
                     override fun onCancel() {
 
                     }
 
-
                     override fun onError(error: FacebookException?) {
 
                     }
-        })
 
-
+                })
         }
         db.collection("Persona")
             .get()
@@ -212,7 +208,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         callbackManager.onActivityResult(requestCode, resultCode, data)
-        //callbackManager.onActivityResult(requestCode,resultCode,data)
         super.onActivityResult(requestCode, resultCode, data)
 
 
@@ -423,5 +418,4 @@ class MainActivity : AppCompatActivity() {
 
 
 }
-
 

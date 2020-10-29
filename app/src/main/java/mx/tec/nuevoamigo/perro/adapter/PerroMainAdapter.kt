@@ -18,8 +18,8 @@ import mx.tec.nuevoamigo.R
 import mx.tec.nuevoamigo.perro.model.Perro
 import mx.tec.nuevoamigo.perro.model.PerroMain
 
-class PerroMainAdapter(private val context : Context, private val layout: Int, private val dataSource: List<PerroMain>) : RecyclerView.Adapter<PerroMainAdapter.ElementoViewHolder>() {
-    class ElementoViewHolder(inflater: LayoutInflater, parent: ViewGroup, layout: Int): RecyclerView.ViewHolder(inflater.inflate(layout, parent, false)){
+class PerroMainAdapter(private val context : Context, private val layout: Int, private val dataSource: List<PerroMain>, private val recyclerViewClickInterface: RecyclerViewClickInterface) : RecyclerView.Adapter<PerroMainAdapter.ElementoViewHolder>() {
+    class ElementoViewHolder(inflater: LayoutInflater, parent: ViewGroup, layout: Int, recyclerViewClickInterface: RecyclerViewClickInterface): RecyclerView.ViewHolder(inflater.inflate(layout, parent, false)){
         lateinit var storage: FirebaseStorage
 
         //ViewHolder es la clase que se encarga de MANIPULAR los controles del elemento
@@ -31,6 +31,13 @@ class PerroMainAdapter(private val context : Context, private val layout: Int, p
 
 
         init{
+            itemView.setOnClickListener(View.OnClickListener {
+                recyclerViewClickInterface.onItemClick(adapterPosition)
+            })
+            itemView.setOnLongClickListener(View.OnLongClickListener {
+                recyclerViewClickInterface.onLongItemClick(adapterPosition)
+                return@OnLongClickListener true
+            })
             storage = Firebase.storage
             imagen = itemView.findViewById(R.id.imgPerrito)
             nombrePerro = itemView.findViewById(R.id.txtNombrePerrito)
@@ -43,8 +50,8 @@ class PerroMainAdapter(private val context : Context, private val layout: Int, p
         fun bindData(perroMain: PerroMain){
             //imagenes
             val gsReferencePerfil = storage.getReferenceFromUrl("${perroMain.imagen}")
-            val ONE_MEGABYTE: Long = 512*512
-            gsReferencePerfil.getBytes(ONE_MEGABYTE).addOnSuccessListener {
+            val ONE_MEGABYTE: Long = 1024*1024
+            gsReferencePerfil.getBytes(ONE_MEGABYTE*10).addOnSuccessListener {
                 val bmp = BitmapFactory.decodeByteArray(it,0, it.size)
                 imagen?.setImageBitmap(bmp)
             }
@@ -62,7 +69,7 @@ class PerroMainAdapter(private val context : Context, private val layout: Int, p
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ElementoViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ElementoViewHolder(inflater, parent, layout)
+        return ElementoViewHolder(inflater, parent, layout, recyclerViewClickInterface)
     }
 
     override fun getItemCount(): Int {
