@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -23,9 +24,7 @@ class InfoPerritoOtro : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info_perrito_otro)
-
-        val id = intent.getStringExtra("idPerro")
-
+        val id = intent.getStringExtra("idPerrito")
 
         val imgPerritoP = findViewById<ImageView>(R.id.imgPerfilPerroVO)
         val imgPerroV = findViewById<ImageView>(R.id.imgPerroVO)
@@ -79,7 +78,7 @@ class InfoPerritoOtro : AppCompatActivity() {
             }
         btnVerCatalogo.setOnClickListener {
             val i = Intent(this, Catalogo::class.java)
-            i.putExtra("idPerrito",id)
+                i.putExtra("idPerrito",id)
             startActivity(i)
         }
     }
