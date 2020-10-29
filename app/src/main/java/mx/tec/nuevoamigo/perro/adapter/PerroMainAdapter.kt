@@ -43,8 +43,8 @@ class PerroMainAdapter(private val context : Context, private val layout: Int, p
         fun bindData(perroMain: PerroMain){
             //imagenes
             val gsReferencePerfil = storage.getReferenceFromUrl("${perroMain.imagen}")
-            val ONE_MEGABYTE: Long = 512*512
-            gsReferencePerfil.getBytes(ONE_MEGABYTE).addOnSuccessListener {
+            val ONE_MEGABYTE: Long = 1024*1024
+            gsReferencePerfil.getBytes(ONE_MEGABYTE*10).addOnSuccessListener {
                 val bmp = BitmapFactory.decodeByteArray(it,0, it.size)
                 imagen?.setImageBitmap(bmp)
             }

@@ -71,13 +71,13 @@ class InfoPerrita : AppCompatActivity() {
 
                     //imagenes
                     val gsReferencePerfil = storage.getReferenceFromUrl("${perrito.imagenPerfil}")
-                    val ONE_MEGABYTE: Long = 512*512
-                    gsReferencePerfil.getBytes(ONE_MEGABYTE).addOnSuccessListener {
+                    val ONE_MEGABYTE: Long = 1024*1024
+                    gsReferencePerfil.getBytes(ONE_MEGABYTE*10).addOnSuccessListener {
                         val bmp = BitmapFactory.decodeByteArray(it,0, it.size)
                         imgPerritoP.setImageBitmap(bmp)
                     }
                     val gsReference = storage.getReferenceFromUrl("${perrito.imagen}")
-                    gsReference.getBytes(ONE_MEGABYTE).addOnSuccessListener {
+                    gsReference.getBytes(ONE_MEGABYTE*10).addOnSuccessListener {
                         val bmp = BitmapFactory.decodeByteArray(it,0, it.size)
                         imgPerroV.setImageBitmap(bmp)
                     }
