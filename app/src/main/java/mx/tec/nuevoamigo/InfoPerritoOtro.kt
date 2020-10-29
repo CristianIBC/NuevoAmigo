@@ -1,6 +1,7 @@
 package mx.tec.nuevoamigo
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import kotlinx.android.synthetic.main.activity_info_perrito_otro.*
 import mx.tec.nuevoamigo.perro.model.PerroP
 
 class InfoPerritoOtro : AppCompatActivity() {
@@ -75,5 +77,10 @@ class InfoPerritoOtro : AppCompatActivity() {
                     Toast.makeText(this, "Hubo un error", Toast.LENGTH_LONG).show()
                 }
             }
+        btnVerCatalogo.setOnClickListener {
+            val i = Intent(this, Catalogo::class.java)
+            i.putExtra("idPerrito",id)
+            startActivity(i)
+        }
     }
 }

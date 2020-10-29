@@ -106,10 +106,6 @@ class InfoPerrita : AppCompatActivity() {
                 .set(perrito.convTomap())
         }
 
-        btnVerCatalogo.setOnClickListener {
-            val i = Intent(this, CatalogoPropio::class.java)
-            i.putExtra("idPerrito",id)
-            startActivity(i)
-        }
+
     }
 }

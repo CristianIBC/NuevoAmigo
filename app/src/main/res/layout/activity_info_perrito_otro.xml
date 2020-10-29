@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".InfoPerritoOtro">
 
+        <Button
+            android:id="@+id/btnVerCatalogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:text="@string/ver_catalogo"
+            app:layout_constraintBottom_toTopOf="@+id/imgPerroV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/razaPerroV"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/imgPerfilPerroVO"
             android:layout_width="80dp"
