@@ -29,6 +29,7 @@ import kotlin.time.hours
 
 class edit_perfil : AppCompatActivity() {
 
+
     //------------------------variables gps
     val PERMISSION_ID = 1010
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -99,10 +100,11 @@ class edit_perfil : AppCompatActivity() {
             user["HorarioAtencion"] = txtHoraInicio.text.toString() +"-"+ txtHoraFin.text.toString()
             db.collection("Persona").document(uid)
                 .set(user)
-                .addOnSuccessListener { Log.d(
-                    "Persona registrada",
-                    "DocumentSnapshot successfully written!"
-                ) }
+                .addOnSuccessListener {
+
+
+                    Log.d("Persona registrada", "DocumentSnapshot successfully written!")
+                    }
                 .addOnFailureListener(OnFailureListener { e ->
                     Log.w(
                         "Error al guardar",
