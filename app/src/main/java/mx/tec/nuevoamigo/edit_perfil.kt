@@ -17,11 +17,14 @@ import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import android.os.Looper
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.facebook.places.internal.LocationPackageRequestParams
 import com.google.android.gms.location.*
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_edit_perfil.*
+import kotlinx.android.synthetic.main.activity_perfil_usuario.*
 import java.util.*
 import java.util.jar.Manifest
 import kotlin.time.hours
@@ -39,8 +42,8 @@ class edit_perfil : AppCompatActivity() {
     var minute= c.minutes
     var emailUser: String = ""
     var uid: String = ""
-    var estadoUser: String = "Guerrero"
-    var ciudadUser: String = "Acapulco"
+    var photoUser: String? = null
+    var isAlbergue: Boolean = false
     var nameUser: String =""
     val db = FirebaseFirestore.getInstance()
     @SuppressLint("SetTextI18n")
@@ -59,13 +62,14 @@ class edit_perfil : AppCompatActivity() {
             emailUser = user.email!!
             nameUser = user.displayName!!
             uid = user.uid!!
+            photoUser = user.photoUrl.toString()
         }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_perfil)
 
         var name= intent.getStringExtra("name")
         txtEmail.text =name
-
+        Picasso.get().load("$photoUser?type=large").into(imgPerfil)
         btnHorarioInicio.setOnClickListener{
 
          TimePickerDialog(
@@ -93,9 +97,9 @@ class edit_perfil : AppCompatActivity() {
         btnGuardarPerfil.setOnClickListener {
             val user: MutableMap<String, Any> = HashMap()
             user["Nombre"] = nameUser
-            user["Estado"] = estadoUser
-            user["Ciudad"] = ciudadUser
+            user["Ciudad"] = txtDireccion.text.toString()
             user["Email"] = emailUser
+            user["IsAlbergue"] = isAlbergue
             user["Telefono"] = txtCelular.text.toString()
             user["HorarioAtencion"] = txtHoraInicio.text.toString() +"-"+ txtHoraFin.text.toString()
             db.collection("Persona").document(uid)
@@ -113,25 +117,13 @@ class edit_perfil : AppCompatActivity() {
                     )
                 })
             var i = Intent(this@edit_perfil, MainPage::class.java)
+            i.putExtra("Ubicacion", txtDireccion.text.toString())
             startActivity(i)
         }
 
 
 
     }
-
-    private fun getTime(){
-
-        val cal = Calendar.getInstance()
-        hour = cal.get(Calendar.HOUR)
-        minute =cal.get(Calendar.MINUTE)
-    }
-
-    private fun pickTime(){
-
-    }
-
-
     //--------------------------------------------------GPS
 
     fun getLastLocation(){
@@ -264,6 +256,14 @@ class edit_perfil : AppCompatActivity() {
         countryName = Adress.get(0).countryName
         Log.d("Debug:","Your City: " + cityName + " ; your Country " + countryName)
         return cityName
+    }
+
+    fun onclick(view: View) {
+        if(view.id == R.id.switchAlbergue){
+            if(switchAlbergue.isChecked){
+                isAlbergue = true
+            }
+        }
     }
 
 

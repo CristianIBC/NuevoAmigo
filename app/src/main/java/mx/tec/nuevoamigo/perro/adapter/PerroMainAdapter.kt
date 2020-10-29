@@ -1,6 +1,7 @@
 package mx.tec.nuevoamigo.perro.adapter
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +11,16 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import mx.tec.nuevoamigo.R
 import mx.tec.nuevoamigo.perro.model.Perro
 import mx.tec.nuevoamigo.perro.model.PerroMain
 
 class PerroMainAdapter(private val context : Context, private val layout: Int, private val dataSource: List<PerroMain>) : RecyclerView.Adapter<PerroMainAdapter.ElementoViewHolder>() {
     class ElementoViewHolder(inflater: LayoutInflater, parent: ViewGroup, layout: Int): RecyclerView.ViewHolder(inflater.inflate(layout, parent, false)){
+        lateinit var storage: FirebaseStorage
 
         //ViewHolder es la clase que se encarga de MANIPULAR los controles del elemento
         var imagen: ImageView? = null
@@ -26,6 +31,7 @@ class PerroMainAdapter(private val context : Context, private val layout: Int, p
 
 
         init{
+            storage = Firebase.storage
             imagen = itemView.findViewById(R.id.imgPerrito)
             nombrePerro = itemView.findViewById(R.id.txtNombrePerrito)
             edadPerro = itemView.findViewById(R.id.txtEdadPerro)
@@ -35,7 +41,16 @@ class PerroMainAdapter(private val context : Context, private val layout: Int, p
         }
 
         fun bindData(perroMain: PerroMain){
-            imagen!!.setImageResource(perroMain.imagen)
+            //imagenes
+            val gsReferencePerfil = storage.getReferenceFromUrl("${perroMain.imagen}")
+            val ONE_MEGABYTE: Long = 512*512
+            gsReferencePerfil.getBytes(ONE_MEGABYTE).addOnSuccessListener {
+                val bmp = BitmapFactory.decodeByteArray(it,0, it.size)
+                imagen?.setImageBitmap(bmp)
+            }
+            //end imagenes
+
+            //imagen!!.setImageResource(perroMain.imagen)
             nombrePerro!!.text = perroMain.nombre
             edadPerro!!.text = perroMain.edad
             razaPerro!!.text = perroMain.raza
