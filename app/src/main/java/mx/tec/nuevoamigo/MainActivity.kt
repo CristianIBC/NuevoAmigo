@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.login.LoginManager
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 enum class ProviderType{
@@ -28,12 +31,14 @@ class MainActivity : AppCompatActivity() {
         //LINEA DE PRUEBA
         val db = FirebaseFirestore.getInstance()
         var i = Intent(this@MainActivity, InfoPerrita::class.java)
-        i.putExtra("idPerro","1ThwPzXtOvG5sWbVEuD5")
+        i.putExtra("idPerro", "1ThwPzXtOvG5sWbVEuD5")
         startActivity(i)
-        /* imgLogo.setOnClickListener {
+    }
+}
+         /*imgLogo.setOnClickListener {
             LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
             LoginManager.getInstance().registerCallback(callbackManager,
-            object: FacebookCallback<LoginResult>{
+            object: FacebookCallback<LoginResult> {
 
 
                 override fun onSuccess(result: LoginResult?) {
@@ -63,8 +68,8 @@ class MainActivity : AppCompatActivity() {
 
             //var i = Intent(this@MainActivity, edit_perfil::class.java)
             //startActivity(i)
-        }*/
-        /*db.collection("Persona")
+        }
+        db.collection("Persona")
             .get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -77,12 +82,11 @@ class MainActivity : AppCompatActivity() {
                     Log.w("TEST ERROR", "Error getting documents.", task.exception)
 
                 }
-            }*/
+            }
     }
 
-    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         callbackManager.onActivityResult(requestCode,resultCode,data)
         super.onActivityResult(requestCode, resultCode, data)
-    }*/
-
-}
+    }
+*/
