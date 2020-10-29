@@ -105,5 +105,11 @@ class InfoPerrita : AppCompatActivity() {
             db.collection("Perrito").document(id)
                 .set(perrito.convTomap())
         }
+
+        btnVerCatalogo.setOnClickListener {
+            val i = Intent(this, CatalogoPropio::class.java)
+            i.putExtra("idPerrito",id)
+            startActivity(i)
+        }
     }
 }

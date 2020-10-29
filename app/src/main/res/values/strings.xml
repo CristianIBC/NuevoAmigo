@@ -74,6 +74,7 @@
     <string name="estado">Estado:</string>
     <string name="ingresar_la_edad_en_meses_si_no_sabes_la_edad_poner_0">Ingresar la edad en meses, si no sabes la edad poner 0</string>
     <string name="contactame">Contactame</string>
+    <string name="ver_catalogo">Ver catalogo</string>
 
 
 </resources>
