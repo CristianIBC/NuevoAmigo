@@ -54,6 +54,15 @@ class MainActivity : AppCompatActivity() {
     private val callbackManager = CallbackManager.Factory.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        var user = FirebaseAuth.getInstance().currentUser
+
+        if (user != null) {
+            // Name, email address, and profile photo Url
+
+            val i = Intent(this@MainActivity,MainPage::class.java )
+            i.flags= Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(i)
+        }
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
 
@@ -96,12 +105,7 @@ class MainActivity : AppCompatActivity() {
             googleClient.signOut()
             startActivityForResult(googleClient.signInIntent,GOOGLE_SIGN_IN)
 
-          //  var i = Intent(this@MainActivity, edit_perfil::class.java)
-         //   startActivity(i)
-            var i = Intent(this@MainActivity, edit_perfil::class.java)
-            i.putExtra("Ubicacion",
-                ubicacionUser)
-            startActivity(i)
+
         }
 
         //LINEA DE PRUEBA
@@ -123,67 +127,59 @@ class MainActivity : AppCompatActivity() {
                                             .get()
                                             .addOnSuccessListener { document ->
                                                 if (document.data == null) {
-                                                    Log.d("Persona NO registrada",
-                                                        "DocumentSnapshot data: ${document!!.data}")
-                                                    var i = Intent(this@MainActivity,
-                                                        edit_perfil::class.java)
-                                                    i.putExtra("name",
-                                                        it.result?.user?.displayName ?: "")
-                                                    i.putExtra("Ubicacion",
-                                                        ubicacionUser)
+                                                    Log.d(
+                                                        "Persona NO registrada",
+                                                        "DocumentSnapshot data: ${document!!.data}"
+                                                    )
+                                                    var i = Intent(
+                                                        this@MainActivity,
+                                                        edit_perfil::class.java
+                                                    )
+                                                    i.putExtra(
+                                                        "name",
+                                                        it.result?.user?.displayName ?: ""
+                                                    )
+                                                    i.putExtra(
+                                                        "Ubicacion",
+                                                        ubicacionUser
+                                                    )
+                                                    i.flags= Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                                     startActivity(i)
                                                 } else {
-                                                    Log.d("Persona ya registrada",
-                                                        "DocumentSnapshot data: ${document!!.data}")
-                                                    var i = Intent(this@MainActivity,
-                                                        MainPage::class.java)
-                                                    i.putExtra("Ubicacion",
-                                                        ubicacionUser)
+                                                    Log.d(
+                                                        "Persona ya registrada",
+                                                        "DocumentSnapshot data: ${document!!.data}"
+                                                    )
+                                                    var i = Intent(
+                                                        this@MainActivity,
+                                                        MainPage::class.java
+                                                    )
+                                                    i.putExtra(
+                                                        "Ubicacion",
+                                                        ubicacionUser
+                                                    )
+                                                    i.flags= Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                                     startActivity(i)
                                                 }
                                             }
-                override fun onSuccess(result: LoginResult?) {
-                    result?.let{
-                        val token = it.accessToken
-                        val credential = FacebookAuthProvider.getCredential(token.token)
-                        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener{
-                            if(it.isSuccessful){
-                                db.collection("Persona").document(it.result!!.user!!.uid)
-                                    .get()
-                                    .addOnSuccessListener { document ->
-                                        if (document.data == null) {
-                                            Log.d("Persona NO registrada", "DocumentSnapshot data: ${document!!.data}")
-                                            var i = Intent(this@MainActivity, edit_perfil::class.java)
-
-                                            i.putExtra("name",it.result?.user?.displayName ?: "")
-                                            startActivity(i)
-                                        } else {
-                                            Log.d("Persona ya registrada", "DocumentSnapshot data: ${document!!.data}")
-                                            var i = Intent(this@MainActivity, MainPage::class.java)
-                                            val sharepref =getSharedPreferences(getString(R.string.archivoSesion), Context.MODE_PRIVATE)
-                                            with(sharepref.edit()){
-                                                putString("email", it!!.result!!.user!!.email)
-                                                putString("user", it!!.result!!.user!!.displayName)
-                                                commit()
-                                            }
-                                            startActivity(i)
-                                        }
-                                }
-
                                     }
                                 }
                         }
                     }
 
+
+
                     override fun onCancel() {
 
                     }
 
+
                     override fun onError(error: FacebookException?) {
 
                     }
+        })
 
-                })
+
         }
         db.collection("Persona")
             .get()
@@ -218,30 +214,70 @@ class MainActivity : AppCompatActivity() {
         callbackManager.onActivityResult(requestCode, resultCode, data)
         //callbackManager.onActivityResult(requestCode,resultCode,data)
         super.onActivityResult(requestCode, resultCode, data)
+
+
         if(requestCode==GOOGLE_SIGN_IN){
 
             val task =GoogleSignIn.getSignedInAccountFromIntent(data)
 
+            try{
 
+                val db = FirebaseFirestore.getInstance() //linea codigo repetida
                 val account = task.getResult(ApiException::class.java)
                 if(account!=null){
                     val credential = GoogleAuthProvider.getCredential(account.idToken,null)
                     FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
 
-                        if(it.isSuccessful){
-                            //intent
-
-                            var i = Intent(this@MainActivity, edit_perfil::class.java)
-                         i.putExtra("name", it!!.result!!.user!!.displayName)
-                            startActivity(i)
-
-                        }else{
-
-                            //alert
+                        if (it.isSuccessful) {
+                            db.collection("Persona").document(it.result!!.user!!.uid)
+                                .get()
+                                .addOnSuccessListener { document ->
+                                    if (document.data == null) {
+                                        Log.d(
+                                            "Persona NO registrada",
+                                            "DocumentSnapshot data: ${document!!.data}"
+                                        )
+                                        var i = Intent(
+                                            this@MainActivity,
+                                            edit_perfil::class.java
+                                        )
+                                        i.putExtra(
+                                            "name",
+                                            it.result?.user?.displayName ?: ""
+                                        )
+                                        i.putExtra(
+                                            "Ubicacion",
+                                            ubicacionUser
+                                        )
+                                        i.flags= Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                        startActivity(i)
+                                    } else {
+                                        Log.d(
+                                            "Persona ya registrada",
+                                            "DocumentSnapshot data: ${document!!.data}"
+                                        )
+                                        var i = Intent(
+                                            this@MainActivity,
+                                            MainPage::class.java
+                                        )
+                                        i.putExtra(
+                                            "Ubicacion",
+                                            ubicacionUser
+                                        )
+                                        i.flags= Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                        startActivity(i)
+                                    }
+                                }
                         }
                     }
 
                 }
+
+
+            }catch (e:ApiException){
+
+            }
+
 
         }
 
@@ -389,5 +425,3 @@ class MainActivity : AppCompatActivity() {
 }
 
 
-
-}
