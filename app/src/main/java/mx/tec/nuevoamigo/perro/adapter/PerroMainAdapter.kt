@@ -3,6 +3,7 @@ package mx.tec.nuevoamigo.perro.adapter
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -13,8 +14,8 @@ import com.google.firebase.storage.ktx.storage
 import mx.tec.nuevoamigo.R
 import mx.tec.nuevoamigo.perro.model.PerroMain
 
-class PerroMainAdapter(private val context : Context, private val layout: Int, private val dataSource: MutableList<PerroMain>) : RecyclerView.Adapter<PerroMainAdapter.ElementoViewHolder>() {
-    class ElementoViewHolder(inflater: LayoutInflater, parent: ViewGroup, layout: Int): RecyclerView.ViewHolder(inflater.inflate(layout, parent, false)){
+class PerroMainAdapter(private val context : Context, private val layout: Int, private val dataSource: MutableList<PerroMain>, private val clickInterface: RecyclerViewClickInterface) : RecyclerView.Adapter<PerroMainAdapter.ElementoViewHolder>() {
+    class ElementoViewHolder(inflater: LayoutInflater, parent: ViewGroup, layout: Int, clickInterface: RecyclerViewClickInterface): RecyclerView.ViewHolder(inflater.inflate(layout, parent, false)){
         lateinit var storage: FirebaseStorage
 
         //ViewHolder es la clase que se encarga de MANIPULAR los controles del elemento
@@ -27,10 +28,10 @@ class PerroMainAdapter(private val context : Context, private val layout: Int, p
 
         init{
             itemView.setOnClickListener(View.OnClickListener {
-                recyclerViewClickInterface.onItemClick(adapterPosition)
+                clickInterface.onItemClick(adapterPosition)
             })
             itemView.setOnLongClickListener(View.OnLongClickListener {
-                recyclerViewClickInterface.onLongItemClick(adapterPosition)
+                clickInterface.onLongItemClick(adapterPosition)
                 return@OnLongClickListener true
             })
             storage = Firebase.storage
@@ -64,7 +65,7 @@ class PerroMainAdapter(private val context : Context, private val layout: Int, p
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ElementoViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ElementoViewHolder(inflater, parent, layout, recyclerViewClickInterface)
+        return ElementoViewHolder(inflater, parent, layout, clickInterface)
     }
 
     override fun getItemCount(): Int {

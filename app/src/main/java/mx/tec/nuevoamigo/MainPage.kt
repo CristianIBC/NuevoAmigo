@@ -113,6 +113,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
                                         Log.d("TAG", "${document.id} => ${document.data}")
                                         datos.add(
                                             PerroMain(
+                                                document.id,
                                                 document.data!!["nombre"].toString(),
                                                 document.data!!["raza"].toString(),
                                                 document.data!!["edad"].toString(),
@@ -123,12 +124,12 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
                                         Log.d("TAG", datos.toString())
                                     }
                                     val elementoAdapter =
-                                        PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos)
+                                        PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos, this)
 
                                     elementoAdapter.notifyDataSetChanged()
 
                                     rvLista.layoutManager =
-                                        LinearLayoutManager(this@MainPage, LinearLayoutManager.VERTICAL, true)
+                                        LinearLayoutManager(this@MainPage, LinearLayoutManager.VERTICAL, false)
                                     rvLista.setHasFixedSize(true)
                                     rvLista.adapter = elementoAdapter
                                 }
@@ -148,6 +149,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
                                         Log.d("TAG", "${document.id} => ${document.data}")
                                         datos.add(
                                             PerroMain(
+                                                document.id,
                                                 document.data!!["nombre"].toString(),
                                                 document.data!!["raza"].toString(),
                                                 document.data!!["edad"].toString(),
@@ -158,10 +160,10 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
                                         Log.d("TAG", datos.toString())
                                     }
                                     val elementoAdapter =
-                                        PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos)
+                                        PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos, this)
                                     elementoAdapter.notifyDataSetChanged()
                                     rvLista.layoutManager =
-                                        LinearLayoutManager(this@MainPage, LinearLayoutManager.VERTICAL, true)
+                                        LinearLayoutManager(this@MainPage, LinearLayoutManager.VERTICAL, false)
                                     rvLista.setHasFixedSize(true)
                                     rvLista.adapter = elementoAdapter
                                 }
@@ -180,6 +182,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
                                         Log.d("TAG", "${document.id} => ${document.data}")
                                         datos.add(
                                             PerroMain(
+                                                document.id,
                                                 document.data!!["nombre"].toString(),
                                                 document.data!!["raza"].toString(),
                                                 document.data!!["edad"].toString(),
@@ -190,10 +193,10 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
                                         Log.d("TAG", datos.toString())
                                     }
                                     val elementoAdapter =
-                                        PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos)
+                                        PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos, this)
                                     elementoAdapter.notifyDataSetChanged()
                                     rvLista.layoutManager =
-                                        LinearLayoutManager(this@MainPage, LinearLayoutManager.VERTICAL, true)
+                                        LinearLayoutManager(this@MainPage, LinearLayoutManager.VERTICAL, false)
                                     rvLista.setHasFixedSize(true)
                                     rvLista.adapter = elementoAdapter
                                 }
