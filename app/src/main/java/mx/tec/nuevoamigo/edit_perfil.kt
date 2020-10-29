@@ -115,6 +115,7 @@ class edit_perfil : AppCompatActivity() {
                     )
                 })
             var i = Intent(this@edit_perfil, MainPage::class.java)
+            i.putExtra("Ubicacion", txtDireccion.text.toString())
             startActivity(i)
         }
 

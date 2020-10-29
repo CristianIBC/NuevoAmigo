@@ -35,7 +35,7 @@ class PerroMainAdapter(private val context : Context, private val layout: Int, p
         }
 
         fun bindData(perroMain: PerroMain){
-            imagen!!.setImageResource(perroMain.imagen)
+            //imagen!!.setImageResource(perroMain.imagen)
             nombrePerro!!.text = perroMain.nombre
             edadPerro!!.text = perroMain.edad
             razaPerro!!.text = perroMain.raza

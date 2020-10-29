@@ -3,13 +3,18 @@ package mx.tec.nuevoamigo
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_catalogo.*
 import kotlinx.android.synthetic.main.activity_main_page.*
+import kotlinx.android.synthetic.main.activity_perfil_usuario.*
 import mx.tec.nuevoamigo.perro.adapter.PerroAdapter
 import mx.tec.nuevoamigo.perro.adapter.PerroMainAdapter
 import mx.tec.nuevoamigo.perro.model.Perro
@@ -66,10 +71,38 @@ class MainPage : AppCompatActivity() {
 
     //CATALOGO PRINCIPAL, :C
 
-        val datos = listOf(
-            PerroMain("YuriLoka", "Criolla", "6", "Hembra", R.drawable.yuriloka),
-            PerroMain("Puki",  "Criolla", "7", "Hembra", R.drawable.puki)
-        )
+        var user = FirebaseAuth.getInstance().currentUser
+        val db = FirebaseFirestore.getInstance()
+
+        val ubicacionUser = intent.getStringExtra("Ubicacion")
+        var fotoUser:String?=null
+
+        if (user != null) {
+            fotoUser = user.photoUrl.toString()
+            Picasso.get().load("$fotoUser?type=large").into(imgPersonaMain)
+        }
+
+        var datos= mutableListOf<PerroMain>()
+        db.collection("Persona").whereEqualTo("Ciudad",ubicacionUser)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.d("TAG", "${document.id} => ${document.data}")
+                    db.collection("Perro").whereEqualTo("idPersona",document.id)
+                        .get()
+                        .addOnSuccessListener { documents ->
+                            for (document in documents) {
+                                Log.d("TAG", "${document.id} => ${document.data}")
+
+                                datos.add(PerroMain(document.data!!["Nombre"].toString(), document.data!!["Raza"].toString(), document.data!!["Edad"].toString(),
+                                    document.data!!["Sexo"].toString(), document.data!!["Imagen"].toString()))
+                            }
+                        }
+                }
+            }
+
+
+
         val elementoAdapter = PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos)
         rvLista.layoutManager = LinearLayoutManager(this@MainPage, LinearLayoutManager.VERTICAL,true)
         rvLista.setHasFixedSize(true)
