@@ -38,6 +38,9 @@ class RegistrarPerrita : AppCompatActivity() {
         storage = Firebase.storage
         storageRef = storage.reference
 
+        //para el id de la persona
+        val id = intent.getStringExtra("idPerro")
+
         //spiner
         val datosSpinner = arrayListOf("Pequeño", "Mediano", "Grande", "Gigante")
         val adaptadorSpinner = ArrayAdapter(this, android.R.layout.simple_list_item_1, datosSpinner)
@@ -45,6 +48,7 @@ class RegistrarPerrita : AppCompatActivity() {
 
         //esto se debe ir
         val idPersona = "5uy5A3MBF7Rc8RoDYW4h"
+        //--------------
 
         val recurso = "gs://nuevo-amigo.appspot.com/imagenesPerro/"
 
@@ -64,7 +68,6 @@ class RegistrarPerrita : AppCompatActivity() {
                 val db = FirebaseFirestore.getInstance()
                 db.collection("Perrito").add(perrito.convTomap()).addOnSuccessListener {
                     Log.d("testU","perrito Ingresado")
-                    TODO("mandar al activity necesario")
                 }
             }else{
                 Toast.makeText(this,
@@ -88,20 +91,20 @@ class RegistrarPerrita : AppCompatActivity() {
     }
 
     private fun uploadImage() {
-        val baos = ByteArrayOutputStream()
+        var baos = ByteArrayOutputStream()
         bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        val data = baos.toByteArray()
+        var data = baos.toByteArray()
         var mountainsRef = storageRef?.child("imagenesPerro/" + edtNombreR.text.toString() + "F.jpeg")
-        Log.d("test", "filepath upload ${filePathF}")
         var uploadTask = mountainsRef?.putBytes(data)
         uploadTask?.addOnFailureListener {
             Log.d("test", "error")
         }?.addOnSuccessListener { taskSnapshot ->
             Log.d("test", taskSnapshot.toString())
         }
+        baos = ByteArrayOutputStream()
         bitmapP?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        data = baos.toByteArray()
         mountainsRef = storageRef?.child("imagenesPerro/" + edtNombreR.text.toString() + "P.jpeg")
-        Log.d("test", "filepath upload ${filePathP}")
         uploadTask = mountainsRef?.putBytes(data)
         uploadTask?.addOnFailureListener {
             Log.d("test", "error")

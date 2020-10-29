@@ -18,6 +18,7 @@ import com.google.firebase.storage.FileDownloadTask
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
+import kotlinx.android.synthetic.main.activity_info_perrita.*
 import mx.tec.nuevoamigo.perro.model.PerroP
 import java.io.File
 
@@ -89,11 +90,18 @@ class InfoPerrita : AppCompatActivity() {
             db.collection("Perrito").document(id)
                 .delete()
                 .addOnSuccessListener {
+                    Log.d("testU","eliminado")
                     TODO("mandar al activity necesario")
                 }
                 .addOnFailureListener{
                     Toast.makeText(this,"Hubo un error",Toast.LENGTH_LONG).show()
                 }
+        }
+        btnBorradoL.setOnClickListener {
+            perrito.estado="Adoptado"
+            estado.text = perrito.estado
+            db.collection("Perrito").document(id)
+                .set(perrito.convTomap())
         }
     }
 }

@@ -27,8 +27,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //LINEA DE PRUEBA
         val db = FirebaseFirestore.getInstance()
-        var i = Intent(this@MainActivity, RegistrarPerrita::class.java)
-        i.putExtra("idPerro", "gFyDsoAOtcC8R2hD1PD8")
+        var i = Intent(this@MainActivity, InfoPerrita::class.java)
+        i.putExtra("idPerro","1ThwPzXtOvG5sWbVEuD5")
         startActivity(i)
         /* imgLogo.setOnClickListener {
             LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
