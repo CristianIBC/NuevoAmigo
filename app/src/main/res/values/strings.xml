@@ -51,6 +51,10 @@
     <string name="macho">Macho</string>
     <string name="textview">TextView</string>
     <string name="tama_o">Tamaño</string>
+    <string name="borrar">Borrar</string>
+    <string name="cambiar_estado">cambiar estado</string>
+    <string name="estado">Estado:</string>
+    <string name="ingresar_la_edad_en_meses_si_no_sabes_la_edad_poner_0">Ingresar la edad en meses, si no sabes la edad poner 0</string>
 
 
 </resources>
