@@ -1,41 +1,27 @@
 package mx.tec.nuevoamigo
 
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Geocoder
-import android.location.Location
-import android.location.LocationManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_catalogo.*
-import kotlinx.android.synthetic.main.activity_edit_perfil.*
 import kotlinx.android.synthetic.main.activity_main_page.*
-import kotlinx.android.synthetic.main.activity_perfil_usuario.*
-import mx.tec.nuevoamigo.perro.adapter.PerroAdapter
 import mx.tec.nuevoamigo.perro.adapter.PerroMainAdapter
-import mx.tec.nuevoamigo.perro.model.Perro
 import mx.tec.nuevoamigo.perro.model.PerroMain
-import java.util.*
 
 class MainPage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         var user = FirebaseAuth.getInstance().currentUser
         val db = FirebaseFirestore.getInstance()
+        var datos= mutableListOf<PerroMain>()
 
 
         super.onCreate(savedInstanceState)
@@ -79,14 +65,11 @@ class MainPage : AppCompatActivity() {
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
+
         imgPersonaMain.setOnClickListener {
             var i = Intent(this@MainPage, PerfilUsuario::class.java)
             startActivity(i)
         }
-
-
-    //CATALOGO PRINCIPAL, :C
-
 
 
         var fotoUser:String?=null
@@ -100,37 +83,152 @@ class MainPage : AppCompatActivity() {
             Picasso.get().load("$fotoUser?type=large").into(imgPersonaMain)
         }
 
-        var datos= mutableListOf<PerroMain>()
+
+        btnFiltrar.setOnClickListener {
+            if(spinnerOpciones2.selectedItem.toString()=="Opciones..." && spinnerOpciones.selectedItem.toString()=="Opciones..."){
+                return@setOnClickListener
+            }else if(spinnerOpciones.selectedItem.toString()!="Opciones..." && spinnerOpciones2.selectedItem.toString()=="Opciones..."){
+                datos.clear()
+                db.collection("Persona").whereEqualTo("Ciudad",ubicUser).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            db.collection("Perrito").whereEqualTo("idPersona",document.id).whereEqualTo("estado", "Disponible").whereEqualTo("tamaño",spinnerOpciones.selectedItem.toString() )
+                                .get()
+                                .addOnSuccessListener { documents ->
+                                    for (document in documents) {
+                                        Log.d("TAG", "${document.id} => ${document.data}")
+                                        datos.add(
+                                            PerroMain(
+                                                document.data!!["nombre"].toString(),
+                                                document.data!!["raza"].toString(),
+                                                document.data!!["edad"].toString(),
+                                                document.data!!["sexo"].toString(),
+                                                document.data!!["imagen"].toString()
+                                            )
+                                        )
+                                        Log.d("TAG", datos.toString())
+                                    }
+                                    val elementoAdapter =
+                                        PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos)
+
+                                    elementoAdapter.notifyDataSetChanged()
+
+                                    rvLista.layoutManager =
+                                        LinearLayoutManager(this@MainPage, LinearLayoutManager.VERTICAL, true)
+                                    rvLista.setHasFixedSize(true)
+                                    rvLista.adapter = elementoAdapter
+                                }
+                        }
+                    }
+
+            }else if(spinnerOpciones.selectedItem.toString()=="Opciones..." && spinnerOpciones2.selectedItem.toString()!="Opciones..."){
+                datos.clear()
+                db.collection("Persona").whereEqualTo("Ciudad",ubicUser).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            db.collection("Perrito").whereEqualTo("idPersona",document.id).whereEqualTo("estado", "Disponible").whereEqualTo("sexo",spinnerOpciones2.selectedItem.toString() )
+                                .get()
+                                .addOnSuccessListener { documents ->
+                                    for (document in documents) {
+                                        Log.d("TAG", "${document.id} => ${document.data}")
+                                        datos.add(
+                                            PerroMain(
+                                                document.data!!["nombre"].toString(),
+                                                document.data!!["raza"].toString(),
+                                                document.data!!["edad"].toString(),
+                                                document.data!!["sexo"].toString(),
+                                                document.data!!["imagen"].toString()
+                                            )
+                                        )
+                                        Log.d("TAG", datos.toString())
+                                    }
+                                    val elementoAdapter =
+                                        PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos)
+                                    elementoAdapter.notifyDataSetChanged()
+                                    rvLista.layoutManager =
+                                        LinearLayoutManager(this@MainPage, LinearLayoutManager.VERTICAL, true)
+                                    rvLista.setHasFixedSize(true)
+                                    rvLista.adapter = elementoAdapter
+                                }
+                        }
+                    }
+            }else if(spinnerOpciones.selectedItem.toString()!="Opciones..." && spinnerOpciones2.selectedItem.toString()!="Opciones..."){
+                datos.clear()
+                db.collection("Persona").whereEqualTo("Ciudad",ubicUser).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            db.collection("Perrito").whereEqualTo("idPersona",document.id).whereEqualTo("estado", "Disponible").whereEqualTo("tamaño",spinnerOpciones.selectedItem.toString()).whereEqualTo("sexo",spinnerOpciones2.selectedItem.toString() )
+                                .get()
+                                .addOnSuccessListener { documents ->
+                                    for (document in documents) {
+                                        Log.d("TAG", "${document.id} => ${document.data}")
+                                        datos.add(
+                                            PerroMain(
+                                                document.data!!["nombre"].toString(),
+                                                document.data!!["raza"].toString(),
+                                                document.data!!["edad"].toString(),
+                                                document.data!!["sexo"].toString(),
+                                                document.data!!["imagen"].toString()
+                                            )
+                                        )
+                                        Log.d("TAG", datos.toString())
+                                    }
+                                    val elementoAdapter =
+                                        PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos)
+                                    elementoAdapter.notifyDataSetChanged()
+                                    rvLista.layoutManager =
+                                        LinearLayoutManager(this@MainPage, LinearLayoutManager.VERTICAL, true)
+                                    rvLista.setHasFixedSize(true)
+                                    rvLista.adapter = elementoAdapter
+                                }
+                        }
+                    }
+            }
+        }
+
+
+    //CATALOGO PRINCIPAL, :C
+
+
+
+
+
+
         db.collection("Persona").whereEqualTo("Ciudad",ubicUser).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
             .get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     Log.d("TAG", "${document.id} => ${document.data}")
-                    db.collection("Perrito").whereEqualTo("idPersona",document.id).whereEqualTo("estado", "Disponible")
-                        .get()
-                        .addOnSuccessListener { documents ->
-                            for (document in documents) {
-                                Log.d("TAG", "${document.id} => ${document.data}")
+                        db.collection("Perrito").whereEqualTo("idPersona", document.id)
+                            .whereEqualTo("estado", "Disponible")
+                            .get()
+                            .addOnSuccessListener { documents ->
+                                for (document in documents) {
+                                    Log.d("TAG", "${document.id} => ${document.data}")
 
-                                datos.add(PerroMain(document.data!!["nombre"].toString(), document.data!!["raza"].toString(), document.data!!["edad"].toString(),
-                                    document.data!!["sexo"].toString(), document.data!!["imagen"].toString()))
-
-                                Log.d("TAG",datos.toString() )
-
+                                    datos.add(
+                                        PerroMain(
+                                            document.data!!["nombre"].toString(),
+                                            document.data!!["raza"].toString(),
+                                            document.data!!["edad"].toString(),
+                                            document.data!!["sexo"].toString(),
+                                            document.data!!["imagen"].toString()
+                                        )
+                                    )
+                                    Log.d("TAG", datos.toString())
+                                }
+                                val elementoAdapter =
+                                    PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos)
+                                rvLista.layoutManager =
+                                    LinearLayoutManager(this@MainPage, LinearLayoutManager.VERTICAL, true)
+                                rvLista.setHasFixedSize(true)
+                                rvLista.adapter = elementoAdapter
                             }
-                            val elementoAdapter = PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos)
-                            rvLista.layoutManager = LinearLayoutManager(this@MainPage, LinearLayoutManager.VERTICAL,true)
-                            rvLista.setHasFixedSize(true)
-                            rvLista.adapter= elementoAdapter
-                        }
+
                 }
             }
-
-
-
-
-
     }
-
-
 }

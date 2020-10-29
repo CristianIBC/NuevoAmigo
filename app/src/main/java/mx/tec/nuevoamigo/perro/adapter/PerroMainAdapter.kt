@@ -3,11 +3,7 @@ package mx.tec.nuevoamigo.perro.adapter
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.widget.BaseAdapter
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -15,10 +11,9 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import mx.tec.nuevoamigo.R
-import mx.tec.nuevoamigo.perro.model.Perro
 import mx.tec.nuevoamigo.perro.model.PerroMain
 
-class PerroMainAdapter(private val context : Context, private val layout: Int, private val dataSource: List<PerroMain>) : RecyclerView.Adapter<PerroMainAdapter.ElementoViewHolder>() {
+class PerroMainAdapter(private val context : Context, private val layout: Int, private val dataSource: MutableList<PerroMain>) : RecyclerView.Adapter<PerroMainAdapter.ElementoViewHolder>() {
     class ElementoViewHolder(inflater: LayoutInflater, parent: ViewGroup, layout: Int): RecyclerView.ViewHolder(inflater.inflate(layout, parent, false)){
         lateinit var storage: FirebaseStorage
 
@@ -72,5 +67,10 @@ class PerroMainAdapter(private val context : Context, private val layout: Int, p
     override fun onBindViewHolder(holder: ElementoViewHolder, position: Int) {
         val elemento = dataSource[position]
         holder.bindData(elemento)
+    }
+    fun clear() {
+        val size: Int = dataSource.size
+        dataSource.clear()
+        notifyItemRangeRemoved(0, size)
     }
 }
