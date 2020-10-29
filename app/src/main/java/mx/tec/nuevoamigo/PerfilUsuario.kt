@@ -19,8 +19,6 @@ class PerfilUsuario : AppCompatActivity() {
         var user = FirebaseAuth.getInstance().currentUser
         var emailUser: String = ""
         var uid: String = ""
-        var estadoUser: String = "Guerrero"
-        var ciudadUser: String = "Acapulco"
         var nameUser: String =""
         var photoUser: String? = null
         val db = FirebaseFirestore.getInstance()
@@ -41,7 +39,7 @@ class PerfilUsuario : AppCompatActivity() {
                     Log.d("Persona encontrada", photoUser.toString())
                     Picasso.get().load("$photoUser?type=large").into(imgPerfilU)
                     txtNombreU.text = document.data!!["Nombre"].toString()
-                    txtDireccionU.text = document.data!!["Ciudad"].toString()+","+document.data!!["Estado"].toString()
+                    txtDireccionU.text = document.data!!["Ciudad"].toString()
                     txtTelefono.text =  document.data!!["Telefono"].toString()
                     txtHorario.text =  document.data!!["HorarioAtencion"].toString()
                 }
@@ -50,6 +48,10 @@ class PerfilUsuario : AppCompatActivity() {
             FirebaseAuth.getInstance().signOut()
             val i= Intent(this, MainActivity::class.java)
             i.flags= Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(i)
+        }
+        btnEditarU.setOnClickListener {
+            val i= Intent(this, EditarUsuario::class.java)
             startActivity(i)
         }
     }
