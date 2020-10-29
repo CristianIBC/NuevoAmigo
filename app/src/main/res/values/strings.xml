@@ -11,6 +11,7 @@
     <string name="txtGuardar">Guardar</string>
     <string name="title_activity_maps">Map</string>
     <string-array name="opcionesTamaño">
+        <item>Opciones...</item>
         <item>Grande</item>
         <item>Mediano</item>
         <item>Chico</item>
@@ -46,6 +47,9 @@
     <string name="labelEdad">Edad:</string>
     <string name="labelTamaño">Tamaño:</string>
     <string name="labelEstado">Estado:</string>
+    <string name="soy_un_albergue">Soy un albergue</string>
+    <string name="txtciudadu">Ciudad</string>
+    <string name="terminar">Terminar</string>
 
     <string-array name="opcionesEstado">
         <item>Opciones...</item>
