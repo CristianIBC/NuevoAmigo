@@ -32,11 +32,27 @@ import mx.tec.nuevoamigo.perro.model.PerroMain
 import java.util.*
 
 class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
-    var datos= mutableListOf<PerroMain>()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        var user = FirebaseAuth.getInstance().currentUser
-        val db = FirebaseFirestore.getInstance()
+    //gps
+    val PERMISSION_ID = 1010
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    lateinit var locationRequest: LocationRequest
+    //gps
 
+    var datos= mutableListOf<PerroMain>()
+    var ubicActual:String = ""
+
+    val db = FirebaseFirestore.getInstance()
+    var user = FirebaseAuth.getInstance().currentUser
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        //gps
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
+        RequestPermission()
+        getLastLocation()
+
+        //--
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)
@@ -84,25 +100,21 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
             startActivity(i)
         }
 
-
         var fotoUser:String?=null
 
-        val ubicUser: String? = intent.getStringExtra("Ubicacion")
-        Log.d("ubic",ubicUser + "Hola")
-
-
         if (user != null) {
-            fotoUser = user.photoUrl.toString()
+            fotoUser = user!!.photoUrl.toString()
             Picasso.get().load("$fotoUser?type=large").into(imgPersonaMain)
         }
 
-
+        //BOTON DEL FILTRADO
         btnFiltrar.setOnClickListener {
+            Log.d("Debug", ubicActual + "JIJOOOOOOOO")
             if(spinnerOpciones2.selectedItem.toString()=="Opciones..." && spinnerOpciones.selectedItem.toString()=="Opciones..."){
                 return@setOnClickListener
             }else if(spinnerOpciones.selectedItem.toString()!="Opciones..." && spinnerOpciones2.selectedItem.toString()=="Opciones..."){
                 datos.clear()
-                db.collection("Persona").whereEqualTo("Ciudad",ubicUser).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
+                db.collection("Persona").whereEqualTo("Ciudad",ubicActual).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
                     .get()
                     .addOnSuccessListener { documents ->
                         for (document in documents) {
@@ -138,7 +150,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
 
             }else if(spinnerOpciones.selectedItem.toString()=="Opciones..." && spinnerOpciones2.selectedItem.toString()!="Opciones..."){
                 datos.clear()
-                db.collection("Persona").whereEqualTo("Ciudad",ubicUser).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
+                db.collection("Persona").whereEqualTo("Ciudad",ubicActual).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
                     .get()
                     .addOnSuccessListener { documents ->
                         for (document in documents) {
@@ -171,7 +183,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
                     }
             }else if(spinnerOpciones.selectedItem.toString()!="Opciones..." && spinnerOpciones2.selectedItem.toString()!="Opciones..."){
                 datos.clear()
-                db.collection("Persona").whereEqualTo("Ciudad",ubicUser).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
+                db.collection("Persona").whereEqualTo("Ciudad",ubicActual).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
                     .get()
                     .addOnSuccessListener { documents ->
                         for (document in documents) {
@@ -213,31 +225,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
 
 
 
-        db.collection("Persona").whereEqualTo("Ciudad",ubicUser).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    Log.d("TAG", "${document.id} => ${document.data}")
-                        db.collection("Perrito").whereEqualTo("idPersona", document.id)
-                            .whereEqualTo("estado", "Disponible")
-                            .get()
-                            .addOnSuccessListener { documents ->
-                                for (document in documents) {
-                                    Log.d("TAG", "${document.id} => ${document.data}")
 
-                                datos.add(PerroMain(document.id, document.data!!["nombre"].toString(), document.data!!["raza"].toString(), document.data!!["edad"].toString(),
-                                    document.data!!["sexo"].toString(), document.data!!["imagen"].toString()))
-
-                                Log.d("TAG",datos.toString() )
-
-                            }
-                            val elementoAdapter = PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos, this)
-                            rvLista.layoutManager = GridLayoutManager(this@MainPage, 1, GridLayoutManager.VERTICAL, false)
-                            rvLista.setHasFixedSize(true)
-                            rvLista.adapter= elementoAdapter
-                        }
-                }
-            }
     }
 
     override fun onItemClick(position: Int) {
@@ -249,6 +237,171 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
     override fun onLongItemClick(position: Int) {
         TODO("Not yet implemented")
     }
+
+
+
+    //--------------------------------------------------GPS
+
+    fun getLastLocation(){
+        if(CheckPermission()){
+            if(isLocationEnabled()){
+                if (ActivityCompat.checkSelfPermission(
+                        this,
+                        android.Manifest.permission.ACCESS_FINE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                        this,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return
+                }
+                fusedLocationProviderClient.lastLocation.addOnCompleteListener { task->
+                    var location: Location? = task.result
+                    if(location == null){
+                        NewLocationData()
+                    }else{
+                        Log.d("Debug:" ,"Your Location:"+ location.longitude)
+                        ubicActual = getCityName(location.latitude,location.longitude)
+                        Log.d("Debug", ubicActual)
+
+                        db.collection("Persona").whereEqualTo("Ciudad",ubicActual).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
+                            .get()
+                            .addOnSuccessListener { documents ->
+                                for (document in documents) {
+                                    Log.d("TAG", "${document.id} => ${document.data}")
+                                    db.collection("Perrito").whereEqualTo("idPersona", document.id)
+                                        .whereEqualTo("estado", "Disponible")
+                                        .get()
+                                        .addOnSuccessListener { documents ->
+                                            for (document in documents) {
+                                                Log.d("TAG", "${document.id} => ${document.data}")
+
+                                                datos.add(PerroMain(document.id, document.data!!["nombre"].toString(), document.data!!["raza"].toString(), document.data!!["edad"].toString(),
+                                                    document.data!!["sexo"].toString(), document.data!!["imagen"].toString()))
+
+                                                Log.d("TAG",datos.toString() )
+
+                                            }
+                                            val elementoAdapter = PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos, this)
+                                            rvLista.layoutManager = GridLayoutManager(this@MainPage, 1, GridLayoutManager.VERTICAL, false)
+                                            rvLista.setHasFixedSize(true)
+                                            rvLista.adapter= elementoAdapter
+                                        }
+                                }
+                            }
+
+                        //ubicacionUser = getCityName(location.latitude,location.longitude)
+                        //Log.d("Debug:" ,ubicacionUser)
+                    }
+                }
+            }else{
+                Toast.makeText(this,"Prenda su GPS y reinicie la aplicación ", Toast.LENGTH_SHORT).show()
+            }
+        }else{
+            RequestPermission()
+        }
+    }
+
+
+    fun NewLocationData(){
+        var locationRequest =  LocationRequest()
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        locationRequest.interval = 0
+        locationRequest.fastestInterval = 0
+        locationRequest.numUpdates = 1
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        fusedLocationProviderClient!!.requestLocationUpdates(
+            locationRequest,locationCallback, Looper.myLooper()
+        )
+    }
+
+
+    private val locationCallback = object : LocationCallback(){
+        override fun onLocationResult(locationResult: LocationResult) {
+            var lastLocation: Location = locationResult.lastLocation
+            Log.d("Debug:","your last last location: "+ lastLocation.longitude.toString())
+        }
+    }
+
+    private fun CheckPermission():Boolean{
+        //this function will return a boolean
+        //true: if we have permission
+        //false if not
+        if(
+            ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+            ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        ){
+            return true
+        }
+        return false
+    }
+
+    fun RequestPermission(){
+        //this function will allows us to tell the user to requesut the necessary permsiion if they are not garented
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION,android.Manifest.permission.ACCESS_FINE_LOCATION),
+            PERMISSION_ID
+        )
+    }
+
+    fun isLocationEnabled():Boolean{
+        //this function will return to us the state of the location service
+        //if the gps or the network provider is enabled then it will return true otherwise it will return false
+        var locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER)
+    }
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if(requestCode == PERMISSION_ID){
+            if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Log.d("Debug:","You have the Permission")
+            }
+        }
+    }
+
+    private fun getCityName(lat: Double,long: Double):String{
+        var cityName:String = ""
+        var countryName = ""
+        var geoCoder = Geocoder(this, Locale.getDefault())
+        var Adress = geoCoder.getFromLocation(lat,long,3)
+
+        cityName = Adress.get(0).locality
+        countryName = Adress.get(0).countryName
+        Log.d("Debug:","Your City: " + cityName + " ; your Country " + countryName)
+        return cityName
+    }
+
 
 
 }
