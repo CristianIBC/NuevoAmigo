@@ -55,7 +55,7 @@ class PerroMainAdapter(private val context : Context, private val layout: Int, p
 
             //imagen!!.setImageResource(perroMain.imagen)
             nombrePerro!!.text = perroMain.nombre
-            edadPerro!!.text = perroMain.edad
+            edadPerro!!.text = perroMain.edad + " meses"
             razaPerro!!.text = perroMain.raza
             sexoPerro!!.text = perroMain.sexo
 
