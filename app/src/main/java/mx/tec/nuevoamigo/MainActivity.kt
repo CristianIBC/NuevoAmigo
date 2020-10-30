@@ -1,6 +1,7 @@
 package mx.tec.nuevoamigo
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
@@ -12,6 +13,7 @@ import android.os.Looper
 import android.util.Base64
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.facebook.CallbackManager
@@ -174,6 +176,8 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onError(error: FacebookException?) {
 
+                        alertError();
+
                     }
 
                 })
@@ -195,17 +199,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun verficaSession(){
-
-        val sharepref = getSharedPreferences(getString(R.string.archivoSesion),Context.MODE_PRIVATE)
-        val email = sharepref.getString("email",null)
-        val user = sharepref.getString("user",null)
-         if(email!=null && user!=null){
-
-
-         }
-
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         callbackManager.onActivityResult(requestCode, resultCode, data)
@@ -350,12 +343,22 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    private fun alertError(){
+
+        var builder = AlertDialog.Builder(this)
+        builder.setTitle("Oops algo ocurrió")
+        builder.setMessage("Ocurrió un problema, por favor intenta más tarde.")
+        builder.setPositiveButton("ENTENDIDO", { dialogInterface: DialogInterface, i: Int -> })
+        builder.show()
+
+    }
+
 
     private val locationCallback = object : LocationCallback(){
         override fun onLocationResult(locationResult: LocationResult) {
             var lastLocation: Location = locationResult.lastLocation
             Log.d("Debug:","your last last location: "+ lastLocation.longitude.toString())
-            textView.text = "You Last Location is : Long: "+ lastLocation.longitude + " , Lat: " + lastLocation.latitude + "\n" + getCityName(lastLocation.latitude,lastLocation.longitude)
+            //textView.text = "You Last Location is : Long: "+ lastLocation.longitude + " , Lat: " + lastLocation.latitude + "\n" + getCityName(lastLocation.latitude,lastLocation.longitude)
         }
     }
 
