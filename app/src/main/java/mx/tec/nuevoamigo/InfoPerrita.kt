@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
@@ -88,16 +89,26 @@ class InfoPerrita : AppCompatActivity() {
             }
 
         btnEliminar.setOnClickListener {
-            db.collection("Perrito").document(id)
-                .delete()
-                .addOnSuccessListener {
-                    Log.d("testU","eliminado")
-                    var i = Intent(this, CatalogoPropio::class.java)
-                    startActivity(i)
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("¿Seguro que deseas borrar al perrito?")
+                .setMessage("Esta acción no se puede deshacer")
+
+                .setPositiveButton("Cancelar"){ dialog, button ->
+                    dialog.dismiss()
                 }
-                .addOnFailureListener{
-                    Toast.makeText(this,"Hubo un error",Toast.LENGTH_LONG).show()
+                .setNegativeButton("Aceptar"){ dialog, button ->
+                    db.collection("Perrito").document(id)
+                        .delete()
+                        .addOnSuccessListener {
+                            Log.d("testU","eliminado")
+                            var i = Intent(this, CatalogoPropio::class.java)
+                            startActivity(i)
+                        }
+                        .addOnFailureListener{
+                            Toast.makeText(this,"Hubo un error",Toast.LENGTH_LONG).show()
+                        }
                 }
+                .show()
         }
         btnBorradoL.setOnClickListener {
             perrito.estado="Adoptado"
