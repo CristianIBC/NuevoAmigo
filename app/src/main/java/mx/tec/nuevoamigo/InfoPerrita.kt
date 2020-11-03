@@ -93,6 +93,7 @@ class InfoPerrita : AppCompatActivity() {
                 .addOnSuccessListener {
                     Log.d("testU","eliminado")
                     var i = Intent(this, CatalogoPropio::class.java)
+                    i.flags= Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(i)
                 }
                 .addOnFailureListener{
@@ -104,6 +105,9 @@ class InfoPerrita : AppCompatActivity() {
             estado.text = perrito.estado
             db.collection("Perrito").document(id)
                 .set(perrito.convTomap())
+            var i = Intent(this, CatalogoPropio::class.java)
+            i.flags= Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(i)
         }
 
 

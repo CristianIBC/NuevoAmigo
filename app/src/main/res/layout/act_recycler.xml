@@ -37,7 +37,9 @@
                 android:gravity="center"
                 android:hapticFeedbackEnabled="false"
                 android:includeFontPadding="false"
+                android:padding="5dp"
                 android:text="TextView"
+                android:textColor="@color/design_default_color_on_secondary"
                 android:textSize="34sp"
                 android:textStyle="bold" />
 
@@ -55,28 +57,31 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/boton_border"
-                        android:fontFamily="@font/blue_eyes"
+                        android:fontFamily="@font/allerta"
+                        android:gravity="center"
                         android:text="TextView"
-                        android:textSize="28sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/txtRazaPerro"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/boton_border"
-                        android:fontFamily="@font/blue_eyes"
+                        android:fontFamily="@font/allerta"
+                        android:gravity="center"
                         android:text="TextView"
-                        android:textSize="28sp" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/txtEdadPerro"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/boton_border"
 
-                        android:fontFamily="@font/blue_eyes"
+                        android:background="@drawable/boton_border"
+                        android:fontFamily="@font/allerta"
+                        android:gravity="center"
                         android:text="TextView"
-                        android:textSize="28sp" />
+                        android:textSize="18sp" />
                 </TableRow>
 
             </TableLayout>

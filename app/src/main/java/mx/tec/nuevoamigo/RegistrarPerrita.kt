@@ -91,6 +91,7 @@ class RegistrarPerrita : AppCompatActivity() {
                 db.collection("Perrito").add(perrito.convTomap()).addOnSuccessListener {
                     Log.d("testU","perrito Ingresado")
                     var i = Intent(this, CatalogoPropio::class.java)
+                    i.flags= Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(i)
                 }
             }else{

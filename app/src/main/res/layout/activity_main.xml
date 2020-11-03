@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="@drawable/gradient_login"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/txtLogin"
         android:layout_width="264dp"
         android:layout_height="41dp"
-        android:layout_marginTop="152dp"
+        android:layout_marginTop="196dp"
         android:fontFamily="@font/blue_eyes"
         android:gravity="center"
         android:text="@string/txtLogin"
         android:textColor="@android:color/background_light"
         android:textSize="44sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnFacebook" />
 
@@ -53,8 +53,8 @@
 
     <ImageView
         android:id="@+id/btnFacebook"
-        android:layout_width="220dp"
-        android:layout_height="220dp"
+        android:layout_width="254dp"
+        android:layout_height="251dp"
         android:layout_marginTop="40dp"
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
