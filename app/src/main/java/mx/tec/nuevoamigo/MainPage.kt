@@ -111,7 +111,40 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
         btnFiltrar.setOnClickListener {
             Log.d("Debug", ubicActual + "JIJOOOOOOOO")
             if(spinnerOpciones2.selectedItem.toString()=="Opciones..." && spinnerOpciones.selectedItem.toString()=="Opciones..."){
-                return@setOnClickListener
+                datos.clear()
+                db.collection("Persona").whereEqualTo("Ciudad",ubicActual).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        for (document in documents) {
+                            db.collection("Perrito").whereEqualTo("idPersona",document.id).whereEqualTo("estado", "Disponible")
+                                .get()
+                                .addOnSuccessListener { documents ->
+                                    for (document in documents) {
+                                        Log.d("TAG", "${document.id} => ${document.data}")
+                                        datos.add(
+                                            PerroMain(
+                                                document.id,
+                                                document.data!!["nombre"].toString(),
+                                                document.data!!["raza"].toString(),
+                                                document.data!!["edad"].toString(),
+                                                document.data!!["sexo"].toString(),
+                                                document.data!!["imagen"].toString()
+                                            )
+                                        )
+                                        Log.d("TAG", datos.toString())
+                                    }
+                                    val elementoAdapter =
+                                        PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos, this)
+
+                                    elementoAdapter.notifyDataSetChanged()
+
+                                    rvLista.layoutManager =
+                                        LinearLayoutManager(this@MainPage, LinearLayoutManager.VERTICAL, false)
+                                    rvLista.setHasFixedSize(true)
+                                    rvLista.adapter = elementoAdapter
+                                }
+                        }
+                    }
             }else if(spinnerOpciones.selectedItem.toString()!="Opciones..." && spinnerOpciones2.selectedItem.toString()=="Opciones..."){
                 datos.clear()
                 db.collection("Persona").whereEqualTo("Ciudad",ubicActual).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
