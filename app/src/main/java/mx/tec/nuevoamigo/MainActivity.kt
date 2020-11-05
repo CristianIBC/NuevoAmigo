@@ -57,6 +57,9 @@ class MainActivity : AppCompatActivity() {
     private val callbackManager = CallbackManager.Factory.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Thread.sleep(2000)
+        setTheme(R.style.AppTheme_NoActionBar)
+        //android:theme="@style/Theme.AppCompat.NoActionBar"
         var user = FirebaseAuth.getInstance().currentUser
 
         if (user != null) {
