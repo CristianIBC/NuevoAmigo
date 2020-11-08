@@ -8,8 +8,8 @@
 
     <ListView
         android:id="@+id/listaPerro"
-        android:layout_width="399dp"
-        android:layout_height="593dp"
+        android:layout_width="385dp"
+        android:layout_height="507dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
