@@ -45,6 +45,7 @@ class EditarUsuario : AppCompatActivity() {
                 } else {
                     Log.d("Persona encontrada", photoUser.toString())
                     Picasso.get().load("$photoUser?type=large").into(imgPerfilEditar)
+                    Log.d("test","$photoUser?type=large")
                     txtNombreEditar.text = document.data!!["Nombre"].toString()
                     txtDireccionEditar.setText(document.data!!["Ciudad"].toString())
                     txtCelularEditar.setText( document.data!!["Telefono"].toString())

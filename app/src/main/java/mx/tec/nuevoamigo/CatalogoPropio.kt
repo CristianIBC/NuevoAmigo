@@ -28,7 +28,7 @@ class CatalogoPropio : AppCompatActivity() {
                 for (document in documents) {
                     Log.d("TAG", "${document.id} => ${document.data}")
 
-                    datos.add(Perro(document.id,document.data!!["nombre"].toString(), document.data!!["estado"].toString(), document.data!!["imagen"].toString()))
+                    datos.add(Perro(document.id,document.data!!["nombre"].toString(), document.data!!["estado"].toString(), document.data!!["imagenPerfil"].toString()))
                     Log.d("TAG",datos.toString() )
 
                 }
