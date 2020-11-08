@@ -46,6 +46,8 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Thread.sleep(1000)
+        setTheme(R.style.AppTheme)
         //gps
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
