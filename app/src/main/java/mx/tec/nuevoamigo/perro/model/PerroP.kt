@@ -8,14 +8,15 @@ data class PerroP(
     var descripcion: String,
     var estado: String,
     var idPersona: String,
-    var imagen: Any,
-    var imagenPerfil: Any,
+    var imagen: String,
+    var imagenPerfil: String,
     var raza: String,
     var sexo: String,
     var tamano: String,
-    var edad: Long
+    var edad: Long,
+    var time: Long
 ) {
-    constructor(): this("", "", "", "", "", "", "", "", "", 0)
+    constructor(): this("", "", "", "", "", "", "", "", "", 0,0)
     fun setear(mapa: Map<String, Any>?) {
         //Log.d("test", "fun Setear $mapa")
         if (mapa != null) {
@@ -23,12 +24,13 @@ data class PerroP(
             descripcion = mapa.get("descripcion") as String
             estado = mapa.get("estado") as String
             idPersona = mapa.get("idPersona") as String
-            imagen = mapa.get("imagen") as Any
-            imagenPerfil = mapa.get("imagenPerfil") as Any
+            imagen = mapa.get("imagen") as String
+            imagenPerfil = mapa.get("imagenPerfil") as String
             raza = mapa.get("raza") as String
             sexo = mapa.get("sexo") as String
             tamano = mapa.get("tamaño") as String
             edad = mapa.get("edad") as Long
+            time = mapa.get("time") as Long
         }
         else {
             Log.d("test", "fun Setear $mapa")
@@ -46,6 +48,7 @@ data class PerroP(
         perrito["sexo"] = sexo
         perrito["tamaño"] = tamano
         perrito["edad"] = edad
+        perrito["time"] = time
         return perrito
     }
 }
