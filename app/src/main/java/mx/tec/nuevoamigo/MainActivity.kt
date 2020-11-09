@@ -8,9 +8,7 @@ import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
-import android.os.Handler
 import android.os.Looper
-import android.util.Base64
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -21,23 +19,20 @@ import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
-import com.google.android.gms.location.*
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.auth.AuthResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.location.*
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_edit_perfil.*
-import com.google.protobuf.Api
 import kotlinx.android.synthetic.main.activity_main.*
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
+import mx.tec.nuevoamigo.utils.Credentials
 import java.util.*
+import javax.mail.*
+import javax.mail.internet.InternetAddress
+import javax.mail.internet.MimeMessage
 
 
 enum class ProviderType{
@@ -48,15 +43,22 @@ enum class ProviderType{
 
 
 class MainActivity : AppCompatActivity() {
+    //MAIL SENDER
+    lateinit var appExecutors: AppExecutors
+
     val PERMISSION_ID = 1010
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var locationRequest: LocationRequest
     var ubicacionUser:String = ""
 
-        private val GOOGLE_SIGN_IN = 100
+    private val GOOGLE_SIGN_IN = 100
     private val callbackManager = CallbackManager.Factory.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //MAIL VARIABLE
+        appExecutors = AppExecutors()
+        //MAIL VARIABLE END
+
         Thread.sleep(2000)
         setTheme(R.style.AppTheme_NoActionBar)
         //android:theme="@style/Theme.AppCompat.NoActionBar"
@@ -101,8 +103,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //verficaSession()
+        btnMail.setOnClickListener {
+            sendEmail()
+        }
 
+        //verficaSession()
         btnGoogle.setOnClickListener {
 
 
@@ -422,7 +427,51 @@ class MainActivity : AppCompatActivity() {
         return cityName
     }
 
+    //EMAIL
+    private fun sendEmail(){
+        val cred= Credentials()
+        appExecutors.diskIO().execute {
+            val props = System.getProperties()
+            props.put("mail.smtp.host", "smtp.gmail.com")
+            props.put("mail.smtp.socketFactory.port", "465")
+            props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory")
+            props.put("mail.smtp.auth", "true")
+            props.put("mail.smtp.port", "465")
 
+            val session =  Session.getInstance(props,
+                object : javax.mail.Authenticator() {
+                    //Authenticating the password
+                    override fun getPasswordAuthentication(): PasswordAuthentication {
+                        return PasswordAuthentication(cred.correo, cred.contra)
+                    }
+                })
+
+            try {
+                //Creating MimeMessage object
+                val mm = MimeMessage(session)
+                //Setting sender address
+                mm.setFrom(InternetAddress(cred.correo))
+                //Adding receiver
+                mm.addRecipient(
+                    Message.RecipientType.TO,
+                    InternetAddress("juanchino123@gmail.com"))
+                //Adding subject
+                mm.subject = "Adoptar perrito"
+                //Adding message
+                mm.setText("HOLA MI PANA")
+
+                //Sending email
+                Transport.send(mm)
+
+                appExecutors.mainThread().execute {
+                    //Something that should be executed on main thread.
+                }
+
+            } catch (e: MessagingException) {
+                e.printStackTrace()
+            }
+        }
+    }
 
 }
 
