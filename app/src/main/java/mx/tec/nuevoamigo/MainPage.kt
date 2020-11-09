@@ -304,7 +304,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
                     }else{
                         Log.d("Debug:" ,"Your Location:"+ location.longitude)
                         ubicActual = getCityName(location.latitude,location.longitude)
-                        Log.d("Debug", ubicActual)
+                        Log.d("AAAAAAA", ubicActual)
 
                         db.collection("Persona").whereEqualTo("Ciudad",ubicActual).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
                             .get()

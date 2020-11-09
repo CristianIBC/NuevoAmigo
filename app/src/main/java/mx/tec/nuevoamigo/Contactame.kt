@@ -17,8 +17,8 @@ class Contactame : AppCompatActivity() {
         val id = intent.getStringExtra("idPersona")
 
         val nombre = findViewById<TextView>(R.id.txtNombreC)
-        val horarioAtencion = findViewById<TextView>(R.id.txtHorarioC)
-        val tipo = findViewById<TextView>(R.id.txtTipoC)
+        val horarioAtencion = findViewById<TextView>(R.id.tVHorario)
+        val tipo = findViewById<TextView>(R.id.tVTipo)
         val ciudad = findViewById<TextView>(R.id.txtCiudadC)
         var Email = ""
         var telefono = ""

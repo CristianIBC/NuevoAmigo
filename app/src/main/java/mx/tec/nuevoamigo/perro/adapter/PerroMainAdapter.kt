@@ -60,13 +60,6 @@ class PerroMainAdapter(private val context : Context,
             val imageRefP = storage.getReferenceFromUrl("${perroMain.imagen}")
             picassoInstance.load("$imageRefP").into(imagen)
 
-
-            val gsReferencePerfil = storage.getReferenceFromUrl("${perroMain.imagen}")
-            val ONE_MEGABYTE: Long = 1024*1024
-            gsReferencePerfil.getBytes(ONE_MEGABYTE*10).addOnSuccessListener {
-                val bmp = BitmapFactory.decodeByteArray(it,0, it.size)
-                imagen?.setImageBitmap(bmp)
-            }
             //end imagenes
 
             //imagen!!.setImageResource(perroMain.imagen)
