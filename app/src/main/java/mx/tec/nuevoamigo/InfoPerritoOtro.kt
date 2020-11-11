@@ -84,6 +84,7 @@ class InfoPerritoOtro : AppCompatActivity() {
         btnContactame.setOnClickListener {
             val i = Intent(this, Contactame::class.java)
             i.putExtra("idPersona",perrito.idPersona)
+            i.putExtra("nombrePerrito",perrito.nombre)
             startActivity(i)
         }
     }

@@ -20,6 +20,7 @@ class Contactame : AppCompatActivity() {
         setContentView(R.layout.activity_contactame)
 
         val id = intent.getStringExtra("idPersona")
+        val nombrePerrito = intent.getStringExtra("nombrePerrito")
 
         val nombre = findViewById<TextView>(R.id.txtNombreC)
         val horarioAtencion = findViewById<TextView>(R.id.tVHorario)
@@ -52,7 +53,7 @@ class Contactame : AppCompatActivity() {
         btnWhats.setOnClickListener {
 
 
-            val url = "https://api.whatsapp.com/send?phone=+52 $telefono"+"&text="+URLEncoder.encode("Hola ${nombre.text.toString()}, estoy interasado en adoptar a tu perrito", "UTF-8");
+            val url = "https://api.whatsapp.com/send?phone=+52 $telefono"+"&text="+URLEncoder.encode("Hola ${nombre.text.toString()}, estoy interasado en adoptar a tu perrito ${nombrePerrito.toString()}.", "UTF-8");
 
             val intent = Intent()
             intent.type = "text/plain"
