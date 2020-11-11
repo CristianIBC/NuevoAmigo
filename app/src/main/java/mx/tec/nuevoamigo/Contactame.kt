@@ -52,7 +52,7 @@ class Contactame : AppCompatActivity() {
         btnWhats.setOnClickListener {
 
 
-            val url = "https://api.whatsapp.com/send?phone=+52 $telefono"+"&text="+URLEncoder.encode("Hola $nombre, estoy interasado en adoptar a tu perrito", "UTF-8");
+            val url = "https://api.whatsapp.com/send?phone=+52 $telefono"+"&text="+URLEncoder.encode("Hola ${nombre.text.toString()}, estoy interasado en adoptar a tu perrito", "UTF-8");
 
             val intent = Intent()
             intent.type = "text/plain"
