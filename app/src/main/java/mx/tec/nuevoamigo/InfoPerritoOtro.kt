@@ -25,7 +25,6 @@ class InfoPerritoOtro : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info_perrito_otro)
         val id = intent.getStringExtra("idPerrito")
-
         val imgPerritoP = findViewById<ImageView>(R.id.imgPerfilPerroVO)
         val imgPerroV = findViewById<ImageView>(R.id.imgPerroVO)
         val nombre = findViewById<TextView>(R.id.nombrePerroVO)
@@ -79,6 +78,11 @@ class InfoPerritoOtro : AppCompatActivity() {
         btnVerCatalogo.setOnClickListener {
             val i = Intent(this, Catalogo::class.java)
                 i.putExtra("idPerrito",id)
+            startActivity(i)
+        }
+        btnContactame.setOnClickListener {
+            val i = Intent(this, Contactame::class.java)
+            i.putExtra("idPersona",perrito.idPersona)
             startActivity(i)
         }
     }

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Contactame">
+
+    <TextView
+        android:id="@+id/tVNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="104dp"
+        android:fontFamily="@font/blue_eyes"
+        android:text="@string/nombre"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtNombreC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/textview"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/tVNombre"
+        app:layout_constraintHorizontal_bias="0.548"
+        app:layout_constraintStart_toStartOf="@+id/tVNombre"
+        app:layout_constraintTop_toBottomOf="@+id/tVNombre" />
+
+    <TextView
+        android:id="@+id/tVTipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/textview"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/txtTipoC"
+        app:layout_constraintStart_toStartOf="@+id/txtTipoC"
+        app:layout_constraintTop_toBottomOf="@+id/txtTipoC" />
+
+    <TextView
+        android:id="@+id/txtTipoC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/blue_eyes"
+        android:text="@string/tipo_de_usuario"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/tVHorario"
+        app:layout_constraintStart_toStartOf="@+id/tVHorario"
+        app:layout_constraintTop_toBottomOf="@+id/tVHorario" />
+
+    <TextView
+        android:id="@+id/tVHorario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/textview"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/txtHorarioC"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="@+id/txtHorarioC"
+        app:layout_constraintTop_toBottomOf="@+id/txtHorarioC" />
+
+    <TextView
+        android:id="@+id/txtHorarioC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/blue_eyes"
+        android:text="@string/horario_de_atenci_n"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/tVNombre"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toStartOf="@+id/tVNombre"
+        app:layout_constraintTop_toBottomOf="@+id/txtNombreC" />
+
+    <TextView
+        android:id="@+id/tVCiudad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/blue_eyes"
+        android:text="@string/ciudad"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/tVTipo"
+        app:layout_constraintStart_toStartOf="@+id/tVTipo"
+        app:layout_constraintTop_toBottomOf="@+id/tVTipo" />
+
+    <TextView
+        android:id="@+id/txtCiudadC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/textview"
+        android:textColor="@color/design_default_color_on_secondary"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/tVCiudad"
+        app:layout_constraintStart_toStartOf="@+id/tVCiudad"
+        app:layout_constraintTop_toBottomOf="@+id/tVCiudad" />
+
+    <Button
+        android:id="@+id/btnWha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/gradient"
+        android:text="@string/m_ndame_un_whatsapp"
+        android:textColor="@color/design_default_color_on_secondary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCiudadC" />
+
+    <Button
+        android:id="@+id/btnCorreo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient"
+        android:text="@string/m_ndame_un_correo"
+        android:textColor="@color/design_default_color_on_secondary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnWha"
+        app:layout_constraintVertical_bias="0.29000002" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,6 +76,11 @@
     <string name="ingresar_la_edad_en_meses_si_no_sabes_la_edad_poner_0">Ingresar la edad en meses, si no sabes la edad poner 0</string>
     <string name="contactame">Contáctame</string>
     <string name="ver_catalogo">Ver catálogo</string>
+    <string name="horario_de_atenci_n">Horario de atención:</string>
+    <string name="ciudad">Ciudad:</string>
+    <string name="tipo_de_usuario">Tipo de usuario:</string>
+    <string name="m_ndame_un_whatsapp">Mándame un Whatsapp</string>
+    <string name="m_ndame_un_correo">Mándame un Correo</string>
 
 
 </resources>
