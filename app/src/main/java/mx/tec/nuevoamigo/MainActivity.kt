@@ -1,5 +1,6 @@
 package mx.tec.nuevoamigo
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -7,11 +8,11 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
 import android.os.Looper
-import android.util.Base64
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -21,22 +22,16 @@ import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
-import com.google.android.gms.location.*
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.auth.AuthResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.location.*
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_edit_perfil.*
-import com.google.protobuf.Api
 import kotlinx.android.synthetic.main.activity_main.*
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
+import java.net.URLEncoder
 import java.util.*
 
 
@@ -65,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         if (user != null) {
             // Name, email address, and profile photo Url
 
-            val i = Intent(this@MainActivity,MainPage::class.java )
+            val i = Intent(this@MainActivity, MainPage::class.java)
             i.flags= Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(i)
         }
@@ -103,13 +98,47 @@ class MainActivity : AppCompatActivity() {
 
         //verficaSession()
 
+
+        //WHATSAPP INTENT
+
+        val btnWhatsapp= findViewById<Button>(R.id.btnWhatsapp)
+        btnWhatsapp.setOnClickListener {
+
+            val contact = "+52 7442667914" // use country code with your phone number
+
+            val url = "https://api.whatsapp.com/send?phone=$contact"+"&text="+ URLEncoder.encode("hola estoy interesado por el perrito", "UTF-8");
+
+       val intent = Intent()
+            intent.type = "text/plain"
+
+
+            intent.setPackage("com.whatsapp")
+            intent.setData(Uri.parse(url))
+
+            intent.putExtra(Intent.EXTRA_TEXT, "Enviando mensaje")
+            //startActivity(intent);
+            try {
+                startActivity(intent)
+            } catch (ex: ActivityNotFoundException) {
+                var builder = AlertDialog.Builder(this)
+                builder.setTitle("Whatsapp no instalado")
+                builder.setMessage("Asegúrate de tener instalada la aplicación de whatsapp, para ejecutar está función.")
+                builder.setPositiveButton("ENTENDIDO",
+                    { dialogInterface: DialogInterface, i: Int -> })
+                builder.show()
+            }
+
+        }
+
         btnGoogle.setOnClickListener {
 
 
-            val googleConf= GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
+            val googleConf= GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(
+                getString(
+                    R.string.default_web_client_id)).requestEmail().build()
             val googleClient = GoogleSignIn.getClient(this, googleConf)
             googleClient.signOut()
-            startActivityForResult(googleClient.signInIntent,GOOGLE_SIGN_IN)
+            startActivityForResult(googleClient.signInIntent, GOOGLE_SIGN_IN)
 
 
         }
@@ -149,7 +178,8 @@ class MainActivity : AppCompatActivity() {
                                                         "Ubicacion",
                                                         ubicacionUser
                                                     )
-                                                    i.flags= Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                                    i.flags =
+                                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                                     startActivity(i)
                                                 } else {
                                                     Log.d(
@@ -164,7 +194,8 @@ class MainActivity : AppCompatActivity() {
                                                         "Ubicacion",
                                                         ubicacionUser
                                                     )
-                                                    i.flags= Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                                    i.flags =
+                                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                                     startActivity(i)
                                                 }
                                             }
@@ -217,7 +248,7 @@ class MainActivity : AppCompatActivity() {
                 val db = FirebaseFirestore.getInstance() //linea codigo repetida
                 val account = task.getResult(ApiException::class.java)
                 if(account!=null){
-                    val credential = GoogleAuthProvider.getCredential(account.idToken,null)
+                    val credential = GoogleAuthProvider.getCredential(account.idToken, null)
                     FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
 
                         if (it.isSuccessful) {
@@ -266,7 +297,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
 
-            }catch (e:ApiException){
+            }catch (e: ApiException){
 
             }
 
@@ -303,13 +334,13 @@ class MainActivity : AppCompatActivity() {
                     if(location == null){
                         NewLocationData()
                     }else{
-                        Log.d("Debug:" ,"Your Location:"+ location.longitude)
-                        ubicacionUser = getCityName(location.latitude,location.longitude)
-                        Log.d("Debug:" ,ubicacionUser)
+                        Log.d("Debug:", "Your Location:" + location.longitude)
+                        ubicacionUser = getCityName(location.latitude, location.longitude)
+                        Log.d("Debug:", ubicacionUser)
                     }
                 }
             }else{
-                Toast.makeText(this,"Please Turn on Your device Location", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please Turn on Your device Location", Toast.LENGTH_SHORT).show()
             }
         }else{
             RequestPermission()
@@ -342,7 +373,7 @@ class MainActivity : AppCompatActivity() {
             return
         }
         fusedLocationProviderClient!!.requestLocationUpdates(
-            locationRequest,locationCallback, Looper.myLooper()
+            locationRequest, locationCallback, Looper.myLooper()
         )
     }
 
@@ -360,7 +391,7 @@ class MainActivity : AppCompatActivity() {
     private val locationCallback = object : LocationCallback(){
         override fun onLocationResult(locationResult: LocationResult) {
             var lastLocation: Location = locationResult.lastLocation
-            Log.d("Debug:","your last last location: "+ lastLocation.longitude.toString())
+            Log.d("Debug:", "your last last location: " + lastLocation.longitude.toString())
             //textView.text = "You Last Location is : Long: "+ lastLocation.longitude + " , Lat: " + lastLocation.latitude + "\n" + getCityName(lastLocation.latitude,lastLocation.longitude)
         }
     }
@@ -370,8 +401,10 @@ class MainActivity : AppCompatActivity() {
         //true: if we have permission
         //false if not
         if(
-            ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-            ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+            ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+            ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
         ){
             return true
         }
@@ -384,7 +417,8 @@ class MainActivity : AppCompatActivity() {
         //this function will allows us to tell the user to requesut the necessary permsiion if they are not garented
         ActivityCompat.requestPermissions(
             this,
-            arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION,android.Manifest.permission.ACCESS_FINE_LOCATION),
+            arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.ACCESS_FINE_LOCATION),
             PERMISSION_ID
         )
     }
@@ -405,20 +439,20 @@ class MainActivity : AppCompatActivity() {
     ) {
         if(requestCode == PERMISSION_ID){
             if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Log.d("Debug:","You have the Permission")
+                Log.d("Debug:", "You have the Permission")
             }
         }
     }
 
-    private fun getCityName(lat: Double,long: Double):String{
+    private fun getCityName(lat: Double, long: Double):String{
         var cityName:String = ""
         var countryName = ""
         var geoCoder = Geocoder(this, Locale.getDefault())
-        var Adress = geoCoder.getFromLocation(lat,long,3)
+        var Adress = geoCoder.getFromLocation(lat, long, 3)
 
         cityName = Adress.get(0).locality
         countryName = Adress.get(0).countryName
-        Log.d("Debug:","Your City: " + cityName + " ; your Country " + countryName)
+        Log.d("Debug:", "Your City: " + cityName + " ; your Country " + countryName)
         return cityName
     }
 
