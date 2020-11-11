@@ -1,13 +1,18 @@
 package mx.tec.nuevoamigo
 
+import android.content.ActivityNotFoundException
+import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_contactame.*
+import java.net.URLEncoder
 
 class Contactame : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +50,29 @@ class Contactame : AppCompatActivity() {
             }
         val btnWhats = findViewById<Button>(R.id.btnWha)
         btnWhats.setOnClickListener {
-            TODO("Mandar el whatsaap")
+
+
+            val url = "https://api.whatsapp.com/send?phone=+52 $telefono"+"&text="+URLEncoder.encode("Hola $nombre, estoy interasado en adoptar a tu perrito", "UTF-8");
+
+            val intent = Intent()
+            intent.type = "text/plain"
+
+
+            intent.setPackage("com.whatsapp")
+            intent.setData(Uri.parse(url))
+
+
+            try {
+                startActivity(intent)
+            } catch (ex: ActivityNotFoundException) {
+                var builder = AlertDialog.Builder(this)
+                builder.setTitle("Whatsapp no instalado")
+                builder.setMessage("Asegúrate de tener instalada la aplicación de whatsapp, para ejecutar está función.")
+                builder.setPositiveButton("ENTENDIDO",
+                    { dialogInterface: DialogInterface, i: Int -> })
+                builder.show()
+            }
+
             //el telefono ya esta en la variable telefono
         }
 

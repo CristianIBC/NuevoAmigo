@@ -101,34 +101,7 @@ class MainActivity : AppCompatActivity() {
 
         //WHATSAPP INTENT
 
-        val btnWhatsapp= findViewById<Button>(R.id.btnWhatsapp)
-        btnWhatsapp.setOnClickListener {
 
-            val contact = "+52 7442667914" // use country code with your phone number
-
-            val url = "https://api.whatsapp.com/send?phone=$contact"+"&text="+ URLEncoder.encode("hola estoy interesado por el perrito", "UTF-8");
-
-       val intent = Intent()
-            intent.type = "text/plain"
-
-
-            intent.setPackage("com.whatsapp")
-            intent.setData(Uri.parse(url))
-
-            intent.putExtra(Intent.EXTRA_TEXT, "Enviando mensaje")
-            //startActivity(intent);
-            try {
-                startActivity(intent)
-            } catch (ex: ActivityNotFoundException) {
-                var builder = AlertDialog.Builder(this)
-                builder.setTitle("Whatsapp no instalado")
-                builder.setMessage("Asegúrate de tener instalada la aplicación de whatsapp, para ejecutar está función.")
-                builder.setPositiveButton("ENTENDIDO",
-                    { dialogInterface: DialogInterface, i: Int -> })
-                builder.show()
-            }
-
-        }
 
         btnGoogle.setOnClickListener {
 
