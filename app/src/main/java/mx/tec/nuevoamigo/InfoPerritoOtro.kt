@@ -15,7 +15,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_info_perrito_otro.*
+import mx.tec.nuevoamigo.perro.adapter.FirebaseRequestHandler
 import mx.tec.nuevoamigo.perro.model.PerroP
 
 class InfoPerritoOtro : AppCompatActivity() {
@@ -59,7 +61,19 @@ class InfoPerritoOtro : AppCompatActivity() {
                     estado.text = perrito.estado
 
                     //imagenes
-                    val gsReferencePerfil = storage.getReferenceFromUrl("${perrito.imagenPerfil}")
+
+                    var picassoInstance = Picasso.Builder(this)
+                        .addRequestHandler(FirebaseRequestHandler())
+                        .build()
+
+                    //imagenes
+                    val imageRefP = storage.getReferenceFromUrl("${perrito.imagenPerfil}")
+                    picassoInstance.load("$imageRefP").into(imgPerritoP)
+                    val imageRefF = storage.getReferenceFromUrl("${perrito.imagen}")
+                    picassoInstance.load("$imageRefF").into(imgPerroV)
+
+
+                    /*val gsReferencePerfil = storage.getReferenceFromUrl("${perrito.imagenPerfil}")
                     val ONE_MEGABYTE: Long = 1024 * 1027
                     gsReferencePerfil.getBytes(ONE_MEGABYTE*12).addOnSuccessListener {
                         val bmp = BitmapFactory.decodeByteArray(it,0, it.size)
@@ -70,6 +84,7 @@ class InfoPerritoOtro : AppCompatActivity() {
                         val bmp = BitmapFactory.decodeByteArray(it,0, it.size)
                         imgPerroV.setImageBitmap(bmp)
                     }
+                     */
                     //end imagenes
                 }else{
                     Toast.makeText(this, "Hubo un error", Toast.LENGTH_LONG).show()
