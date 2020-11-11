@@ -34,7 +34,7 @@ class PerroAdapter(private val context : Context, private val layout: Int, priva
             .build()
 
         val imageRefP = storage.getReferenceFromUrl("${elemento.imagen}")
-        picassoInstance.load("$imageRefP").into(imgImagen)
+        picassoInstance.load("$imageRefP").placeholder(R.drawable.cargando_blanco).error(R.drawable.avatar).into(imgImagen)
 
         txtNombre.text = elemento.nombre
         txtEstado.text = elemento.estado

@@ -23,10 +23,9 @@
                 android:id="@+id/imgPerrito"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scaleType="fitXY"
-                tools:srcCompat="@tools:sample/avatars"
                 android:background="@drawable/boton_border"
-                />
+                android:scaleType="fitXY"
+                tools:srcCompat="@drawable/cargando_blanco" />
 
             <TextView
                 android:id="@+id/txtNombrePerrito"

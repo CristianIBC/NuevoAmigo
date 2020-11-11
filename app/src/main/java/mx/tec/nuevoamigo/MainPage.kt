@@ -130,7 +130,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
                                                 document.data!!["raza"].toString(),
                                                 document.data!!["edad"].toString(),
                                                 document.data!!["sexo"].toString(),
-                                                document.data!!["imagen"].toString()
+                                                document.data!!["imagenPerfil"].toString()
                                             )
                                         )
                                         Log.d("TAG", datos.toString())
@@ -165,7 +165,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
                                                 document.data!!["raza"].toString(),
                                                 document.data!!["edad"].toString(),
                                                 document.data!!["sexo"].toString(),
-                                                document.data!!["imagen"].toString()
+                                                document.data!!["imagenPerfil"].toString()
                                             )
                                         )
                                         Log.d("TAG", datos.toString())
@@ -201,7 +201,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
                                                 document.data!!["raza"].toString(),
                                                 document.data!!["edad"].toString(),
                                                 document.data!!["sexo"].toString(),
-                                                document.data!!["imagen"].toString()
+                                                document.data!!["imagenPerfil"].toString()
                                             )
                                         )
                                         Log.d("TAG", datos.toString())
@@ -234,7 +234,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
                                                 document.data!!["raza"].toString(),
                                                 document.data!!["edad"].toString(),
                                                 document.data!!["sexo"].toString(),
-                                                document.data!!["imagen"].toString()
+                                                document.data!!["imagenPerfil"].toString()
                                             )
                                         )
                                         Log.d("TAG", datos.toString())
@@ -319,7 +319,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
                                                 Log.d("TAG", "${document.id} => ${document.data}")
 
                                                 datos.add(PerroMain(document.id, document.data!!["nombre"].toString(), document.data!!["raza"].toString(), document.data!!["edad"].toString(),
-                                                    document.data!!["sexo"].toString(), document.data!!["imagen"].toString()))
+                                                    document.data!!["sexo"].toString(), document.data!!["imagenPerfil"].toString()))
 
                                                 Log.d("TAG",datos.toString() )
 

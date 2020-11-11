@@ -2,6 +2,7 @@ package mx.tec.nuevoamigo.perro.adapter
 
 import android.content.Context
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,7 +59,9 @@ class PerroMainAdapter(private val context : Context,
             //imagenes
 
             val imageRefP = storage.getReferenceFromUrl("${perroMain.imagen}")
-            picassoInstance.load("$imageRefP").into(imagen)
+            Log.d("test PerroMain","imageRef: $imageRefP")
+            picassoInstance.load("$imageRefP").placeholder(R.drawable.cargando_blanco).error(R.drawable.avatar).into(imagen)
+            Log.d("test PerroMain","imageRef2: $imageRefP")
 
             //end imagenes
 

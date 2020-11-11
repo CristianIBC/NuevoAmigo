@@ -68,23 +68,9 @@ class InfoPerritoOtro : AppCompatActivity() {
 
                     //imagenes
                     val imageRefP = storage.getReferenceFromUrl("${perrito.imagenPerfil}")
-                    picassoInstance.load("$imageRefP").into(imgPerritoP)
+                    picassoInstance.load("$imageRefP").placeholder(R.drawable.cargando_blanco).error(R.drawable.avatar).into(imgPerritoP)
                     val imageRefF = storage.getReferenceFromUrl("${perrito.imagen}")
-                    picassoInstance.load("$imageRefF").into(imgPerroV)
-
-
-                    /*val gsReferencePerfil = storage.getReferenceFromUrl("${perrito.imagenPerfil}")
-                    val ONE_MEGABYTE: Long = 1024 * 1027
-                    gsReferencePerfil.getBytes(ONE_MEGABYTE*12).addOnSuccessListener {
-                        val bmp = BitmapFactory.decodeByteArray(it,0, it.size)
-                        imgPerritoP.setImageBitmap(bmp)
-                    }
-                    val gsReference = storage.getReferenceFromUrl("${perrito.imagen}")
-                    gsReference.getBytes(ONE_MEGABYTE*12).addOnSuccessListener {
-                        val bmp = BitmapFactory.decodeByteArray(it,0, it.size)
-                        imgPerroV.setImageBitmap(bmp)
-                    }
-                     */
+                    picassoInstance.load("$imageRefP").placeholder(R.drawable.cargando_blanco).error(R.drawable.avatar).into(imgPerroV)
                     //end imagenes
                 }else{
                     Toast.makeText(this, "Hubo un error", Toast.LENGTH_LONG).show()

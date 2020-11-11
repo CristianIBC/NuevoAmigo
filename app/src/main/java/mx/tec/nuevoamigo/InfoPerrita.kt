@@ -76,9 +76,9 @@ class InfoPerrita : AppCompatActivity() {
 
                     //imagenes
                     val imageRefP = storage.getReferenceFromUrl("${perrito.imagenPerfil}")
-                    picassoInstance.load("$imageRefP").into(imgPerritoP)
+                    picassoInstance.load("$imageRefP").placeholder(R.drawable.cargando_blanco).error(R.drawable.avatar).into(imgPerritoP)
                     val imageRefF = storage.getReferenceFromUrl("${perrito.imagen}")
-                    picassoInstance.load("$imageRefF").into(imgPerroV)
+                    picassoInstance.load("$imageRefF").placeholder(R.drawable.cargando_blanco).error(R.drawable.avatar).into(imgPerroV)
                     //end imagenes
 
                 }else{

@@ -29,6 +29,7 @@ class FirebaseRequestHandler: RequestHandler() {
         mStreamTask = gsReference.stream
         return try {
             inputStream = Tasks.await(mStreamTask).stream
+            Log.d("test Handler","inputStream: $inputStream")
             Log.i("FireBaseRequestHandler", "Loaded " + gsReference.path)
             Result(BitmapFactory.decodeStream(inputStream), NETWORK)
         } catch (e: ExecutionException) {
