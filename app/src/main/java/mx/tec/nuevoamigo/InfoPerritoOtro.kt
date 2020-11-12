@@ -15,7 +15,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_info_perrito_otro.*
+import mx.tec.nuevoamigo.perro.adapter.FirebaseRequestHandler
 import mx.tec.nuevoamigo.perro.model.PerroP
 
 class InfoPerritoOtro : AppCompatActivity() {
@@ -25,7 +27,6 @@ class InfoPerritoOtro : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info_perrito_otro)
         val id = intent.getStringExtra("idPerrito")
-
         val imgPerritoP = findViewById<ImageView>(R.id.imgPerfilPerroVO)
         val imgPerroV = findViewById<ImageView>(R.id.imgPerroVO)
         val nombre = findViewById<TextView>(R.id.nombrePerroVO)
@@ -60,17 +61,16 @@ class InfoPerritoOtro : AppCompatActivity() {
                     estado.text = perrito.estado
 
                     //imagenes
-                    val gsReferencePerfil = storage.getReferenceFromUrl("${perrito.imagenPerfil}")
-                    val ONE_MEGABYTE: Long = 1024 * 1027
-                    gsReferencePerfil.getBytes(ONE_MEGABYTE*12).addOnSuccessListener {
-                        val bmp = BitmapFactory.decodeByteArray(it,0, it.size)
-                        imgPerritoP.setImageBitmap(bmp)
-                    }
-                    val gsReference = storage.getReferenceFromUrl("${perrito.imagen}")
-                    gsReference.getBytes(ONE_MEGABYTE*12).addOnSuccessListener {
-                        val bmp = BitmapFactory.decodeByteArray(it,0, it.size)
-                        imgPerroV.setImageBitmap(bmp)
-                    }
+
+                    var picassoInstance = Picasso.Builder(this)
+                        .addRequestHandler(FirebaseRequestHandler())
+                        .build()
+
+                    //imagenes
+                    val imageRefP = storage.getReferenceFromUrl("${perrito.imagenPerfil}")
+                    picassoInstance.load("$imageRefP").placeholder(R.drawable.cargando_blanco).error(R.drawable.avatar).into(imgPerritoP)
+                    val imageRefF = storage.getReferenceFromUrl("${perrito.imagen}")
+                    picassoInstance.load("$imageRefP").placeholder(R.drawable.cargando_blanco).error(R.drawable.avatar).into(imgPerroV)
                     //end imagenes
                 }else{
                     Toast.makeText(this, "Hubo un error", Toast.LENGTH_LONG).show()
@@ -79,6 +79,12 @@ class InfoPerritoOtro : AppCompatActivity() {
         btnVerCatalogo.setOnClickListener {
             val i = Intent(this, Catalogo::class.java)
                 i.putExtra("idPerrito",id)
+            startActivity(i)
+        }
+        btnContactame.setOnClickListener {
+            val i = Intent(this, Contactame::class.java)
+            i.putExtra("idPersona",perrito.idPersona)
+            i.putExtra("nombrePerrito",perrito.nombre)
             startActivity(i)
         }
     }

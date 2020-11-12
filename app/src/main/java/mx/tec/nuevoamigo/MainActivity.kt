@@ -1,5 +1,6 @@
 package mx.tec.nuevoamigo
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -7,9 +8,11 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
+import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +32,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
 import mx.tec.nuevoamigo.utils.Credentials
+import java.net.URLEncoder
 import java.util.*
 import javax.mail.*
 import javax.mail.internet.InternetAddress
@@ -108,6 +112,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         //verficaSession()
+
+
+        //WHATSAPP INTENT
+
+
+
         btnGoogle.setOnClickListener {
 
 
@@ -308,13 +318,13 @@ class MainActivity : AppCompatActivity() {
                     if(location == null){
                         NewLocationData()
                     }else{
-                        Log.d("Debug:" ,"Your Location:"+ location.longitude)
-                        ubicacionUser = getCityName(location.latitude,location.longitude)
-                        Log.d("Debug:" ,ubicacionUser)
+                        Log.d("Debug:", "Your Location:" + location.longitude)
+                        ubicacionUser = getCityName(location.latitude, location.longitude)
+                        Log.d("Debug:", ubicacionUser)
                     }
                 }
             }else{
-                Toast.makeText(this,"Please Turn on Your device Location", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Please Turn on Your device Location", Toast.LENGTH_SHORT).show()
             }
         }else{
             RequestPermission()
@@ -410,20 +420,20 @@ class MainActivity : AppCompatActivity() {
     ) {
         if(requestCode == PERMISSION_ID){
             if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Log.d("Debug:","You have the Permission")
+                Log.d("Debug:", "You have the Permission")
             }
         }
     }
 
-    private fun getCityName(lat: Double,long: Double):String{
+    private fun getCityName(lat: Double, long: Double):String{
         var cityName:String = ""
         var countryName = ""
         var geoCoder = Geocoder(this, Locale.getDefault())
-        var Adress = geoCoder.getFromLocation(lat,long,3)
+        var Adress = geoCoder.getFromLocation(lat, long, 3)
 
         cityName = Adress.get(0).locality
         countryName = Adress.get(0).countryName
-        Log.d("Debug:","Your City: " + cityName + " ; your Country " + countryName)
+        Log.d("Debug:", "Your City: " + cityName + " ; your Country " + countryName)
         return cityName
     }
 

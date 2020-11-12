@@ -2,6 +2,7 @@ package mx.tec.nuevoamigo.perro.adapter
 
 import android.content.Context
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +12,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import com.squareup.picasso.Picasso
 import mx.tec.nuevoamigo.R
 import mx.tec.nuevoamigo.perro.model.PerroMain
 
-class PerroMainAdapter(private val context : Context, private val layout: Int, private val dataSource: MutableList<PerroMain>, private val clickInterface: RecyclerViewClickInterface) : RecyclerView.Adapter<PerroMainAdapter.ElementoViewHolder>() {
-    class ElementoViewHolder(inflater: LayoutInflater, parent: ViewGroup, layout: Int, clickInterface: RecyclerViewClickInterface): RecyclerView.ViewHolder(inflater.inflate(layout, parent, false)){
+class PerroMainAdapter(private val context : Context,
+                       private val layout: Int,
+                       private val dataSource: MutableList<PerroMain>,
+                       private val clickInterface: RecyclerViewClickInterface) : RecyclerView.Adapter<PerroMainAdapter.ElementoViewHolder>() {
+    class ElementoViewHolder(context: Context,
+                             inflater: LayoutInflater,
+                             parent: ViewGroup,
+                             layout: Int,
+                             clickInterface: RecyclerViewClickInterface):
+        RecyclerView.ViewHolder(inflater.inflate(layout, parent, false)){
         lateinit var storage: FirebaseStorage
-
         //ViewHolder es la clase que se encarga de MANIPULAR los controles del elemento
         var imagen: ImageView? = null
         var nombrePerro: TextView? = null
@@ -25,6 +34,9 @@ class PerroMainAdapter(private val context : Context, private val layout: Int, p
         var razaPerro: TextView? = null
         var sexoPerro: TextView? = null
 
+        var picassoInstance = Picasso.Builder(context)
+            .addRequestHandler(FirebaseRequestHandler())
+            .build()
 
         init{
             itemView.setOnClickListener(View.OnClickListener {
@@ -45,12 +57,12 @@ class PerroMainAdapter(private val context : Context, private val layout: Int, p
 
         fun bindData(perroMain: PerroMain){
             //imagenes
-            val gsReferencePerfil = storage.getReferenceFromUrl("${perroMain.imagen}")
-            val ONE_MEGABYTE: Long = 1024*1024
-            gsReferencePerfil.getBytes(ONE_MEGABYTE*10).addOnSuccessListener {
-                val bmp = BitmapFactory.decodeByteArray(it,0, it.size)
-                imagen?.setImageBitmap(bmp)
-            }
+
+            val imageRefP = storage.getReferenceFromUrl("${perroMain.imagen}")
+            Log.d("test PerroMain","imageRef: $imageRefP")
+            picassoInstance.load("$imageRefP").placeholder(R.drawable.cargando_blanco).error(R.drawable.avatar).into(imagen)
+            Log.d("test PerroMain","imageRef2: $imageRefP")
+
             //end imagenes
 
             //imagen!!.setImageResource(perroMain.imagen)
@@ -65,7 +77,7 @@ class PerroMainAdapter(private val context : Context, private val layout: Int, p
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ElementoViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ElementoViewHolder(inflater, parent, layout, clickInterface)
+        return ElementoViewHolder(context,inflater, parent, layout, clickInterface)
     }
 
     override fun getItemCount(): Int {

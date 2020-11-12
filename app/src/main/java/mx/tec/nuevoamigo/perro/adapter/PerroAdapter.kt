@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import com.squareup.picasso.Picasso
 import mx.tec.nuevoamigo.R
 import mx.tec.nuevoamigo.perro.model.Perro
 
@@ -27,12 +28,14 @@ class PerroAdapter(private val context : Context, private val layout: Int, priva
         val txtEstado = view.findViewById<TextView>(R.id.txtEstado)
         //Llenar los atributos de valor de los widgets
         val elemento = dataSouce[position]
-        val gsReferencePerfil = storage.getReferenceFromUrl("${elemento.imagen}")
-        val ONE_MEGABYTE: Long = 1024*1024
-        gsReferencePerfil.getBytes(ONE_MEGABYTE*10).addOnSuccessListener {
-            val bmp = BitmapFactory.decodeByteArray(it,0, it.size)
-            imgImagen?.setImageBitmap(bmp)
-        }
+
+        var picassoInstance = Picasso.Builder(context)
+            .addRequestHandler(FirebaseRequestHandler())
+            .build()
+
+        val imageRefP = storage.getReferenceFromUrl("${elemento.imagen}")
+        picassoInstance.load("$imageRefP").placeholder(R.drawable.cargando_blanco).error(R.drawable.avatar).into(imgImagen)
+
         txtNombre.text = elemento.nombre
         txtEstado.text = elemento.estado
         return view

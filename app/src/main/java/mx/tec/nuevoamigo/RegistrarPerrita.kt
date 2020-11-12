@@ -7,8 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
@@ -34,6 +32,7 @@ class RegistrarPerrita : AppCompatActivity() {
     var bitmap: Bitmap? = null
     lateinit var storage: FirebaseStorage
     var storageRef: StorageReference? = null
+    var time: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,9 +71,11 @@ class RegistrarPerrita : AppCompatActivity() {
             }
         }
 */
-        val recurso = "gs://nuevo-amigo.appspot.com/imagenesPerro/"
+        var recurso = "gs://nuevo-amigo.appspot.com/imagenesPerro/"
 
         btnRegistrar.setOnClickListener {
+            time = System.currentTimeMillis().toLong()
+            recurso += time
             var sexo = when(radioGroup.checkedRadioButtonId){
                 R.id.rGHembraR -> "Hembra"
                 R.id.rGMachoR -> "Macho"
@@ -84,13 +85,14 @@ class RegistrarPerrita : AppCompatActivity() {
                 Log.d("test", "tamaño: " + spnrTamaño.selectedItem.toString())
                 uploadImage()
                 var perrito = PerroP(edtNombreR.text.toString(), edtDescripcionR.text.toString(),
-                    "Disponible", idPersona!!, recurso + edtNombreR.text.toString() + "F.jpeg",
-                    recurso + edtNombreR.text.toString() + "P.jpeg", edtRazaR.text.toString(),
-                    sexo, spnrTamaño.selectedItem.toString(), edtEdadR.text.toString().toLong())
+                    "Disponible", idPersona!!, recurso + "F.jpeg",
+                    recurso + "P.jpeg", edtRazaR.text.toString(),
+                    sexo, spnrTamaño.selectedItem.toString(), edtEdadR.text.toString().toLong(),time)
                 val db = FirebaseFirestore.getInstance()
                 db.collection("Perrito").add(perrito.convTomap()).addOnSuccessListener {
                     Log.d("testU","perrito Ingresado")
                     var i = Intent(this, CatalogoPropio::class.java)
+                    i.flags= Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(i)
                 }
             }else{
@@ -98,7 +100,6 @@ class RegistrarPerrita : AppCompatActivity() {
                     "No puedes dejar campos en blanco (incluidas imagenes)",
                     Toast.LENGTH_LONG).show()
             }
-
         }
 
         btnFotoPR.setOnClickListener {
@@ -118,7 +119,7 @@ class RegistrarPerrita : AppCompatActivity() {
         var baos = ByteArrayOutputStream()
         bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         var data = baos.toByteArray()
-        var mountainsRef = storageRef?.child("imagenesPerro/" + edtNombreR.text.toString() + "F.jpeg")
+        var mountainsRef = storageRef?.child("imagenesPerro/" + time + "F.jpeg")
         var uploadTask = mountainsRef?.putBytes(data)
         uploadTask?.addOnFailureListener {
             Log.d("test", "error")
@@ -128,7 +129,7 @@ class RegistrarPerrita : AppCompatActivity() {
         baos = ByteArrayOutputStream()
         bitmapP?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         data = baos.toByteArray()
-        mountainsRef = storageRef?.child("imagenesPerro/" + edtNombreR.text.toString() + "P.jpeg")
+        mountainsRef = storageRef?.child("imagenesPerro/" + time + "P.jpeg")
         uploadTask = mountainsRef?.putBytes(data)
         uploadTask?.addOnFailureListener {
             Log.d("test", "error")

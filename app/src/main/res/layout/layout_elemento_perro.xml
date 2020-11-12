@@ -56,7 +56,7 @@
                     android:id="@+id/imgPerro"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    tools:srcCompat="@drawable/cargando_blanco" />
             </LinearLayout>
         </LinearLayout>
 

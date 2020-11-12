@@ -15,7 +15,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/cargando_blanco" />
 
     <TextView
         android:id="@+id/nombrePerroV"
@@ -52,9 +52,11 @@
 
     <Button
         android:id="@+id/btnEliminarV"
+        style="@style/MiBoton.borrar"
         android:layout_width="wrap_content"
         android:layout_height="43dp"
         android:layout_marginBottom="44dp"
+        android:drawableLeft="@android:drawable/ic_menu_delete"
         android:text="@string/borrar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnBorradoL"
@@ -63,11 +65,13 @@
 
     <Button
         android:id="@+id/btnBorradoL"
+        style="@style/MiBoton"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginEnd="44dp"
         android:layout_marginRight="44dp"
         android:layout_marginBottom="44dp"
+        android:drawableLeft="@android:drawable/ic_menu_edit"
         android:text="@string/cambiar_estado"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -82,7 +86,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgPerfilPerroV"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/cargando_blanco" />
 
     <TextView
         android:id="@+id/descripcionPerroV"
