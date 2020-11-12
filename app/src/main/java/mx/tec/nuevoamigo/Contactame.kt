@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_contactame.*
 import java.net.URLEncoder
@@ -19,6 +20,14 @@ class Contactame : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contactame)
 
+        var user = FirebaseAuth.getInstance().currentUser
+        var nameUser: String =""
+        if (user != null) {
+            // Name, email address, and profile photo Url
+
+            nameUser = user.displayName!!
+
+        }
         val id = intent.getStringExtra("idPersona")
         val nombrePerrito = intent.getStringExtra("nombrePerrito")
 
@@ -52,8 +61,8 @@ class Contactame : AppCompatActivity() {
         val btnWhats = findViewById<Button>(R.id.btnWha)
         btnWhats.setOnClickListener {
 
-
-            val url = "https://api.whatsapp.com/send?phone=+52 $telefono"+"&text="+URLEncoder.encode("Hola ${nombre.text.toString()}, estoy interasado en adoptar a tu perrito ${nombrePerrito.toString()}.", "UTF-8");
+            val mensaje ="Hola ${nombre.text.toString()}, soy ${nameUser.toString()}, te contacté por medio de la aplicación Nuevo Amigo. Estoy interesado/a en adoptar a tu perrito/a ${nombrePerrito.toString()}."
+            val url = "https://api.whatsapp.com/send?phone=+52 $telefono"+"&text="+URLEncoder.encode(mensaje, "UTF-8");
 
             val intent = Intent()
             intent.type = "text/plain"
