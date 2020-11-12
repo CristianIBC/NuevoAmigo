@@ -6,30 +6,30 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldPath
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_catalogo.*
-import kotlinx.android.synthetic.main.activity_edit_perfil.*
 import kotlinx.android.synthetic.main.activity_main_page.*
-import kotlinx.android.synthetic.main.activity_perfil_usuario.*
-import mx.tec.nuevoamigo.perro.adapter.PerroAdapter
 import mx.tec.nuevoamigo.perro.adapter.PerroMainAdapter
 import mx.tec.nuevoamigo.perro.adapter.RecyclerViewClickInterface
-import mx.tec.nuevoamigo.perro.model.Perro
 import mx.tec.nuevoamigo.perro.model.PerroMain
 import java.util.*
+
 
 class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
     //gps
@@ -40,10 +40,15 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
 
     var datos= mutableListOf<PerroMain>()
     var ubicActual:String = ""
-
     val db = FirebaseFirestore.getInstance()
-    var user = FirebaseAuth.getInstance().currentUser
 
+
+    var user = FirebaseAuth.getInstance().currentUser
+    var spinnerOpciones: Spinner?= null
+    var spinnerOpciones2: Spinner?= null
+    var spinnerOpciones3: Spinner?= null
+
+    var ciudadesDisponibles: ArrayList<String> = arrayListOf("Opciones...")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Thread.sleep(1000)
@@ -58,16 +63,21 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)
+        spinnerOpciones3 = findViewById<Spinner>(R.id.spinnerCiudadMain)
+
 
         var spinner1Selected = 0
-        val spinnerOpciones = findViewById<Spinner>(R.id.spinnerHeight)
+        spinnerOpciones = findViewById<Spinner>(R.id.spinnerHeight)
 
-        ArrayAdapter.createFromResource(this,R.array.opcionesTamaño,android.R.layout.simple_spinner_item).also { adapter ->
+        ArrayAdapter.createFromResource(this,
+            R.array.opcionesTamaño,
+            android.R.layout.simple_spinner_item).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinnerOpciones.adapter = adapter
+            spinnerOpciones!!.adapter = adapter
         }
 
-        spinnerOpciones.onItemSelectedListener = object :
+
+        spinnerOpciones!!.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinner1Selected = p2
@@ -76,19 +86,32 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
+        var spinner3Selected = 0
+        spinnerOpciones3!!.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                spinner3Selected = p2
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
+        }
 
         var spinner2Selected = 0
-        val spinnerOpciones2 = findViewById<Spinner>(R.id.spinnerSex)
+        spinnerOpciones2 = findViewById<Spinner>(R.id.spinnerSex)
 
-        ArrayAdapter.createFromResource(this,R.array.opcionesSexo,android.R.layout.simple_spinner_item).also { adapter ->
+        ArrayAdapter.createFromResource(this,
+            R.array.opcionesSexo,
+            android.R.layout.simple_spinner_item).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinnerOpciones2.adapter = adapter
+            spinnerOpciones2!!.adapter = adapter
         }
         btnTusPerros.setOnClickListener {
             var i = Intent(this@MainPage, CatalogoPropio::class.java)
+            i.putExtra("ciudadActual", ubicActual)
             startActivity(i)
         }
-        spinnerOpciones2.onItemSelectedListener = object :
+        spinnerOpciones2!!.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinner2Selected = p2
@@ -111,147 +134,8 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
 
         //BOTON DEL FILTRADO
         btnFiltrar.setOnClickListener {
-            Log.d("Debug", ubicActual + "JIJOOOOOOOO")
-            if(spinnerOpciones2.selectedItem.toString()=="Opciones..." && spinnerOpciones.selectedItem.toString()=="Opciones..."){
-                datos.clear()
-                db.collection("Persona").whereEqualTo("Ciudad",ubicActual).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
-                    .get()
-                    .addOnSuccessListener { documents ->
-                        for (document in documents) {
-                            db.collection("Perrito").whereEqualTo("idPersona",document.id).whereEqualTo("estado", "Disponible")
-                                .get()
-                                .addOnSuccessListener { documents ->
-                                    for (document in documents) {
-                                        Log.d("TAG", "${document.id} => ${document.data}")
-                                        datos.add(
-                                            PerroMain(
-                                                document.id,
-                                                document.data!!["nombre"].toString(),
-                                                document.data!!["raza"].toString(),
-                                                document.data!!["edad"].toString(),
-                                                document.data!!["sexo"].toString(),
-                                                document.data!!["imagenPerfil"].toString()
-                                            )
-                                        )
-                                        Log.d("TAG", datos.toString())
-                                    }
-                                    val elementoAdapter =
-                                        PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos, this)
-
-                                    elementoAdapter.notifyDataSetChanged()
-
-                                    rvLista.layoutManager =
-                                        LinearLayoutManager(this@MainPage, LinearLayoutManager.VERTICAL, false)
-                                    rvLista.setHasFixedSize(true)
-                                    rvLista.adapter = elementoAdapter
-                                }
-                        }
-                    }
-            }else if(spinnerOpciones.selectedItem.toString()!="Opciones..." && spinnerOpciones2.selectedItem.toString()=="Opciones..."){
-                datos.clear()
-                db.collection("Persona").whereEqualTo("Ciudad",ubicActual).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
-                    .get()
-                    .addOnSuccessListener { documents ->
-                        for (document in documents) {
-                            db.collection("Perrito").whereEqualTo("idPersona",document.id).whereEqualTo("estado", "Disponible").whereEqualTo("tamaño",spinnerOpciones.selectedItem.toString() )
-                                .get()
-                                .addOnSuccessListener { documents ->
-                                    for (document in documents) {
-                                        Log.d("TAG", "${document.id} => ${document.data}")
-                                        datos.add(
-                                            PerroMain(
-                                                document.id,
-                                                document.data!!["nombre"].toString(),
-                                                document.data!!["raza"].toString(),
-                                                document.data!!["edad"].toString(),
-                                                document.data!!["sexo"].toString(),
-                                                document.data!!["imagenPerfil"].toString()
-                                            )
-                                        )
-                                        Log.d("TAG", datos.toString())
-                                    }
-                                    val elementoAdapter =
-                                        PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos, this)
-
-                                    elementoAdapter.notifyDataSetChanged()
-
-                                    rvLista.layoutManager =
-                                        LinearLayoutManager(this@MainPage, LinearLayoutManager.VERTICAL, false)
-                                    rvLista.setHasFixedSize(true)
-                                    rvLista.adapter = elementoAdapter
-                                }
-                        }
-                    }
-
-            }else if(spinnerOpciones.selectedItem.toString()=="Opciones..." && spinnerOpciones2.selectedItem.toString()!="Opciones..."){
-                datos.clear()
-                db.collection("Persona").whereEqualTo("Ciudad",ubicActual).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
-                    .get()
-                    .addOnSuccessListener { documents ->
-                        for (document in documents) {
-                            db.collection("Perrito").whereEqualTo("idPersona",document.id).whereEqualTo("estado", "Disponible").whereEqualTo("sexo",spinnerOpciones2.selectedItem.toString() )
-                                .get()
-                                .addOnSuccessListener { documents ->
-                                    for (document in documents) {
-                                        Log.d("TAG", "${document.id} => ${document.data}")
-                                        datos.add(
-                                            PerroMain(
-                                                document.id,
-                                                document.data!!["nombre"].toString(),
-                                                document.data!!["raza"].toString(),
-                                                document.data!!["edad"].toString(),
-                                                document.data!!["sexo"].toString(),
-                                                document.data!!["imagenPerfil"].toString()
-                                            )
-                                        )
-                                        Log.d("TAG", datos.toString())
-                                    }
-                                    val elementoAdapter =
-                                        PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos, this)
-                                    elementoAdapter.notifyDataSetChanged()
-                                    rvLista.layoutManager =
-                                        LinearLayoutManager(this@MainPage, LinearLayoutManager.VERTICAL, false)
-                                    rvLista.setHasFixedSize(true)
-                                    rvLista.adapter = elementoAdapter
-                                }
-                        }
-                    }
-            }else if(spinnerOpciones.selectedItem.toString()!="Opciones..." && spinnerOpciones2.selectedItem.toString()!="Opciones..."){
-                datos.clear()
-                db.collection("Persona").whereEqualTo("Ciudad",ubicActual).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
-                    .get()
-                    .addOnSuccessListener { documents ->
-                        for (document in documents) {
-                            db.collection("Perrito").whereEqualTo("idPersona",document.id).whereEqualTo("estado", "Disponible").whereEqualTo("tamaño",spinnerOpciones.selectedItem.toString()).whereEqualTo("sexo",spinnerOpciones2.selectedItem.toString() )
-                                .get()
-                                .addOnSuccessListener { documents ->
-                                    for (document in documents) {
-                                        Log.d("TAG", "${document.id} => ${document.data}")
-                                        datos.add(
-                                            PerroMain(
-                                                document.id,
-                                                document.data!!["nombre"].toString(),
-                                                document.data!!["raza"].toString(),
-                                                document.data!!["edad"].toString(),
-                                                document.data!!["sexo"].toString(),
-                                                document.data!!["imagenPerfil"].toString()
-                                            )
-                                        )
-                                        Log.d("TAG", datos.toString())
-                                    }
-                                    val elementoAdapter =
-                                        PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos, this)
-                                    elementoAdapter.notifyDataSetChanged()
-                                    rvLista.layoutManager =
-                                        LinearLayoutManager(this@MainPage, LinearLayoutManager.VERTICAL, false)
-                                    rvLista.setHasFixedSize(true)
-                                    rvLista.adapter = elementoAdapter
-                                }
-                        }
-                    }
-            }
+            cargarPerros()
         }
-
 
     //CATALOGO PRINCIPAL, :C
 
@@ -262,10 +146,55 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
 
 
     }
-
+    private fun cargarPerros(){
+        datos.clear()
+        var perros = db.collection("Perrito").whereEqualTo("estado", "Disponible")
+    
+        if(spinnerOpciones!!.selectedItem.toString() != "Opciones..."){
+            perros.whereEqualTo("tamaño", spinnerOpciones!!.selectedItem.toString())
+            Log.e("Hola", "entreTamaño ${spinnerOpciones!!.selectedItem.toString()}")
+        }
+        if(spinnerOpciones2!!.selectedItem.toString() != "Opciones..."){
+            perros.whereEqualTo("sexo", spinnerOpciones2!!.selectedItem.toString())
+            Log.e("Hola", "entreSexo ${spinnerOpciones2!!.selectedItem.toString()}")
+        }
+        if(spinnerOpciones3!!.selectedItem.toString() != "Opciones..."){
+            perros.whereEqualTo("ciudad", spinnerOpciones3!!.selectedItem.toString())
+            Log.e("Hola", "entreCiudad ${spinnerOpciones3!!.selectedItem.toString()}")
+        }else{
+            perros.whereEqualTo("ciudad", ubicActual)
+        }
+        Log.e("query", perros.toString())
+        perros.whereNotEqualTo("idPersona", user?.uid.toString())
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.e("Hola", "entre")
+                    datos.add(PerroMain(document.id,
+                        document.data!!["nombre"].toString(),
+                        document.data!!["raza"].toString(),
+                        document.data!!["edad"].toString(),
+                        document.data!!["sexo"].toString(),
+                        document.data!!["imagenPerfil"].toString()))
+                }
+                datos.forEach{
+                    Log.d("Perro", it.nombre)
+                }
+                val elementoAdapter = PerroMainAdapter(this@MainPage,
+                    R.layout.act_recycler,
+                    datos,
+                    this)
+                rvLista.layoutManager = GridLayoutManager(this@MainPage,
+                    1,
+                    GridLayoutManager.VERTICAL,
+                    false)
+                rvLista.setHasFixedSize(true)
+                rvLista.adapter= elementoAdapter
+            }
+    }
     override fun onItemClick(position: Int) {
         var i = Intent(this@MainPage, InfoPerritoOtro::class.java)
-        i.putExtra("idPerrito",datos[position].id )
+        i.putExtra("idPerrito", datos[position].id)
         startActivity(i)
     }
 
@@ -302,42 +231,27 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
                     if(location == null){
                         NewLocationData()
                     }else{
-                        Log.d("Debug:" ,"Your Location:"+ location.longitude)
-                        ubicActual = getCityName(location.latitude,location.longitude)
+                        Log.d("Debug:", "Your Location:" + location.longitude)
+                        ubicActual = getCityName(location.latitude, location.longitude)
                         Log.d("AAAAAAA", ubicActual)
-
-                        db.collection("Persona").whereEqualTo("Ciudad",ubicActual).whereNotEqualTo(FieldPath.documentId(), user?.uid.toString())
-                            .get()
-                            .addOnSuccessListener { documents ->
-                                for (document in documents) {
-                                    Log.d("TAG", "${document.id} => ${document.data}")
-                                    db.collection("Perrito").whereEqualTo("idPersona", document.id)
-                                        .whereEqualTo("estado", "Disponible")
-                                        .get()
-                                        .addOnSuccessListener { documents ->
-                                            for (document in documents) {
-                                                Log.d("TAG", "${document.id} => ${document.data}")
-
-                                                datos.add(PerroMain(document.id, document.data!!["nombre"].toString(), document.data!!["raza"].toString(), document.data!!["edad"].toString(),
-                                                    document.data!!["sexo"].toString(), document.data!!["imagenPerfil"].toString()))
-
-                                                Log.d("TAG",datos.toString() )
-
-                                            }
-                                            val elementoAdapter = PerroMainAdapter(this@MainPage, R.layout.act_recycler, datos, this)
-                                            rvLista.layoutManager = GridLayoutManager(this@MainPage, 1, GridLayoutManager.VERTICAL, false)
-                                            rvLista.setHasFixedSize(true)
-                                            rvLista.adapter= elementoAdapter
-                                        }
-                                }
+                        //Busqueda de las ciudades donde hay perros
+                        db.collection("Perrito").whereEqualTo("estado", "Disponible").get().addOnSuccessListener { documents->
+                            documents.forEach{
+                                ciudadesDisponibles.add(it.data["ciudad"].toString())
                             }
+                            var adapterCiudad = ArrayAdapter(this,
+                                android.R.layout.simple_spinner_item,
+                                ciudadesDisponibles.distinct())
+                            adapterCiudad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                            spinnerOpciones3!!.adapter= adapterCiudad
+                            cargarPerros()
+                        }
 
-                        //ubicacionUser = getCityName(location.latitude,location.longitude)
-                        //Log.d("Debug:" ,ubicacionUser)
+
                     }
                 }
             }else{
-                Toast.makeText(this,"Prenda su GPS y reinicie la aplicación ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Prenda su GPS y reinicie la aplicación ", Toast.LENGTH_SHORT).show()
             }
         }else{
             RequestPermission()
@@ -370,7 +284,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
             return
         }
         fusedLocationProviderClient!!.requestLocationUpdates(
-            locationRequest,locationCallback, Looper.myLooper()
+            locationRequest, locationCallback, Looper.myLooper()
         )
     }
 
@@ -378,7 +292,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
     private val locationCallback = object : LocationCallback(){
         override fun onLocationResult(locationResult: LocationResult) {
             var lastLocation: Location = locationResult.lastLocation
-            Log.d("Debug:","your last last location: "+ lastLocation.longitude.toString())
+            Log.d("Debug:", "your last last location: " + lastLocation.longitude.toString())
         }
     }
 
@@ -387,8 +301,10 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
         //true: if we have permission
         //false if not
         if(
-            ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-            ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+            ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+            ActivityCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
         ){
             return true
         }
@@ -399,7 +315,8 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
         //this function will allows us to tell the user to requesut the necessary permsiion if they are not garented
         ActivityCompat.requestPermissions(
             this,
-            arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION,android.Manifest.permission.ACCESS_FINE_LOCATION),
+            arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.ACCESS_FINE_LOCATION),
             PERMISSION_ID
         )
     }
@@ -420,23 +337,26 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
     ) {
         if(requestCode == PERMISSION_ID){
             if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Log.d("Debug:","You have the Permission")
+                Log.d("Debug:", "You have the Permission")
             }
         }
     }
 
-    private fun getCityName(lat: Double,long: Double):String{
+    private fun getCityName(lat: Double, long: Double):String{
         var cityName:String = ""
         var countryName = ""
         var geoCoder = Geocoder(this, Locale.getDefault())
-        var Adress = geoCoder.getFromLocation(lat,long,3)
+        var Adress = geoCoder.getFromLocation(lat, long, 3)
 
         cityName = Adress.get(0).locality
         countryName = Adress.get(0).countryName
-        Log.d("Debug:","Your City: " + cityName + " ; your Country " + countryName)
+        Log.d("Debug:", "Your City: " + cityName + " ; your Country " + countryName)
         return cityName
     }
 
 
-
 }
+
+
+
+

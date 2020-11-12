@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="71dp"
         android:layout_marginLeft="71dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="130dp"
         android:layout_marginRight="130dp"
         android:ems="10"
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="71dp"
         android:layout_marginLeft="71dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="130dp"
         android:layout_marginRight="130dp"
         android:ems="10"
@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="71dp"
         android:layout_marginLeft="71dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="148dp"
         android:layout_marginEnd="130dp"
         android:layout_marginRight="130dp"
         android:ems="10"
@@ -72,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/edtDescripcionR" />
 
     <Button
         android:id="@+id/btnFotoPR"
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginLeft="28dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="64dp"
         android:text="@string/a_adir_foto_de_perfil"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtEdadR" />
@@ -89,10 +89,10 @@
         android:id="@+id/btnFotoR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="64dp"
         android:text="@string/a_adir_foto_extra"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.139"
+        app:layout_constraintHorizontal_bias="0.325"
         app:layout_constraintStart_toEndOf="@+id/btnFotoPR"
         app:layout_constraintTop_toBottomOf="@+id/edtEdadR" />
 
@@ -114,9 +114,9 @@
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="106dp"
-        android:layout_marginLeft="106dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtDescripcionR">
 
@@ -140,6 +140,27 @@
             android:text="@string/macho" />
     </RadioGroup>
 
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/tama_o"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/spnrTamaño"
+        app:layout_constraintEnd_toEndOf="@+id/spnrTamaño"
+        app:layout_constraintStart_toStartOf="@+id/spnrTamaño" />
+
+    <Spinner
+        android:id="@+id/spnrTamaño"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/edtDescripcionR" />
+
     <ImageView
         android:id="@+id/imgPR"
         android:layout_width="91dp"
@@ -160,25 +181,6 @@
         app:layout_constraintTop_toBottomOf="@+id/btnFotoR"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <Spinner
-        android:id="@+id/spnrTamaño"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/radioGroup"
-        app:layout_constraintTop_toBottomOf="@+id/edtDescripcionR" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tama_o"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/spnrTamaño"
-        app:layout_constraintEnd_toEndOf="@+id/spnrTamaño"
-        app:layout_constraintStart_toStartOf="@+id/spnrTamaño" />
-
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
@@ -187,6 +189,8 @@
         android:text="@string/ingresar_la_edad_en_meses_si_no_sabes_la_edad_poner_0"
         app:layout_constraintBottom_toTopOf="@+id/btnFotoPR"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.579"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtEdadR" />
+        app:layout_constraintTop_toBottomOf="@+id/edtEdadR"
+        app:layout_constraintVertical_bias="0.236" />
 </androidx.constraintlayout.widget.ConstraintLayout>

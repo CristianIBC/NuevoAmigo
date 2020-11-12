@@ -14,9 +14,10 @@ data class PerroP(
     var sexo: String,
     var tamano: String,
     var edad: Long,
-    var time: Long
+    var time: Long,
+    var ciudad: String
 ) {
-    constructor(): this("", "", "", "", "", "", "", "", "", 0,0)
+    constructor(): this("", "", "", "", "", "", "", "", "", 0,0,  "")
     fun setear(mapa: Map<String, Any>?) {
         //Log.d("test", "fun Setear $mapa")
         if (mapa != null) {
@@ -31,6 +32,7 @@ data class PerroP(
             tamano = mapa.get("tamaño") as String
             edad = mapa.get("edad") as Long
             time = mapa.get("time") as Long
+            ciudad = mapa.get("ciudad") as String
         }
         else {
             Log.d("test", "fun Setear $mapa")
@@ -49,6 +51,7 @@ data class PerroP(
         perrito["tamaño"] = tamano
         perrito["edad"] = edad
         perrito["time"] = time
+        perrito["ciudad"] = ciudad
         return perrito
     }
 }

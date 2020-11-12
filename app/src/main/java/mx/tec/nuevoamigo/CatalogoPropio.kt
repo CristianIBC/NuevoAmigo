@@ -20,6 +20,7 @@ class CatalogoPropio : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_catalogo_propio)
+        val ciudadActual = intent.getStringExtra("ciudadActual")
         var user = FirebaseAuth.getInstance().currentUser
         val db = FirebaseFirestore.getInstance()
         var datos=  mutableListOf<Perro>()
@@ -45,6 +46,7 @@ class CatalogoPropio : AppCompatActivity() {
             if (user != null) {
                 var i = Intent(this, RegistrarPerrita::class.java)
                 i.putExtra("idPersona", user.uid)
+                i.putExtra("ciudadActual", ciudadActual!!)
                 startActivity(i)
             }
         }

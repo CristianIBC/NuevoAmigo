@@ -58,8 +58,8 @@
         <item>Proceso de adopción</item>
         <item>Adoptado</item>
     </string-array>
-    <string name="nombre">Nombre:</string>
-    <string name="raza">Raza:</string>
+    <string name="nombre">Nombre</string>
+    <string name="raza">Raza</string>
     <string name="descripci_n">Descripción</string>
     <string name="edad">Edad</string>
     <string name="a_adir_foto_de_perfil">Añadir foto de perfil</string>
@@ -77,10 +77,11 @@
     <string name="contactame">Contáctame</string>
     <string name="ver_catalogo">Ver catálogo</string>
     <string name="horario_de_atenci_n">Horario de atención:</string>
-    <string name="ciudad">Ciudad:</string>
+    <string name="ciudad">Ciudad</string>
     <string name="tipo_de_usuario">Tipo de usuario:</string>
     <string name="m_ndame_un_whatsapp">Mándame un Whatsapp</string>
     <string name="m_ndame_un_correo">Mándame un Correo</string>
+    <string name="ciudad_de_la_mascota">Ciudad de la mascota</string>
 
 
 </resources>
