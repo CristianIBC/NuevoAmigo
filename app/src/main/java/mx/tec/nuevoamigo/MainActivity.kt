@@ -1,6 +1,5 @@
 package mx.tec.nuevoamigo
 
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -8,11 +7,9 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
-import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
+import mx.tec.nuevoamigo.utils.Credentials
 import java.net.URLEncoder
 import java.util.*
 
@@ -48,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var locationRequest: LocationRequest
     var ubicacionUser:String = ""
 
-        private val GOOGLE_SIGN_IN = 100
+    private val GOOGLE_SIGN_IN = 100
     private val callbackManager = CallbackManager.Factory.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         if (user != null) {
             // Name, email address, and profile photo Url
 
-            val i = Intent(this@MainActivity, MainPage::class.java)
+            val i = Intent(this@MainActivity,MainPage::class.java )
             i.flags= Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(i)
         }
@@ -95,7 +93,6 @@ class MainActivity : AppCompatActivity() {
         getLastLocation()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         //verficaSession()
 
 
@@ -106,19 +103,17 @@ class MainActivity : AppCompatActivity() {
         btnGoogle.setOnClickListener {
 
 
-            val googleConf= GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(
-                getString(
-                    R.string.default_web_client_id)).requestEmail().build()
+            val googleConf= GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build()
             val googleClient = GoogleSignIn.getClient(this, googleConf)
             googleClient.signOut()
-            startActivityForResult(googleClient.signInIntent, GOOGLE_SIGN_IN)
+            startActivityForResult(googleClient.signInIntent,GOOGLE_SIGN_IN)
 
 
         }
 
         //LINEA DE PRUEBA
         val db = FirebaseFirestore.getInstance()
-        imgLogo.setOnClickListener {
+        btnFacebook.setOnClickListener {
             LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
             LoginManager.getInstance().registerCallback(callbackManager,
                 object : FacebookCallback<LoginResult> {
@@ -151,8 +146,7 @@ class MainActivity : AppCompatActivity() {
                                                         "Ubicacion",
                                                         ubicacionUser
                                                     )
-                                                    i.flags =
-                                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                                    i.flags= Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                                     startActivity(i)
                                                 } else {
                                                     Log.d(
@@ -167,8 +161,7 @@ class MainActivity : AppCompatActivity() {
                                                         "Ubicacion",
                                                         ubicacionUser
                                                     )
-                                                    i.flags =
-                                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                                    i.flags= Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                                     startActivity(i)
                                                 }
                                             }
@@ -221,7 +214,7 @@ class MainActivity : AppCompatActivity() {
                 val db = FirebaseFirestore.getInstance() //linea codigo repetida
                 val account = task.getResult(ApiException::class.java)
                 if(account!=null){
-                    val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                    val credential = GoogleAuthProvider.getCredential(account.idToken,null)
                     FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener {
 
                         if (it.isSuccessful) {
@@ -270,7 +263,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
 
-            }catch (e: ApiException){
+            }catch (e:ApiException){
 
             }
 
@@ -346,7 +339,7 @@ class MainActivity : AppCompatActivity() {
             return
         }
         fusedLocationProviderClient!!.requestLocationUpdates(
-            locationRequest, locationCallback, Looper.myLooper()
+            locationRequest,locationCallback, Looper.myLooper()
         )
     }
 
@@ -364,7 +357,7 @@ class MainActivity : AppCompatActivity() {
     private val locationCallback = object : LocationCallback(){
         override fun onLocationResult(locationResult: LocationResult) {
             var lastLocation: Location = locationResult.lastLocation
-            Log.d("Debug:", "your last last location: " + lastLocation.longitude.toString())
+            Log.d("Debug:","your last last location: "+ lastLocation.longitude.toString())
             //textView.text = "You Last Location is : Long: "+ lastLocation.longitude + " , Lat: " + lastLocation.latitude + "\n" + getCityName(lastLocation.latitude,lastLocation.longitude)
         }
     }
@@ -374,10 +367,8 @@ class MainActivity : AppCompatActivity() {
         //true: if we have permission
         //false if not
         if(
-            ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
-            ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+            ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
+            ActivityCompat.checkSelfPermission(this,android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
         ){
             return true
         }
@@ -390,8 +381,7 @@ class MainActivity : AppCompatActivity() {
         //this function will allows us to tell the user to requesut the necessary permsiion if they are not garented
         ActivityCompat.requestPermissions(
             this,
-            arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                android.Manifest.permission.ACCESS_FINE_LOCATION),
+            arrayOf(android.Manifest.permission.ACCESS_COARSE_LOCATION,android.Manifest.permission.ACCESS_FINE_LOCATION),
             PERMISSION_ID
         )
     }
@@ -428,7 +418,6 @@ class MainActivity : AppCompatActivity() {
         Log.d("Debug:", "Your City: " + cityName + " ; your Country " + countryName)
         return cityName
     }
-
 
 
 }

@@ -82,6 +82,8 @@
     <string name="m_ndame_un_whatsapp">Mándame un Whatsapp</string>
     <string name="m_ndame_un_correo">Mándame un Correo</string>
     <string name="ciudad_de_la_mascota">Ciudad de la mascota</string>
+    <string name="iniciarFacebook">INICIAR CON FACEBOOK</string>
+    <string name="iniciarGoogle">INICIAR CON GOOGLE</string>
 
 
 </resources>
