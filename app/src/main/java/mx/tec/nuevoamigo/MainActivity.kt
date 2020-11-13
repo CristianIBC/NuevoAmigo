@@ -1,6 +1,5 @@
 package mx.tec.nuevoamigo
 
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -8,11 +7,9 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
-import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -34,9 +31,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import mx.tec.nuevoamigo.utils.Credentials
 import java.net.URLEncoder
 import java.util.*
-import javax.mail.*
-import javax.mail.internet.InternetAddress
-import javax.mail.internet.MimeMessage
 
 
 enum class ProviderType{
@@ -56,7 +50,6 @@ class MainActivity : AppCompatActivity() {
     private val callbackManager = CallbackManager.Factory.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         Thread.sleep(2000)
         setTheme(R.style.AppTheme_NoActionBar)
         //android:theme="@style/Theme.AppCompat.NoActionBar"
@@ -120,7 +113,7 @@ class MainActivity : AppCompatActivity() {
 
         //LINEA DE PRUEBA
         val db = FirebaseFirestore.getInstance()
-        imgLogo.setOnClickListener {
+        btnFacebook.setOnClickListener {
             LoginManager.getInstance().logInWithReadPermissions(this, listOf("email"))
             LoginManager.getInstance().registerCallback(callbackManager,
                 object : FacebookCallback<LoginResult> {
