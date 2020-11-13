@@ -134,6 +134,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
 
         //BOTON DEL FILTRADO
         btnFiltrar.setOnClickListener {
+            Log.d("test","clic en flitrar")
             cargarPerros()
         }
 
@@ -148,8 +149,14 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
     }
     private fun cargarPerros(){
         datos.clear()
-        var perros = db.collection("Perrito").whereEqualTo("estado", "Disponible")
-    
+        var perros = db.collection("Perrito")
+         with(perros){
+             whereEqualTo("estado", "Disponible")
+             .whereEqualTo("tamaño", "Chico")
+             .whereEqualTo("sexo", "Macho")
+             .whereEqualTo("ciudad", "Cuernavaca")
+         }
+/*
         if(spinnerOpciones!!.selectedItem.toString() != "Opciones..."){
             perros.whereEqualTo("tamaño", spinnerOpciones!!.selectedItem.toString())
             Log.e("Hola", "entreTamaño ${spinnerOpciones!!.selectedItem.toString()}")
@@ -164,9 +171,16 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
         }else{
             perros.whereEqualTo("ciudad", ubicActual)
         }
-        Log.e("query", perros.toString())
-        perros.whereNotEqualTo("idPersona", user?.uid.toString())
-            .get()
+
+ */
+        Log.e("Hola Query", perros.toString())
+        /*perros.whereEqualTo("tamaño", "Chico")
+        perros.whereEqualTo("sexo", "Macho")
+        perros.whereEqualTo("ciudad", "Cuernavaca")
+
+         */
+        //perros.whereNotEqualTo("idPersona", user?.uid.toString())
+            perros.get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     Log.e("Hola", "entre")
@@ -178,7 +192,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
                         document.data!!["imagenPerfil"].toString()))
                 }
                 datos.forEach{
-                    Log.d("Perro", it.nombre)
+                    Log.d("PerroLista", it.nombre)
                 }
                 val elementoAdapter = PerroMainAdapter(this@MainPage,
                     R.layout.act_recycler,
