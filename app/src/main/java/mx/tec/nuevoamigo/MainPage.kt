@@ -148,26 +148,69 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
     }
     private fun cargarPerros(){
         datos.clear()
-        var perros = db.collection("Perrito").whereEqualTo("estado", "Disponible")
+        var perros:Query ? = null
     
-        if(spinnerOpciones!!.selectedItem.toString() != "Opciones..."){
-            perros.whereEqualTo("tamaño", spinnerOpciones!!.selectedItem.toString())
-            Log.e("Hola", "entreTamaño ${spinnerOpciones!!.selectedItem.toString()}")
+        if(spinnerOpciones!!.selectedItem.toString() != "Opciones..." && spinnerOpciones2!!.selectedItem.toString() == "Opciones..." && spinnerOpciones3!!.selectedItem.toString() == "Opciones...")
+        {
+            perros = db.collection("Perrito")
+                .whereEqualTo("ciudad", ubicActual)
+                .whereEqualTo("estado", "Disponible")
+                .whereNotEqualTo("idPersona", user?.uid.toString())
+                .whereEqualTo("tamaño", spinnerOpciones!!.selectedItem.toString())
+
+        }else if(spinnerOpciones!!.selectedItem.toString() == "Opciones..." && spinnerOpciones2!!.selectedItem.toString() != "Opciones..." && spinnerOpciones3!!.selectedItem.toString() == "Opciones...")
+        {
+            perros = db.collection("Perrito")
+                .whereEqualTo("ciudad", ubicActual)
+                .whereEqualTo("estado", "Disponible")
+                .whereNotEqualTo("idPersona", user?.uid.toString())
+                .whereEqualTo("sexo", spinnerOpciones!!.selectedItem.toString())
+
+        }else if(spinnerOpciones!!.selectedItem.toString() == "Opciones..." && spinnerOpciones2!!.selectedItem.toString() == "Opciones..." && spinnerOpciones3!!.selectedItem.toString() != "Opciones...")
+        {
+            perros = db.collection("Perrito")
+                .whereEqualTo("ciudad", spinnerOpciones3!!.selectedItem.toString())
+                .whereEqualTo("estado", "Disponible")
+                .whereNotEqualTo("idPersona", user?.uid.toString())
+
+        }else if (spinnerOpciones!!.selectedItem.toString() != "Opciones..." && spinnerOpciones2!!.selectedItem.toString() != "Opciones..." && spinnerOpciones3!!.selectedItem.toString() == "Opciones...")
+        {
+            perros = db.collection("Perrito")
+                .whereEqualTo("ciudad", ubicActual)
+                .whereEqualTo("estado", "Disponible")
+                .whereNotEqualTo("idPersona", user?.uid.toString())
+                .whereEqualTo("tamaño", spinnerOpciones!!.selectedItem.toString())
+                .whereEqualTo("sexo", spinnerOpciones2!!.selectedItem.toString())
+        }else if(spinnerOpciones!!.selectedItem.toString() != "Opciones..." && spinnerOpciones2!!.selectedItem.toString() == "Opciones..." && spinnerOpciones3!!.selectedItem.toString() != "Opciones...")
+        {
+            perros = db.collection("Perrito")
+                .whereEqualTo("ciudad", spinnerOpciones3!!.selectedItem.toString())
+                .whereEqualTo("estado", "Disponible")
+                .whereNotEqualTo("idPersona", user?.uid.toString())
+                .whereEqualTo("tamaño", spinnerOpciones!!.selectedItem.toString())
+        }else if(spinnerOpciones!!.selectedItem.toString() == "Opciones..." && spinnerOpciones2!!.selectedItem.toString() != "Opciones..." && spinnerOpciones3!!.selectedItem.toString() != "Opciones...")
+        {
+            perros = db.collection("Perrito")
+                .whereEqualTo("ciudad", spinnerOpciones3!!.selectedItem.toString())
+                .whereEqualTo("estado", "Disponible")
+                .whereNotEqualTo("idPersona", user?.uid.toString())
+                .whereEqualTo("sexo", spinnerOpciones2!!.selectedItem.toString())
+        }else if(spinnerOpciones!!.selectedItem.toString() != "Opciones..." && spinnerOpciones2!!.selectedItem.toString() != "Opciones..." && spinnerOpciones3!!.selectedItem.toString() != "Opciones...")
+        {
+            perros = db.collection("Perrito")
+                .whereEqualTo("ciudad", spinnerOpciones3!!.selectedItem.toString())
+                .whereEqualTo("estado", "Disponible")
+                .whereNotEqualTo("idPersona", user?.uid.toString())
+                .whereEqualTo("tamaño", spinnerOpciones!!.selectedItem.toString())
+                .whereEqualTo("sexo", spinnerOpciones2!!.selectedItem.toString())
+        }else
+        {
+            perros = db.collection("Perrito")
+                .whereEqualTo("ciudad", ubicActual)
+                .whereEqualTo("estado", "Disponible")
+                .whereNotEqualTo("idPersona", user?.uid.toString())
         }
-        if(spinnerOpciones2!!.selectedItem.toString() != "Opciones..."){
-            perros.whereEqualTo("sexo", spinnerOpciones2!!.selectedItem.toString())
-            Log.e("Hola", "entreSexo ${spinnerOpciones2!!.selectedItem.toString()}")
-        }
-        if(spinnerOpciones3!!.selectedItem.toString() != "Opciones..."){
-            perros.whereEqualTo("ciudad", spinnerOpciones3!!.selectedItem.toString())
-            Log.e("Hola", "entreCiudad ${spinnerOpciones3!!.selectedItem.toString()}")
-        }else{
-            perros.whereEqualTo("ciudad", ubicActual)
-        }
-        Log.e("query", perros.toString())
-        perros.whereNotEqualTo("idPersona", user?.uid.toString())
-            .get()
-            .addOnSuccessListener { documents ->
+        perros.get().addOnSuccessListener { documents ->
                 for (document in documents) {
                     Log.e("Hola", "entre")
                     datos.add(PerroMain(document.id,
