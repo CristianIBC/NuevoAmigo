@@ -67,9 +67,10 @@
 
     <TextView
         android:id="@+id/txtNombreEditar"
-        android:layout_width="223dp"
-        android:layout_height="38dp"
+        android:layout_width="224dp"
+        android:layout_height="53dp"
         android:layout_marginTop="20dp"
+        android:fontFamily="@font/artifika"
         android:gravity="center"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
@@ -106,7 +107,7 @@
         android:id="@+id/txtDireccionEditar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="88dp"
         android:ems="10"
         android:hint="@string/txtDireccion"
         android:inputType="textPersonName"

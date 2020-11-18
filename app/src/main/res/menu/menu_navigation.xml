@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/buscarPerros"
+        android:title="@string/buscarperros"
+        android:icon="@drawable/buscar"/>
+    <item
+        android:id="@+id/tuPefil"
+        android:title="@string/tu_perfil"
+        android:icon="@drawable/usuario"/>
+    <item
+        android:id="@+id/tusPerros"
+        android:title="@string/tus_perros"
+        android:icon="@drawable/catalogo"/>
+</menu>

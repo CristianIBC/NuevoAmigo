@@ -8,8 +8,8 @@
 
     <ListView
         android:id="@+id/listaPerro"
-        android:layout_width="385dp"
-        android:layout_height="507dp"
+        android:layout_width="382dp"
+        android:layout_height="718dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,13 +23,10 @@
         style="@style/MiBoton"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="100dp"
         android:text="+"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.955"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listaPerro"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

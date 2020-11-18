@@ -80,7 +80,7 @@ class RegistrarPerrita : AppCompatActivity() {
                 R.id.rGMachoR -> "Macho"
                 else -> ""
             }
-            if(edtNombreR.text.toString()!="" && spnrTamaño.selectedItemId != 0.toLong() && edtRazaR.text.toString()!="" && edtDescripcionR.text.toString()!="" && edtEdadR.text.toString()!="" && sexo!="" && bitmapP!=null && bitmap!=null){
+            if(edtNombreR.text.toString()!="" && spnrTamaño.selectedItemId != 0.toLong() && edtRazaR.text.toString()!="" && edtEdadR.text.toString()!="" && sexo!="" && bitmapP!=null && bitmap!=null){
                 Log.d("test", "tamaño: " + spnrTamaño.selectedItem.toString())
                 if(ciudadActual == ciudadUsuario){
                     ciudadPerrito = ciudadUsuario
