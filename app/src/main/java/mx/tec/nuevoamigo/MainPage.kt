@@ -11,7 +11,6 @@ import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
@@ -20,7 +19,6 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.squareup.picasso.Picasso
@@ -51,6 +49,19 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
     var ciudadesDisponibles: ArrayList<String> = arrayListOf("Opciones...")
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        /*val i = Intent(this@Rapid_Page5Activity, AlarmReceiver::class.java)
+        val pendingIntent: PendingIntent =
+            PendingIntent.getBroadcast(this@Rapid_Page5Activity, 0, i, 0)
+        val am: AlarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val updateInterval: Long = AlarmManager.INTERVAL_FIFTEEN_MINUTES
+        am.setRepeating(AlarmManager.RTC_WAKEUP,
+            System.currentTimeMillis() + updateInterval,
+            updateInterval,
+            pendingIntent)
+
+
+         */
+
         Thread.sleep(1000)
         setTheme(R.style.AppTheme)
         //gps
@@ -58,6 +69,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
 
         RequestPermission()
         getLastLocation()
+        24*60*60*1000
 
         //--
 
