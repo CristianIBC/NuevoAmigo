@@ -10,16 +10,12 @@
         android:id="@+id/edtNombreR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="71dp"
-        android:layout_marginLeft="71dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="130dp"
-        android:layout_marginRight="130dp"
+        android:layout_marginTop="52dp"
         android:ems="10"
         android:hint="@string/nombre"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.358"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,59 +23,44 @@
         android:id="@+id/edtRazaR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="71dp"
-        android:layout_marginLeft="71dp"
         android:layout_marginTop="36dp"
-        android:layout_marginEnd="130dp"
-        android:layout_marginRight="130dp"
         android:ems="10"
         android:hint="@string/raza"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edtNombreR"
+        app:layout_constraintStart_toStartOf="@+id/edtNombreR"
         app:layout_constraintTop_toBottomOf="@+id/edtNombreR" />
 
     <EditText
         android:id="@+id/edtDescripcionR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="71dp"
-        android:layout_marginLeft="71dp"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="130dp"
-        android:layout_marginRight="130dp"
         android:ems="10"
         android:hint="@string/descripci_n"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edtRazaR"
+        app:layout_constraintStart_toStartOf="@+id/edtRazaR"
         app:layout_constraintTop_toBottomOf="@+id/edtRazaR" />
 
     <EditText
         android:id="@+id/edtEdadR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="71dp"
-        android:layout_marginLeft="71dp"
         android:layout_marginTop="148dp"
-        android:layout_marginEnd="130dp"
-        android:layout_marginRight="130dp"
         android:ems="10"
         android:hint="@string/edad"
         android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/edtDescripcionR"
+        app:layout_constraintStart_toStartOf="@+id/edtDescripcionR"
         app:layout_constraintTop_toBottomOf="@+id/edtDescripcionR" />
 
     <Button
         android:id="@+id/btnFotoPR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
+        android:layout_width="176dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
         android:layout_marginTop="64dp"
         android:text="@string/a_adir_foto_de_perfil"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,12 +68,12 @@
 
     <Button
         android:id="@+id/btnFotoR"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="192dp"
+        android:layout_height="52dp"
         android:layout_marginTop="64dp"
         android:text="@string/a_adir_foto_extra"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.325"
+        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/btnFotoPR"
         app:layout_constraintTop_toBottomOf="@+id/edtEdadR" />
 
@@ -114,10 +95,8 @@
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
         android:layout_marginTop="40dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/edtDescripcionR"
         app:layout_constraintTop_toBottomOf="@+id/edtDescripcionR">
 
         <TextView
@@ -156,8 +135,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintEnd_toEndOf="@+id/edtDescripcionR"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/radioGroup"
         app:layout_constraintTop_toBottomOf="@+id/edtDescripcionR" />
 
@@ -167,8 +146,10 @@
         android:layout_height="93dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnRegistrar"
+        app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnFotoPR"
+        app:layout_constraintVertical_bias="0.128"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
@@ -179,6 +160,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnRegistrar"
         app:layout_constraintTop_toBottomOf="@+id/btnFotoR"
+        app:layout_constraintVertical_bias="0.128"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -193,4 +175,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtEdadR"
         app:layout_constraintVertical_bias="0.236" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:text="@string/camposObligatorios"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toTopOf="@+id/btnFotoPR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.145"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtEdadR"
+        app:layout_constraintVertical_bias="0.743" />
 </androidx.constraintlayout.widget.ConstraintLayout>

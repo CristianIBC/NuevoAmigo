@@ -21,18 +21,19 @@
         android:id="@+id/nombrePerroV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginLeft="28dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginTop="28dp"
         android:layout_marginBottom="13dp"
+        android:fontFamily="@font/artifika"
         android:text="Yuri Loka"
-        android:textColor="#000000"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/razaPerroV"
-        app:layout_constraintEnd_toStartOf="@+id/btnEliminarV"
-        app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toEndOf="@+id/imgPerfilPerroV"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/razaPerroV"
@@ -40,27 +41,27 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
         android:layout_marginLeft="31dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="72dp"
         android:layout_marginEnd="206dp"
         android:layout_marginRight="206dp"
-        android:layout_marginBottom="50dp"
         android:text="Raza: Criolla"
-        app:layout_constraintBottom_toTopOf="@+id/imgPerroV"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imgPerfilPerroV"
-        app:layout_constraintTop_toBottomOf="@+id/nombrePerroV" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnEliminarV"
         style="@style/MiBoton.borrar"
         android:layout_width="wrap_content"
         android:layout_height="43dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="40dp"
         android:drawableLeft="@android:drawable/ic_menu_delete"
         android:text="@string/borrar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnBorradoL"
-        app:layout_constraintHorizontal_bias="0.542"
+        app:layout_constraintHorizontal_bias="0.654"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -68,13 +69,13 @@
         style="@style/MiBoton"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="40dp"
         android:drawableLeft="@android:drawable/ic_menu_edit"
         android:text="@string/cambiar_estado"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.822"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imgPerroV"
@@ -94,13 +95,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
         android:layout_marginLeft="38dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="68dp"
         android:layout_marginRight="68dp"
         android:text="Perrita amorosa"
         android:textColor="#3A3838"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.585"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgPerroV" />
 
@@ -108,78 +110,60 @@
         android:id="@+id/sexoPerroV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="280dp"
-        android:layout_marginRight="280dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
         android:text="Sexo: Hembra"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgPerroV" />
 
     <TextView
         android:id="@+id/edadPerroV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="280dp"
-        android:layout_marginRight="280dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="44dp"
         android:text="Edad: 6 añitos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tamañoPerroV" />
+        app:layout_constraintTop_toBottomOf="@+id/descripcionPerroV" />
 
     <TextView
         android:id="@+id/tamañoPerroV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="256dp"
-        android:layout_marginRight="256dp"
+        android:layout_marginTop="46dp"
         android:text="Tamaño: Pequeña"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sexoPerroV" />
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/edadPerroV"
+        app:layout_constraintStart_toStartOf="@+id/edadPerroV"
+        app:layout_constraintTop_toBottomOf="@+id/edadPerroV" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="335dp"
-        android:layout_marginRight="335dp"
+        android:layout_marginTop="32dp"
         android:text="@string/estado"
         android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edadPerroV"
+        app:layout_constraintEnd_toEndOf="@+id/sexoPerroV"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="@+id/sexoPerroV"
+        app:layout_constraintTop_toBottomOf="@+id/sexoPerroV"
         tools:ignore="SmallSp" />
 
     <TextView
         android:id="@+id/estadoPerroV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
-        android:layout_marginLeft="43dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="302dp"
-        android:layout_marginRight="302dp"
         android:text="Disponible"
         android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/sexoPerroV"
+        app:layout_constraintHorizontal_bias="0.482"
+        app:layout_constraintStart_toStartOf="@+id/sexoPerroV"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

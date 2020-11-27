@@ -33,10 +33,11 @@
                     android:id="@+id/txtNombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/blue_eyes"
+                    android:fontFamily="@font/artifika"
                     android:text="TextView"
-                    android:textColor="@android:color/black"
-                    android:textSize="40dp" />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/txtEstado"

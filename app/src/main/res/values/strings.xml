@@ -39,7 +39,7 @@
 
     <string name="facebook_app_id">1055065078284793</string>
     <string name="fb_login_protocol_scheme">fb1055065078284793</string>
-    <string name="telefono">telefono</string>
+    <string name="telefono">Teléfono</string>
 
 
     <string name="labelSexo">Sexo:</string>
@@ -58,24 +58,24 @@
         <item>Proceso de adopción</item>
         <item>Adoptado</item>
     </string-array>
-    <string name="nombre">Nombre</string>
-    <string name="raza">Raza</string>
-    <string name="descripci_n">Descripción</string>
-    <string name="edad">Edad</string>
+    <string name="nombre">Nombre*</string>
+    <string name="raza">Raza*</string>
+    <string name="descripci_n">Descripción (personalidad, complexion, etc.)</string>
+    <string name="edad">Edad en meses*</string>
     <string name="a_adir_foto_de_perfil">Añadir foto de perfil</string>
-    <string name="a_adir_foto_extra">Añadir foto extra</string>
+    <string name="a_adir_foto_extra">Añadir foto secundaria</string>
     <string name="registrar">Registrar</string>
-    <string name="sexo">Sexo</string>
+    <string name="sexo">Sexo*</string>
     <string name="hembra">Hembra</string>
     <string name="macho">Macho</string>
     <string name="textview">TextView</string>
-    <string name="tama_o">Tamaño</string>
+    <string name="tama_o">Tamaño*</string>
     <string name="borrar">Borrar</string>
-    <string name="cambiar_estado">Cambiar estado</string>
+    <string name="cambiar_estado">¡Ya fue adoptado/a!</string>
     <string name="estado">Estado:</string>
     <string name="ingresar_la_edad_en_meses_si_no_sabes_la_edad_poner_0">Ingresar la edad en meses, si no sabes la edad poner 0</string>
     <string name="contactame">Contáctame</string>
-    <string name="ver_catalogo">Ver catálogo</string>
+    <string name="ver_catalogo">Catálogo del propietario</string>
     <string name="horario_de_atenci_n">Horario de atención:</string>
     <string name="ciudad">Ciudad</string>
     <string name="tipo_de_usuario">Tipo de usuario:</string>
@@ -84,7 +84,13 @@
     <string name="ciudad_de_la_mascota">Ciudad de la mascota</string>
     <string name="iniciarFacebook">INICIAR CON FACEBOOK</string>
     <string name="iniciarGoogle">INICIAR CON GOOGLE</string>
-    <string name="a_adir_perrito">Añadir perrito</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="buscarperros">Buscar Perros</string>
+    <string name="tu_perfil">Tu perfil</string>
+    <string name="tus_perros">Tus Perros</string>
+    <string name="camposObligatorios">*Campos obligatorios</string>
+    <string name="nombreP">Nombre</string>
 
 
 </resources>

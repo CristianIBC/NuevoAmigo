@@ -4,6 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ListView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -16,11 +24,25 @@ import mx.tec.nuevoamigo.perro.adapter.PerroMainAdapter
 import mx.tec.nuevoamigo.perro.model.Perro
 import mx.tec.nuevoamigo.perro.model.PerroMain
 
-class CatalogoPropio : AppCompatActivity() {
+class CatalogoPropio : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_catalogo_propio)
-        val ciudadActual = intent.getStringExtra("ciudadActual")
+       // parentFragmentManager.setFragmentResultListener()
+
+    }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = inflater.inflate(R.layout.activity_catalogo_propio, container, false)
+
+        var ciudadActual = ""//requireActivity().intent.getStringExtra("ciudadActual")
+        parentFragmentManager.setFragmentResultListener("key", this, FragmentResultListener { requestKey, result ->
+            ciudadActual = result.getString("ciudadActual", "")
+            Log.e("CATALOGO PROPIO", "ciudad Actual $ciudadActual")
+        })
+        val listaPerro = view.findViewById<ListView>(R.id.listaPerro)
+        val btnMas = view.findViewById<Button>(R.id.btnMas)
         var user = FirebaseAuth.getInstance().currentUser
         val db = FirebaseFirestore.getInstance()
         var datos=  mutableListOf<Perro>()
@@ -33,22 +55,24 @@ class CatalogoPropio : AppCompatActivity() {
                     Log.d("TAG",datos.toString() )
 
                 }
-                val elementoAdapter = PerroAdapter(this@CatalogoPropio, R.layout.layout_elemento_perro, datos)
+                val elementoAdapter = PerroAdapter(requireContext(), R.layout.layout_elemento_perro, datos)
                 listaPerro.adapter= elementoAdapter
             }
         listaPerro.setOnItemClickListener { parent, view, position, id ->
-            var i = Intent(this, InfoPerrita::class.java)
+            var i = Intent(requireContext(), InfoPerrita::class.java)
             i.putExtra("idPerro",datos[position].id)
             startActivity(i)
         }
         btnMas.setOnClickListener {
             var user = FirebaseAuth.getInstance().currentUser
             if (user != null) {
-                var i = Intent(this, RegistrarPerrita::class.java)
+                var i = Intent(requireContext(), RegistrarPerrita::class.java)
                 i.putExtra("idPersona", user.uid)
                 i.putExtra("ciudadActual", ciudadActual!!)
                 startActivity(i)
             }
         }
+        return view
     }
+
 }
