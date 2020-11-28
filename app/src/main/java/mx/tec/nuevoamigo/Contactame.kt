@@ -1,23 +1,23 @@
 package mx.tec.nuevoamigo
 
-import android.content.ActivityNotFoundException
-import android.content.DialogInterface
-import android.content.Intent
+import android.content.*
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_contactame.*
 import mx.tec.nuevoamigo.utils.Credentials
 import java.net.URLEncoder
+import java.util.*
 import javax.mail.*
 import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeMessage
+
 
 class Contactame : AppCompatActivity() {
     //MAIL SENDER
@@ -32,6 +32,8 @@ class Contactame : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contactame)
+        val btnEmail = findViewById<Button>(R.id.btnCorreo)
+        btnEmail.isEnabled = true
 
         var user = FirebaseAuth.getInstance().currentUser
         var nameUser: String =""
@@ -43,6 +45,7 @@ class Contactame : AppCompatActivity() {
         }
         val id = intent.getStringExtra("idPersona")
         val nombrePerrito = intent.getStringExtra("nombrePerrito")
+        val idPerro = intent.getStringExtra("idPerro")
 
         val nombre = findViewById<TextView>(R.id.txtNombreC)
         val horarioAtencion = findViewById<TextView>(R.id.tVHorario)
@@ -75,15 +78,15 @@ class Contactame : AppCompatActivity() {
         val btnWhats = findViewById<Button>(R.id.btnWha)
         btnWhats.setOnClickListener {
 
-            val mensaje ="Hola ${nombre?.text.toString()}, soy ${nameUser.toString()}, te contacté por medio de la aplicación Nuevo Amigo. Estoy interesado/a en adoptar a tu perrito/a ${nombrePerrito.toString()}."
-            val url = "https://api.whatsapp.com/send?phone=+52 $telefono"+"&text="+URLEncoder.encode(mensaje, "UTF-8");
+            val mensaje ="Hola ${nombre?.text.toString()}, soy $nameUser, te contacté por medio de la aplicación Nuevo Amigo. Estoy interesado/a en adoptar a tu perrito/a ${nombrePerrito.toString()}."
+            val url = "https://api.whatsapp.com/send?phone=+52 $telefono"+"&text="+URLEncoder.encode(mensaje, "UTF-8")
 
             val intent = Intent()
             intent.type = "text/plain"
 
 
             intent.setPackage("com.whatsapp")
-            intent.setData(Uri.parse(url))
+            intent.data = Uri.parse(url)
 
 
             try {
@@ -100,10 +103,32 @@ class Contactame : AppCompatActivity() {
             //el telefono ya esta en la variable telefono
         }
 
-        val btnEmail = findViewById<Button>(R.id.btnCorreo)
+
+        //SHARED PREFERENCE
         btnEmail.setOnClickListener {
-            sendEmail(personita, nombrePerrito.toString())
+            val sp = getSharedPreferences(idPerro, Context.MODE_PRIVATE)
+            if(sp.getLong("pasado", 0)==0.toLong()){
+                val currentTime = Date().time
+                with(sp.edit()){
+                    putLong("pasado", currentTime)
+                    commit()
+                }
+                sendEmail(personita, nombrePerrito.toString())
+            }else{
+                val previousTime = sp.getLong("pasado", 0);
+                if (Date().time - previousTime > 86400000){
+                    btnEmail.isEnabled = true
+                    with(sp.edit()){
+                        remove("pasado")
+                        commit()
+                    }
+                }else{
+                    btnEmail.isEnabled = false
+                    Toast.makeText(this, "No puedes enviar muchos correos al mismo tiempo, inténtalo más tarde", Toast.LENGTH_LONG).show()
+                }
+            }
         }
+
     }
 
 
@@ -134,7 +159,7 @@ class Contactame : AppCompatActivity() {
                 //Adding receiver
                 mm.addRecipient(
                     Message.RecipientType.TO,
-                    InternetAddress(Email)
+                    InternetAddress("juanchino123@gmail.com")
                 )
                 //Adding subject
                 mm.subject = "Adoptar perrito"
@@ -153,6 +178,7 @@ class Contactame : AppCompatActivity() {
 
                 appExecutors.mainThread().execute {
                     //Something that should be executed on main thread.
+                    Toast.makeText(this, "Correo enviado", Toast.LENGTH_SHORT).show()
                 }
 
             } catch (e: MessagingException) {
