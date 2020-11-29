@@ -48,16 +48,16 @@ class InfoPerritoOtro : AppCompatActivity() {
                 if(document != null){
                     perrito.setear(document.data)
                     nombre.text = perrito.nombre
-                    raza.text = "Raza: ${perrito.raza}"
+                    raza.text = getString(R.string.raza_)+perrito.raza
                     descripcion.text = perrito.descripcion
-                    sexo.text = "Sexo: ${perrito.sexo}"
+                    sexo.text = getString(R.string.sexo_)+perrito.sexo
                     if(perrito.edad>12)
-                        edad.text="Edad: ${+perrito.edad/12} añitos"
+                        edad.text=getString(R.string.edad_)+perrito.edad/12+getString(R.string.añitos)
                     else if(perrito.edad>0)
-                        edad.text="Edad: ${perrito.edad} meses"
+                        edad.text=getString(R.string.edad_)+perrito.edad+getString(R.string.meses)
                     else
                         edad.visibility = View.INVISIBLE
-                    tamaño.text = "Tamaño: ${perrito.tamano}"
+                    tamaño.text = getString(R.string.tamano_)+perrito.tamano
                     estado.text = perrito.estado
 
                     //imagenes

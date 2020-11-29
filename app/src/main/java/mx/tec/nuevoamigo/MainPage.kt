@@ -59,7 +59,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
             when (item.itemId) {
                 R.id.buscarPerros -> {
                     if(btoomNavigation.selectedItemId != R.id.buscarPerros) {
-                        supportActionBar!!.title = "Amigos caninos en tu ciudad"
+                        supportActionBar!!.title = getString(R.string.amigos_caninos_en_tu_ciudad)
                         val ft = fragmentManager.beginTransaction()
                         ft.replace(R.id.fragment, ListaPerros(), "0")
                         ft.commit()
@@ -67,7 +67,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
                 }
                 R.id.tuPefil -> {
                     if(btoomNavigation.selectedItemId != R.id.tuPefil) {
-                        supportActionBar!!.title = "Tu perfil"
+                        supportActionBar!!.title = getString(R.string.tu_perfil)
                         val ft = fragmentManager.beginTransaction()
                         ft.replace(R.id.fragment, PerfilUsuario(), "1")
                         ft.commit()
@@ -75,7 +75,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
                 }
                 R.id.tusPerros -> {
                     if(btoomNavigation.selectedItemId != R.id.tusPerros) {
-                        supportActionBar!!.title = "Tu catálogo de perros"
+                        supportActionBar!!.title = getString(R.string.tu_catalogo_de_perros)
                         val ft = fragmentManager.beginTransaction()
                         ft.replace(R.id.fragment, CatalogoPropio(), "2")
                         ft.commit()

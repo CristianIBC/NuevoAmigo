@@ -64,21 +64,22 @@ class Contactame : AppCompatActivity() {
                     nombre?.text = document["Nombre"].toString()
                     horarioAtencion.text = document["HorarioAtencion"].toString()
                     if(document["IsAlbergue"].toString() == "false")
-                        tipo.text = "Persona"
+                        tipo.text = getString(R.string.persona)
                     else
-                        tipo.text = "Albergue"
+                        tipo.text = getString(R.string.albergue)
                     ciudad.text = document["Ciudad"].toString()
                     Email = document["Email"].toString()
                     telefono = document["Telefono"].toString()
                 }
                 else{
-                    Toast.makeText(this,"Hubo un error al recuperar el usuario, intentelo más tarde",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,getString(R.string.hubo_un_error_al_recuperar_el_usuario_intentelo_mas_tarde),Toast.LENGTH_SHORT).show()
                 }
             }
         val btnWhats = findViewById<Button>(R.id.btnWha)
         btnWhats.setOnClickListener {
 
-            val mensaje ="Hola ${nombre?.text.toString()}, soy $nameUser, te contacté por medio de la aplicación Nuevo Amigo. Estoy interesado/a en adoptar a tu perrito/a ${nombrePerrito.toString()}."
+            val mensaje =
+                "Hola " + nombre?.text.toString() + getString(R.string.soy) + nameUser + getString(R.string.te_contacté_por_medio_de_la_aplicación_Nuevo_Amigo_Estoy_interesado_en_adoptar_a_tu_perrito) + nombrePerrito.toString() + "."
             val url = "https://api.whatsapp.com/send?phone=+52 $telefono"+"&text="+URLEncoder.encode(mensaje, "UTF-8")
 
             val intent = Intent()
@@ -93,9 +94,9 @@ class Contactame : AppCompatActivity() {
                 startActivity(intent)
             } catch (ex: ActivityNotFoundException) {
                 var builder = AlertDialog.Builder(this)
-                builder.setTitle("Whatsapp no instalado")
-                builder.setMessage("Asegúrate de tener instalada la aplicación de whatsapp, para ejecutar está función.")
-                builder.setPositiveButton("ENTENDIDO",
+                builder.setTitle(getString(R.string.whatsapp_no_instalado))
+                builder.setMessage(getString(R.string.Asegurate_de_tener_instalada_la_aplicacion_de_whatsapp_para_ejecutar_esta_funcion))
+                builder.setPositiveButton(getString(R.string.entendido),
                     { dialogInterface: DialogInterface, i: Int -> })
                 builder.show()
             }
@@ -124,7 +125,7 @@ class Contactame : AppCompatActivity() {
                     }
                 }else{
                     btnEmail.isEnabled = false
-                    Toast.makeText(this, "No puedes enviar muchos correos al mismo tiempo, inténtalo más tarde", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.no_puedes_enviar_muchos_correos_al_mismo_tiempo_intentalo_mas_tarde), Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -162,15 +163,15 @@ class Contactame : AppCompatActivity() {
                     InternetAddress("juanchino123@gmail.com")
                 )
                 //Adding subject
-                mm.subject = "Adoptar perrito"
+                mm.subject = getString(R.string.adoptar_perrito)
                 //Adding message
-                mm.setText("Buen día $nombProp \n " +
-                        "Somos del equipo de Nuevo Amigo. Enviamos este correo para que revise la aplicación de Nuevo Amigo. \n " +
-                        "Parece que alguien está interesado en uno de sus perritos puestos en adopción, llamado $nombPerr. \n " +
-                        "No olvides responder al posible adoptante lo más antes posible, para que lleguen a un acuerdo sobre la adopción de $nombPerr. \n " +
-                        "Siempre estamos al tanto de nuestros usuarios, y de nuestros amigos perrunos." +
-                        "Atentamente,  \n " +
-                        "El Equipo de Nuevo Amigo")
+                mm.setText(getString(R.string.buen_dia)+ nombProp +"\n"  +
+                        getString(R.string.correo_1)+ "\n " +
+                        getString(R.string.correo_2)+nombPerr+" \n " +
+                        getString(R.string.correo_3)+ nombPerr +" \n " +
+                        getString(R.string.correo_4) +
+                        getString(R.string.correo_5)+"  \n " +
+                        getString(R.string.correo_6))
 
 
                 //Sending email
@@ -178,7 +179,7 @@ class Contactame : AppCompatActivity() {
 
                 appExecutors.mainThread().execute {
                     //Something that should be executed on main thread.
-                    Toast.makeText(this, "Correo enviado", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.correo_enviado), Toast.LENGTH_SHORT).show()
                 }
 
             } catch (e: MessagingException) {
