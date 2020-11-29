@@ -127,18 +127,21 @@
         android:text="@string/tama_o"
         android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/spnrTamaño"
-        app:layout_constraintEnd_toEndOf="@+id/spnrTamaño"
-        app:layout_constraintStart_toStartOf="@+id/spnrTamaño" />
+        app:layout_constraintStart_toStartOf="@+id/spnrTamaño"
+        app:layout_constraintTop_toBottomOf="@+id/edtDescripcionR"
+        app:layout_constraintVertical_bias="0.764" />
 
     <Spinner
         android:id="@+id/spnrTamaño"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
-        app:layout_constraintEnd_toEndOf="@+id/edtDescripcionR"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintBottom_toTopOf="@+id/edtEdadR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.425"
         app:layout_constraintStart_toEndOf="@+id/radioGroup"
-        app:layout_constraintTop_toBottomOf="@+id/edtDescripcionR" />
+        app:layout_constraintTop_toBottomOf="@+id/edtDescripcionR"
+        app:layout_constraintVertical_bias="0.236" />
 
     <ImageView
         android:id="@+id/imgPR"

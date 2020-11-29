@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:design="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:design="http://schemas.android.com/apk/res-auto"
-    >
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/fragment"
         android:layout_width="match_parent"
-        android:layout_height="670dp"
-        android:orientation="vertical">
+        android:layout_height="674dp"
+        android:orientation="vertical"
+        design:layout_constraintBottom_toTopOf="@+id/btoomNavigation"
+        design:layout_constraintEnd_toEndOf="parent"
+        design:layout_constraintStart_toStartOf="parent"
+        design:layout_constraintTop_toTopOf="parent">
 
     </LinearLayout>
 
@@ -18,8 +22,10 @@
         android:id="@+id/btoomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:background="#ffffff"
+        design:layout_constraintBottom_toBottomOf="parent"
+        design:layout_constraintEnd_toEndOf="parent"
+        design:layout_constraintStart_toStartOf="parent"
         design:menu="@menu/menu_navigation" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

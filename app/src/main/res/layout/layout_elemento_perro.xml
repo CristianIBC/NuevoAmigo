@@ -13,7 +13,7 @@
         android:layout_margin="10dp"
         app:cardBackgroundColor="@color/cardview_light_background"
         app:cardCornerRadius="2dp"
-        app:cardElevation="10dp"
+        app:cardElevation="7dp"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="false">
 

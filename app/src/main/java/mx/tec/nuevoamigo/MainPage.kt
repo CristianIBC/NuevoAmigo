@@ -51,6 +51,15 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_fragment)
+
+/*
+        Log.d("test: layout height","${fragment.layoutParams.height}")
+        fragment.layoutParams.height = fragment.layoutParams.height + btoomNavigation.layoutParams.height -2
+        Log.d("test: botom height","${btoomNavigation.layoutParams.height}")
+        Log.d("test: layout height","${fragment.layoutParams.height}")
+*/
+
+
         val fragmentManager = supportFragmentManager
         val ft = fragmentManager.beginTransaction()
         ft.add(R.id.fragment,ListaPerros())
@@ -59,7 +68,7 @@ class MainPage : AppCompatActivity() , RecyclerViewClickInterface {
             when (item.itemId) {
                 R.id.buscarPerros -> {
                     if(btoomNavigation.selectedItemId != R.id.buscarPerros) {
-                        supportActionBar!!.title = "Amigos caninos en tu ciudad"
+                        supportActionBar!!.title = getString(R.string.amigos_caninos_tu_ciudad)
                         val ft = fragmentManager.beginTransaction()
                         ft.replace(R.id.fragment, ListaPerros(), "0")
                         ft.commit()

@@ -1,4 +1,4 @@
-package mx.tec.nuevoamigo
+    package mx.tec.nuevoamigo
 
 import android.content.Context
 import android.content.Context.LOCATION_SERVICE
