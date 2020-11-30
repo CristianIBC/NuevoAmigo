@@ -146,7 +146,7 @@ class Contactame : AppCompatActivity() {
                     sendEmail(personita, nombrePerrito.toString())
                 } else {
                     val previousTime = sp.getLong("pasado", 0);
-                    if (Date().time - previousTime > 2000) {
+                    if (Date().time - previousTime > 86400000) {
                         //86400000
                         btnEmail.isEnabled = true
                         with(sp.edit()) {
