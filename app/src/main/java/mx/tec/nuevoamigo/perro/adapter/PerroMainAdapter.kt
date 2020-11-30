@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ import mx.tec.nuevoamigo.perro.model.PerroMain
 class PerroMainAdapter(private val context : Context,
                        private val layout: Int,
                        private val dataSource: MutableList<PerroMain>,
+                       private val anim: Int,
                        private val clickInterface: RecyclerViewClickInterface) : RecyclerView.Adapter<PerroMainAdapter.ElementoViewHolder>() {
     class ElementoViewHolder(context: Context,
                              inflater: LayoutInflater,
@@ -87,6 +89,8 @@ class PerroMainAdapter(private val context : Context,
     override fun onBindViewHolder(holder: ElementoViewHolder, position: Int) {
         val elemento = dataSource[position]
         holder.bindData(elemento)
+        val animation = AnimationUtils.loadAnimation(context,anim)
+        holder.itemView.startAnimation(animation)
     }
     fun clear() {
         val size: Int = dataSource.size

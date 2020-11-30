@@ -238,6 +238,7 @@ class ListaPerros : Fragment() , RecyclerViewClickInterface {
             val elementoAdapter = PerroMainAdapter(requireContext(),
                 R.layout.act_recycler,
                 datos,
+                R.anim.bounce,
                 this)
             if(rvLista != null){
                 rvLista.layoutManager = GridLayoutManager(requireContext(),

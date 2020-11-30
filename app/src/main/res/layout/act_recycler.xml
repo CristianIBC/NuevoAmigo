@@ -25,8 +25,8 @@
 
                 <ImageView
                     android:id="@+id/imgPerrito"
-                    android:layout_width="115dp"
-                    android:layout_height="120dp"
+                    android:layout_width="125dp"
+                    android:layout_height="130dp"
                     android:background="@drawable/boton_border"
                     android:scaleType="fitXY"
                     tools:srcCompat="@drawable/cargando_blanco" />

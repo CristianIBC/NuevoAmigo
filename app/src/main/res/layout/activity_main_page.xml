@@ -82,10 +82,13 @@
 
     <Button
         android:id="@+id/btnFiltrar"
+        style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="39dp"
         android:layout_height="36dp"
         android:layout_marginTop="36dp"
         android:background="@android:drawable/ic_menu_search"
+
+        android:textAppearance="@style/TextAppearance.AppCompat.Display3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.923"
         app:layout_constraintStart_toStartOf="parent"

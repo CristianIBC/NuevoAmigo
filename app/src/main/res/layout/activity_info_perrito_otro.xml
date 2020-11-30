@@ -122,11 +122,11 @@
             android:id="@+id/tamañoPerroVO"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="48dp"
             android:text="Tamaño: Pequeña"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/edadPerroVO"
-            app:layout_constraintHorizontal_bias="0.548"
+            app:layout_constraintHorizontal_bias="0.419"
             app:layout_constraintStart_toStartOf="@+id/edadPerroVO"
             app:layout_constraintTop_toBottomOf="@+id/edadPerroVO" />
 
@@ -141,18 +141,18 @@
             app:layout_constraintHorizontal_bias="0.767"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sexoPerroVO"
-            app:layout_constraintVertical_bias="0.17" />
+            app:layout_constraintVertical_bias="0.12" />
 
         <TextView
             android:id="@+id/estadoPerroVO"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="48dp"
             android:text="Disponible"
             android:textColor="#000000"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/sexoPerroVO"
-            app:layout_constraintHorizontal_bias="0.413"
+            app:layout_constraintHorizontal_bias="0.62"
             app:layout_constraintStart_toStartOf="@+id/sexoPerroVO"
             app:layout_constraintTop_toBottomOf="@+id/sexoPerroVO" />
 
@@ -168,5 +168,19 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/estadoPerroVO" />
+            app:layout_constraintTop_toBottomOf="@+id/estadoPerroVO"
+            app:layout_constraintVertical_bias="0.419" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/verificar"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnContactame"
+            app:layout_constraintVertical_bias="0.157" />
 </androidx.constraintlayout.widget.ConstraintLayout>
