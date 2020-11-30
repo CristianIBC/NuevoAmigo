@@ -111,7 +111,7 @@ class InfoPerrita : AppCompatActivity() {
                                 Log.e("test", "error deleting file P")
                             }
                             Log.d("testU", "eliminado")
-                            var i = Intent(this, CatalogoPropio::class.java)
+                            var i = Intent(this, MainPage::class.java)
                             i.flags= Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(i)
                         }

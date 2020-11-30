@@ -84,6 +84,7 @@ class RegistrarPerrita : AppCompatActivity() {
                 Log.d("test", "tamaño: " + spnrTamaño.selectedItem.toString())
                 if(ciudadActual == ciudadUsuario){
                     ciudadPerrito = ciudadUsuario
+                    guardarPerrito()
                 }else{
                     val builder = AlertDialog.Builder(this)
                     builder.setTitle(getString(R.string.alerta))
@@ -127,31 +128,33 @@ class RegistrarPerrita : AppCompatActivity() {
             sexo!!, spnrTamaño.selectedItem.toString(), edtEdadR.text.toString().toLong(),time, ciudadPerrito)
         db.collection("Perrito").add(perrito.convTomap()).addOnSuccessListener {
             Log.d("testU","perrito Ingresado")
-            var i = Intent(this@RegistrarPerrita, CatalogoPropio::class.java)
+            var i = Intent(this@RegistrarPerrita, MainPage::class.java)
             i.flags= Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(i)
         }
     }
     private fun uploadImage() {
+        Log.d("test: imagen", "entre a imagen")
         var baos = ByteArrayOutputStream()
         bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         var data = baos.toByteArray()
         var mountainsRef = storageRef?.child("imagenesPerro/" + time + "F.jpeg")
         var uploadTask = mountainsRef?.putBytes(data)
         uploadTask?.addOnFailureListener {
-            Log.d("test", "error")
+            Log.d("test: imagen", "error")
         }?.addOnSuccessListener { taskSnapshot ->
-            Log.d("test", taskSnapshot.toString())
+            Log.d("test: imagen", taskSnapshot.toString())
         }
-        baos = ByteArrayOutputStream()
-        bitmapP?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        data = baos.toByteArray()
+        Log.d("test: imagen", "entre a imagen2")
+        var baoss = ByteArrayOutputStream()
+        bitmapP?.compress(Bitmap.CompressFormat.JPEG, 100, baoss)
+        var datas = baoss.toByteArray()
         mountainsRef = storageRef?.child("imagenesPerro/" + time + "P.jpeg")
-        uploadTask = mountainsRef?.putBytes(data)
+        uploadTask = mountainsRef?.putBytes(datas)
         uploadTask?.addOnFailureListener {
-            Log.d("test", "error")
+            Log.d("test: imagen", "error")
         }?.addOnSuccessListener { taskSnapshot ->
-            Log.d("test", taskSnapshot.toString())
+            Log.d("test: imagen", taskSnapshot.toString())
         }
     }
 
