@@ -74,8 +74,8 @@ class RegistrarPerrita : AppCompatActivity() {
             time = System.currentTimeMillis().toLong()
             recurso += time
             sexo = when(radioGroup.checkedRadioButtonId){
-                R.id.rGHembraR -> "Hembra"
-                R.id.rGMachoR -> "Macho"
+                R.id.rGHembraR -> getString(R.string.hembra)
+                R.id.rGMachoR -> getString(R.string.macho)
                 else -> ""
             }
             if(edtNombreR.text.toString()!="" && spnrTamaño.selectedItemId != 0.toLong() && edtRazaR.text.toString()!="" && edtEdadR.text.toString()!="" && sexo!="" && bitmapP!=null && bitmap!=null){
@@ -86,8 +86,8 @@ class RegistrarPerrita : AppCompatActivity() {
                     guardarPerrito()
                 }else{
                     val builder = AlertDialog.Builder(this)
-                    builder.setTitle("Alerta")
-                        .setMessage("¡Desea registrarlo/a con la ciudad que tiene registrada en su perfil o la ciudad en donde está?")
+                    builder.setTitle(getString(R.string.alerta))
+                        .setMessage(getString(R.string.Desea_registrarla_con_la_ciudad_que_tiene_registrada_en_su_perfil_o_la_ciudad_en_donde_esta))
 
                         .setPositiveButton(ciudadUsuario){ dialog, button ->
                             ciudadPerrito = ciudadUsuario
@@ -102,7 +102,7 @@ class RegistrarPerrita : AppCompatActivity() {
 
             }else{
                 Toast.makeText(this,
-                    "No puedes dejar campos en blanco (incluidas imagenes)",
+                    getString(R.string.no_puedes_dejar_campos_en_blanco),
                     Toast.LENGTH_LONG).show()
             }
         }
@@ -127,7 +127,7 @@ class RegistrarPerrita : AppCompatActivity() {
             sexo!!, spnrTamaño.selectedItem.toString(), edtEdadR.text.toString().toLong(),time, ciudadPerrito)
         db.collection("Perrito").add(perrito.convTomap()).addOnSuccessListener {
             Log.d("testU","perrito Ingresado")
-            var i = Intent(this@RegistrarPerrita, CatalogoPropio::class.java)
+            var i = Intent(this@RegistrarPerrita, MainPage::class.java)
             i.flags= Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(i)
         }

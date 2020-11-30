@@ -156,7 +156,7 @@ class edit_perfil : AppCompatActivity() {
                     }
                 }
             }else{
-                Toast.makeText(this,"Please Turn on Your device Location",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,getString(R.string.GPS_peticion),Toast.LENGTH_SHORT).show()
             }
         }else{
             RequestPermission()
@@ -198,7 +198,7 @@ class edit_perfil : AppCompatActivity() {
         override fun onLocationResult(locationResult: LocationResult) {
             var lastLocation: Location = locationResult.lastLocation
             Log.d("Debug:","your last last location: "+ lastLocation.longitude.toString())
-            textView.text = "You Last Location is : Long: "+ lastLocation.longitude + " , Lat: " + lastLocation.latitude + "\n" + getCityName(lastLocation.latitude,lastLocation.longitude)
+            textView.text = getString(R.string.You_Last_Location_is_Long)+ lastLocation.longitude + getString(R.string.lat) + lastLocation.latitude + "\n" + getCityName(lastLocation.latitude,lastLocation.longitude)
         }
     }
 

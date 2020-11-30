@@ -72,10 +72,10 @@ class Contactame : AppCompatActivity() {
                     personita = document["Nombre"].toString()
                     nombre?.text = document["Nombre"].toString()
                     horarioAtencion.text = document["HorarioAtencion"].toString()
-                    if (document["IsAlbergue"].toString() == "false")
-                        tipo.text = "Persona"
+                    if(document["IsAlbergue"].toString() == "false")
+                        tipo.text = getString(R.string.persona)
                     else
-                        tipo.text = "Albergue"
+                        tipo.text = getString(R.string.albergue)
                     ciudad.text = document["Ciudad"].toString()
                     Email = document["Email"].toString()
                     telefono = document["Telefono"].toString()
@@ -119,16 +119,16 @@ class Contactame : AppCompatActivity() {
                 intent.data = Uri.parse(url)
 
 
-                try {
-                    startActivity(intent)
-                } catch (ex: ActivityNotFoundException) {
-                    var builder = AlertDialog.Builder(this)
-                    builder.setTitle("Whatsapp no instalado")
-                    builder.setMessage("Asegúrate de tener instalada la aplicación de whatsapp, para ejecutar está función.")
-                    builder.setPositiveButton("ENTENDIDO",
-                        { dialogInterface: DialogInterface, i: Int -> })
-                    builder.show()
-                }
+            try {
+                startActivity(intent)
+            } catch (ex: ActivityNotFoundException) {
+                var builder = AlertDialog.Builder(this)
+                builder.setTitle(getString(R.string.whatsapp_no_instalado))
+                builder.setMessage(getString(R.string.Asegurate_de_tener_instalada_la_aplicacion_de_whatsapp_para_ejecutar_esta_funcion))
+                builder.setPositiveButton(getString(R.string.entendido),
+                    { dialogInterface: DialogInterface, i: Int -> })
+                builder.show()
+            }
 
                 //el telefono ya esta en la variable telefono
             }
@@ -343,7 +343,7 @@ class Contactame : AppCompatActivity() {
 
                 appExecutors.mainThread().execute {
                     //Something that should be executed on main thread.
-                    Toast.makeText(this, "Correo enviado", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.correo_enviado), Toast.LENGTH_SHORT).show()
                 }
 
             } catch (e: MessagingException) {

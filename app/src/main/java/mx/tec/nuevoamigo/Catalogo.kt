@@ -23,15 +23,15 @@ class Catalogo : AppCompatActivity() {
         db.collection("Perrito").document(idPerrito!!).get()
             .addOnSuccessListener {document ->
                 if (document.data == null) {
-                    Log.d("Perro NO encontrado",
+                    Log.d(getString(R.string.perro_no_encontrado),
                         "DocumentSnapshot data: ${document!!.data}")
 
                 } else {
-                    Log.d("Perro ya registrada",
+                    Log.d(getString(R.string.perro_ya_registrado),
                         "DocumentSnapshot data: ${document!!.data}")
                     db.collection("Persona").document(document.data!!["idPersona"].toString()).get()
                         .addOnSuccessListener {
-                            supportActionBar!!.title = "Catálogo de perros de "+ it.data!!["Nombre"].toString()
+                            supportActionBar!!.title = getString(R.string.catalogo_de_perros_de)+ it.data!!["Nombre"].toString()
                         }
                     db.collection("Perrito").whereEqualTo("idPersona", document.data!!["idPersona"].toString()).get()
                         .addOnSuccessListener { documents ->

@@ -88,13 +88,13 @@ class InfoPerrita : AppCompatActivity() {
 
         btnEliminar.setOnClickListener {
             val builder = AlertDialog.Builder(this)
-            builder.setTitle("¿Seguro que deseas borrar al perrito?")
-                .setMessage("Esta acción no se puede deshacer")
+            builder.setTitle(getString(R.string.seguro_que_deseas_borrar_al_perrito))
+                .setMessage(getString(R.string.esta_accion_no_se_puede_deshacer))
 
-                .setPositiveButton("Cancelar"){ dialog, button ->
+                .setPositiveButton(getString(R.string.cancelar)){ dialog, button ->
                     dialog.dismiss()
                 }
-                .setNegativeButton("Aceptar"){ dialog, button ->
+                .setNegativeButton(getString(R.string.aceptar)){ dialog, button ->
                     db.collection("Perrito").document(id)
                         .delete()
                         .addOnSuccessListener {
@@ -111,18 +111,18 @@ class InfoPerrita : AppCompatActivity() {
                                 Log.e("test", "error deleting file P")
                             }
                             Log.d("testU", "eliminado")
-                            var i = Intent(this, CatalogoPropio::class.java)
+                            var i = Intent(this, MainPage::class.java)
                             i.flags= Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(i)
                         }
                         .addOnFailureListener{
-                            Toast.makeText(this, "Hubo un error", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, getString(R.string.hubo_un_error), Toast.LENGTH_LONG).show()
                         }
                 }
                 .show()
         }
         btnBorradoL.setOnClickListener {
-            perrito.estado="Adoptado"
+            perrito.estado=getString(R.string.adoptado)
             estado.text = perrito.estado
             db.collection("Perrito").document(id)
                 .set(perrito.convTomap())
