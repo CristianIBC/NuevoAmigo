@@ -70,8 +70,6 @@ class RegistrarPerrita : AppCompatActivity() {
 
         }
 
-
-
         btnRegistrar.setOnClickListener {
             time = System.currentTimeMillis().toLong()
             recurso += time
@@ -82,8 +80,10 @@ class RegistrarPerrita : AppCompatActivity() {
             }
             if(edtNombreR.text.toString()!="" && spnrTamaño.selectedItemId != 0.toLong() && edtRazaR.text.toString()!="" && edtEdadR.text.toString()!="" && sexo!="" && bitmapP!=null && bitmap!=null){
                 Log.d("test", "tamaño: " + spnrTamaño.selectedItem.toString())
+                Log.d("test: ciudad actual",ciudadActual.toString())
                 if(ciudadActual == ciudadUsuario){
                     ciudadPerrito = ciudadUsuario
+                    guardarPerrito()
                 }else{
                     val builder = AlertDialog.Builder(this)
                     builder.setTitle("Alerta")
@@ -133,25 +133,27 @@ class RegistrarPerrita : AppCompatActivity() {
         }
     }
     private fun uploadImage() {
+        Log.d("test: imagen", "entre a imagen")
         var baos = ByteArrayOutputStream()
         bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         var data = baos.toByteArray()
         var mountainsRef = storageRef?.child("imagenesPerro/" + time + "F.jpeg")
         var uploadTask = mountainsRef?.putBytes(data)
         uploadTask?.addOnFailureListener {
-            Log.d("test", "error")
+            Log.d("test: imagen", "error")
         }?.addOnSuccessListener { taskSnapshot ->
-            Log.d("test", taskSnapshot.toString())
+            Log.d("test: imagen", taskSnapshot.toString())
         }
-        baos = ByteArrayOutputStream()
-        bitmapP?.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-        data = baos.toByteArray()
+        Log.d("test: imagen", "entre a imagen2")
+        var baoss = ByteArrayOutputStream()
+        bitmapP?.compress(Bitmap.CompressFormat.JPEG, 100, baoss)
+        var datas = baoss.toByteArray()
         mountainsRef = storageRef?.child("imagenesPerro/" + time + "P.jpeg")
-        uploadTask = mountainsRef?.putBytes(data)
+        uploadTask = mountainsRef?.putBytes(datas)
         uploadTask?.addOnFailureListener {
-            Log.d("test", "error")
+            Log.d("test: imagen", "error")
         }?.addOnSuccessListener { taskSnapshot ->
-            Log.d("test", taskSnapshot.toString())
+            Log.d("test: imagen", taskSnapshot.toString())
         }
     }
 
@@ -170,7 +172,7 @@ class RegistrarPerrita : AppCompatActivity() {
                     Log.d("test", bitmapP.toString())
                     imgPR.setImageBitmap(bitmapP)
                     filePathP=filePath
-                    Log.d("test", "filepath: $filePathP")
+                    Log.d("test", "filepathP: $filePathP")
                     //uploadImage.setImageBitmap(bitmap)
                 } catch (e: IOException) {
                     e.printStackTrace()
@@ -181,6 +183,7 @@ class RegistrarPerrita : AppCompatActivity() {
                     Log.d("test", bitmap.toString())
                     imgR.setImageBitmap(bitmap)
                     filePathF=filePath
+                    Log.d("test", "filepathF: $filePathP")
                     //uploadImage.setImageBitmap(bitmap)
                 } catch (e: IOException) {
                     e.printStackTrace()
