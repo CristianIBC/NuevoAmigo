@@ -270,9 +270,9 @@ class MainActivity : AppCompatActivity() {
     private fun alertError(){
 
         var builder = AlertDialog.Builder(this)
-        builder.setTitle("Oops algo ocurrió")
-        builder.setMessage("Ocurrió un problema, por favor intenta más tarde.")
-        builder.setPositiveButton("ENTENDIDO", { dialogInterface: DialogInterface, i: Int -> })
+        builder.setTitle(getString(R.string.oops_algo_ocurrio))
+        builder.setMessage(getString(R.string.Ocurrio_un_problema_por_favor_intenta_mas_tarde))
+        builder.setPositiveButton(getString(R.string.entendido), { dialogInterface: DialogInterface, i: Int -> })
         builder.show()
 
     }
